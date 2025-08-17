@@ -1,3 +1,9 @@
+html, body{
+  height: 100%;
+}
+[data-scroll-container]{
+  min-height: 100%;
+}
 main{
   position: relative;
   min-height: 100vh;
@@ -11,8 +17,8 @@ main{
 }
 .bg_c .circle{
   position: absolute;
-  top: -64px;
-  left: -754px;
+  top: -8%;
+  left: -42%;
   z-index: 5;
   width: 1800px;
   height: 1800px;
@@ -32,15 +38,25 @@ main{
   box-shadow: 0 0 250px 200px rgba(255, 255, 255, .2);
   filter: blur(120px);
 }
+.bg_c .hero_lines{
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 10;
+}
 
 .sec_cont1{
+  position: relative;
+  z-index: 10;
+}
+.sec_cont1 .visual{
   position: relative;
   height: 100vh;
   overflow: hidden;
   z-index: 10;
   color: var(--white1);
 }
-.sec_cont1 h2{
+.sec_cont1 .visual h2{
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
@@ -48,26 +64,26 @@ main{
   font-size: 80px;
   line-height: 150%;
 }
-.sec_cont1 h2 p:not(:first-child){
+.sec_cont1 .visual h2 p:not(:first-child){
   margin-top: 188px;
   text-align: right;
 }
-.sec_cont1 h2 i{font-style: italic;}
-.sec_cont1 h2 span{
+.sec_cont1 .visual h2 i{font-style: italic;}
+.sec_cont1 .visual h2 span{
   font-family: "Playfair Display";
   font-style: italic;
 }
-.sec_cont1 .scr_btn{
+.sec_cont1 .visual .scr_btn{
   position: absolute;
   bottom: 50px;
 }
-.sec_cont1 .scr_btn i{
+.sec_cont1 .visual .scr_btn i{
   display: block;
   width: 10px;
   height: 18px;
   background: url("../images/icons/ico_scr_arrow.svg") no-repeat center / cover;
 }
-.sec_cont1 .links{
+.sec_cont1 .visual .links{
   display: flex;
   align-items: center;
   gap: 40px;
@@ -75,7 +91,7 @@ main{
   right: 0;
   bottom: -70px;
 }
-.sec_cont1 .links a{
+.sec_cont1 .visual .links a{
   font-size: 20px;
   line-height: 150%;
   color: rgba(255, 255, 255, .8)

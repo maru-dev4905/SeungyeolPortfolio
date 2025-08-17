@@ -36,15 +36,11 @@
     <link rel="stylesheet" href="./assets/css/base.css">
     <link rel="stylesheet" href="./assets/css/common.css">
     <link rel="stylesheet" href="./assets/css/main.css">
-
-    <!-- Plugins -->
-    <script src="./assets/plugins/gsap.min.js"></script>
-    <script src="./assets/plugins/ScrollTrigger.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.css" />
+    
     <!-- JS -->
      <script src="./assets/js/common.js" type="module"></script>
      <script src="./assets/js/prj.js"></script>
-     <script src="./assets/js/main.js"></script>
 </head>
 <body>
   <div id="wrap">
@@ -65,35 +61,43 @@
         </nav>
       </div>
     </header>
-    <main>
-      <div class="bg_c">
-        <div class="circle"></div>
-        <div class="light"></div>
-      </div>
-      <section class="sec_cont1">
-        <div class="inner pos_re">
-          <h2>
-            <p>
-              <i>LEE</i> SEUNGYEOL
-            </p>
-            <p>
-              WEB PUBLISHINER - <span>PORTFOLIO</span>
-            </p>
-            <div class="links">
-              <a href="./works.html" class="btn1">View Portfolio</a>
-              <a href="./contact.html">Contact Me</a>
-            </div>
-          </h2>
-          
-          <button type="button" class="scr_btn btn1">
-            <i></i> Scroll to Begin
-          </button>
+    <main data-scroll-container>
+        <div class="bg_c">
+          <div class="circle"></div>
+          <div class="light"></div>
         </div>
+      <section class="sec_cont1" >
+        <article class="visual">
+          <div class="inner pos_re">
+            <h2>
+              <p>
+                <i>LEE</i> SEUNGYEOL
+              </p>
+              <p>
+                WEB PUBLISHINER - <span>PORTFOLIO</span>
+              </p>
+              <div class="links">
+                <a href="./works.html" class="btn1">View Portfolio</a>
+                <a href="./contact.html">Contact Me</a>
+              </div>
+            </h2>
+            
+            <button type="button" class="scr_btn btn1">
+              <i></i> Scroll to Begin
+            </button>
+          </div>
+        </article>
       </section>
     </main>
     <footer>
 
     </footer>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MotionPathPlugin.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <script src="/assets/js/main.js"></script>
 </body>
 </html>
