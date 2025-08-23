@@ -9,90 +9,65 @@ main{
   min-height: 100vh;
   overflow-x: hidden;
 }
-.bg_c{
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100vh;
-}
-.bg_c .circle{
-  position: absolute;
-  top: -8%;
-  left: -42%;
-  z-index: 5;
-  width: 1800px;
-  height: 1800px;
-  border-radius: 50%;
-  background-color: #111;
-  box-shadow: inset -4px 0 250px 12px rgba(255,255,255,.05);
-}
-.bg_c .light{
-  position: absolute;
-  top: 50%; left: 50%;
-  z-index: 4;
-  transform: translate(-50%,-50%);
-  width: 198px;
-  height: 198px;
-  border-radius: 50%;
-  background-color: #d9d9d9;
-  box-shadow: 0 0 250px 200px rgba(255, 255, 255, .2);
-  filter: blur(120px);
-}
-.bg_c .hero_lines{
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  z-index: 10;
-}
 
 .sec_cont1{
   position: relative;
   z-index: 10;
-}
-.sec_cont1 .visual{
-  position: relative;
   height: 100vh;
-  overflow: hidden;
-  z-index: 10;
-  color: var(--white1);
 }
-.sec_cont1 .visual h2{
+.sec_cont1 .cont{
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  width: 100%;
-  font-size: 80px;
-  line-height: 150%;
 }
-.sec_cont1 .visual h2 p:not(:first-child){
-  margin-top: 188px;
-  text-align: right;
+.sec_cont1 .cont img{
+  aspect-ratio: 320/480;
 }
-.sec_cont1 .visual h2 i{font-style: italic;}
-.sec_cont1 .visual h2 span{
-  font-family: "Playfair Display";
-  font-style: italic;
-}
-.sec_cont1 .visual .scr_btn{
-  position: absolute;
-  bottom: 50px;
-}
-.sec_cont1 .visual .scr_btn i{
-  display: block;
-  width: 10px;
-  height: 18px;
-  background: url("../images/icons/ico_scr_arrow.svg") no-repeat center / cover;
-}
-.sec_cont1 .visual .links{
+.sec_cont1 .txt{
   display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 44px;
   position: absolute;
-  right: 0;
-  bottom: -70px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 5;
+  width: max-content;
 }
-.sec_cont1 .visual .links a{
-  font-size: 20px;
+.sec_cont1 .txt p{
+  display: flex;
+  gap: 74px;
+  font-size: 14px;
+  font-family: "Playfair Display";
+  color: #fff;
+}
+.sec_cont1 .txt p span{
+  font-weight: 700;
   line-height: 150%;
-  color: rgba(255, 255, 255, .8)
+  letter-spacing: 1.72em;
+}
+.sec_cont1 .txt p em{
+  color: rgba(255, 255, 255, .6);
+  letter-spacing: 0.4em;
+}
+.sec_cont1 .txt p i{
+  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.4em;
+}
+.sec_cont1 .scr_btn{
+  position: absolute;
+  left: 50%; bottom: 24px;
+  transform: translateX(-50%);
+  font-size: 14px;
+  font-family: "Playfair Display";
+  font-weight: 600;
+  line-height: 150%;
+  letter-spacing: .2em;
+}
+.sec_cont1 .scr_btn span{color: rgba(255, 255, 255, 1)}
+.sec_cont1 .scr_btn em{color: rgba(255, 255, 255, .6)}
+
+.sec_cont2 .inner{
+  padding-top: 200px;
 }
