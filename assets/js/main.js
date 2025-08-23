@@ -159,7 +159,6 @@ const mainFunc = {
         end: "+=300%",
         pin: true,
         pinSpacing: true,
-        markers: true,
         scrub: false
       }
     });
@@ -172,7 +171,6 @@ const mainFunc = {
       end: "+=300%",
       pin: true,
       pinSpacing: true,
-      markers: true
     });
 
     // 1) 왼쪽 라인 드로잉
@@ -214,7 +212,6 @@ const mainFunc = {
         start: "12.5% top",              // 어느 정도 스크롤 시
         end: "+=100%",                 // 앞 50%: visual fade / 뒤 50%: 역순 사라짐
         scrub: true,
-        markers: true
       }
     });
 
