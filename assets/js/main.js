@@ -1,61 +1,84 @@
-// main.js
-gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const mainFunc = {
   _inited: false,
   _loco: null,
+  _scroller_el: null,
 
-  visualAnim: function () {
-    
+  scrAnim: function () {
+    // const secCont2 = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: '.sec_cont2 .circle_box',
+    //     scrub: true,
+    //     pin: true,
+    //     pinSpacing: true,
+    //     markers: true,
+    //     scroller: mainFunc._scroller_el
+    //   }
+    // });
+
+    // ✅ 테스트용 애니메이션 예시 (없으면 아무 변화가 안 보여)
+    // secCont2.to('.sec_cont2 .circle_box', {
+    //   scale: 1.5,
+    //   duration: 1,
+    //   ease: 'none'
+    // });
+    let smoother = ScrollSmoother.create({
+      smooth: 2,
+      effects: true,
+      normalizeScroll: true
+    });
   },
 
   _setup_smooth_scroll() {
-    // 1) 스크롤 컨테이너 선택 (없으면 main을 기본으로)
     const scroller_el = document.querySelector("[data-scroll-container]") || document.querySelector("main");
     this._scroller_el = scroller_el;
 
-    // 2) Locomotive 인스턴스
     this._loco = new LocomotiveScroll({
       el: scroller_el,
       smooth: true,
-      lerp: 0.1,           // 감쇠(0~1, 낮을수록 더 부드러움)
+      lerp: 0.1,
       smartphone: { smooth: true },
       tablet: { smooth: true }
     });
 
-    // 3) ScrollTrigger와 동기화
     this._loco.on("scroll", ScrollTrigger.update);
 
     ScrollTrigger.scrollerProxy(scroller_el, {
-      scrollTop: (value) => {
+      scrollTop(value) {
         if (arguments.length) {
-          // 즉시 이동(보정용 disableLerp)
-          this._loco.scrollTo(value, { duration: 0, disableLerp: true });
+          mainFunc._loco.scrollTo(value, { duration: 0, disableLerp: true });
         } else {
-          return this._loco.scroll.instance.scroll.y;
+          return mainFunc._loco.scroll.instance.scroll.y;
         }
       },
       getBoundingClientRect: () => ({
         top: 0, left: 0, width: window.innerWidth, height: window.innerHeight
       }),
-      // transform 기반인지 고정인지 자동판정
-      pinType: scroller_el.style.transform ? "transform" : "fixed"
+      pinType: "transform"
     });
 
-    // 4) refresh 시 loco 업데이트
-    ScrollTrigger.addEventListener("refresh", () => this._loco.update());
-    // 초기 1회 refresh
-    setTimeout(() => ScrollTrigger.refresh(), 0);
+    ScrollTrigger.addEventListener("refresh", () => mainFunc._loco.update());
+
+    
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+      mainFunc.scrAnim(); 
+    }, 100);
   },
 
   init: function () {
-    if (mainFunc._inited) return;
-    mainFunc._inited = true;
+    if (this._inited) return;
+    this._inited = true;
 
-    mainFunc._setup_smooth_scroll();
-
-    mainFunc.visualAnim();
+    // this._setup_smooth_scroll();
+        setTimeout(() => {
+      ScrollTrigger.refresh();
+      mainFunc.scrAnim(); 
+    }, 100);
   }
 };
 
-document.addEventListener("DOMContentLoaded", mainFunc.init);
+document.addEventListener("DOMContentLoaded", () => {
+  mainFunc.init();
+});

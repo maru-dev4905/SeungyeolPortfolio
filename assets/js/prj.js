@@ -56,7 +56,6 @@ const prjFunc = {
             start: "top bottom",  
             end: "bottom center",    
             scrub: true,          
-            scroller: "[data-scroll-container]",
             // markers: true,      
             invalidateOnRefresh: true,
           },
@@ -71,7 +70,7 @@ const prjFunc = {
           stagger: {
             each: 1 / len,
             from: 0
-          }
+          },
         }, 1);
         el._scrTl = tl;
       });

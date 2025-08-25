@@ -71,3 +71,97 @@ main{
 .sec_cont2 .inner{
   padding-top: 200px;
 }
+.sec_cont2 .arti1{
+  padding-bottom: 240px;
+}
+.circle_box{
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  height: 100vh;
+  bottom: -100vh;
+}
+.circle{
+  position: absolute;
+  left: 50%; bottom: calc(-40% - (93.7500vw / 2));
+  z-index: 10;
+  transform: translateX(-50%);
+  width: 93.7500vw;
+  height: 93.7500vw;
+  border-radius: 50%;
+  background-color: #111;
+  box-shadow: inset 0 0 250px 12px rgba(255, 255, 255, .05);
+}
+.circle_wrap .light{
+  position: absolute;
+  z-index: 1;
+  top: 50%; left: 50%; 
+  transform: translate(-50%,-50%);
+  width: 198px;
+  height: 198px;
+  border-radius: 50%;
+  box-shadow: 0 0 250px 200px rgba(255, 255, 255, 0.4);
+  background-color: #d9d9d9;
+  filter: blur(200px);
+}
+.line_wrap{
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  width: 1px;
+  height: 100%;
+}
+.line_wrap em{
+  display: block;
+  position: absolute;
+  top:0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background-color:#fff;
+}
+.sm_circle{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #fff;
+}
+.oreo{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.oreo::after{
+  display: block;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #161616;
+  content: "";
+  mix-blend-mode: difference;
+}
+.sec_cont2 .arti2{
+  position: relative;
+  min-height: 200vh;
+}
+.sec_cont2 .arti2 .inner{
+  position: relative;
+  z-index: 100;
+}
+.sec_cont2 .arti2 h2 p{
+  text-align: right;
+}
+.sec_cont2 .arti2 h2 + p{
+  font-size: 14px;
+  font-weight: 400;
+  color:var(--white1);
+  text-align: center;
+  margin-top: 120px;
+}
