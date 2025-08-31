@@ -158,6 +158,7 @@ main{
 .sec_cont2 .arti2 h2 p{
   text-align: right;
 }
+.sec_cont2 .arti3 h2 + p,
 .sec_cont2 .arti2 h2 + p{
   font-size: 14px;
   font-weight: 400;

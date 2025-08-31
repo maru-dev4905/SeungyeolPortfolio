@@ -13,7 +13,7 @@
 }
 body{
   font-family: Proza Libre;
-  background-color: #171717ea;
+  background-color: #171717f2;
 }
 .inner{
   width: calc(100% - 100px);
@@ -72,12 +72,59 @@ header .gnb a{
   font-weight: 400;
 }
 
+footer h2 a{
+  transition: opacity .2s ease-in-out;
+}
+footer h2 a:hover{
+  opacity: 0.6;
+}
 footer .inner{
   padding-top: 160px;
   padding-bottom: 40px;
 }
-footer .cont{
+footer .inner > .cont{
   margin-top: 140px;;
+}
+footer .submit_link{
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.8);
+}
+footer .resume_txt{
+  padding-right: 180px;
+}
+footer .resume_txt p{
+  padding-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, .2);
+  font-size: 18px;
+  color: #bbb;
+}
+footer .resume_txt a{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 16px;
+  color: rgba(186, 186, 186, 0.6);
+}
+footer .resume_txt a::after{
+  display: block;
+  content: "";
+  width: 24px;
+  height: 24px;
+  background: url(../images/common/resume_down_ico.svg) no-repeat center / cover;
+}
+footer .cont > div{
+  border-top: rgba(186, 186, 186, 0.6);
+  padding-top: 10px;
+}
+footer .cont a,
+footer .cont p{
+  font-size: 14px;
+  color: #bbb;
+  line-height: 150%;
+  transition: opacity .2s ease-in-out;
+}
+footer .cont a:hover{
+  opacity: 0.6;
 }
 
 .btn1{
