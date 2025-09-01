@@ -70,10 +70,7 @@ main{
 .sec_cont1 .scr_btn em{color: rgba(255, 255, 255, .6)}
 
 .sec_cont2 .inner{
-  padding-top: 200px;
-}
-.sec_cont2 .arti1{
-  padding-bottom: 240px;
+  padding-top: 240px;
 }
 .circle_box{
   position: fixed;
@@ -165,4 +162,72 @@ main{
   color:var(--white1);
   text-align: center;
   margin-top: 120px;
+}
+.sec_cont2 .arti4 h2{
+  display: flex;
+  align-items: center;
+  font-size: 200px;
+  font-weight: 700;
+  color: #f2f2f2;
+  font-family: "Playfair Display";
+  line-height: 90%;
+}
+.sec_cont2 .arti4 h2 em{
+  width: 100%;
+  height: 2px;
+  margin: 0 2%;
+  background-color: #fff;
+  transition: width .5s ease-in-out;
+}
+.sec_cont2 .arti4 p{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%;
+  text-align: center;
+  color: #fff;
+  letter-spacing: .2em;
+}
+.sec_cont2 .arti4 em{
+  opacity: .6;
+}
+
+.sec_cont3{
+  position: relative;
+}
+.sec_cont3 .sticky_txt{
+}
+
+.message_area .txt{
+  position: relative;
+  padding: 32px;
+  border-top: 1px solid #fff;;
+}
+.message_area .txt::after{
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  width: 1px;
+  height: 10rem;
+  background-color: #fff;
+}
+.message_area .hd{
+  display: flex;
+  gap: 2.5rem;
+  padding-bottom: 10px;
+}
+.message_area .hd > *{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 150%;
+  color: #fff;
+  font-family: "Playfair Display";
+}
+.message_area .hd p{opacity: .6;}
+.message_area .txt p{
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  color: #fff;
 }
