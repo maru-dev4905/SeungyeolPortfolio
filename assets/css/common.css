@@ -8,6 +8,8 @@
 :root{
   --white1: #f2f2f2;
   --gray1: #6D7077;
+  --gray2: #77736D;
+  --gray3: #888;
 }
 .space{
   height: 100vh;
@@ -34,6 +36,68 @@ body{
   height:100vh;
   width:100%;
 }
+  
+  
+.line_wrap{
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  z-index: 15;
+  width: 1px;
+  height: 100vh;
+}
+.line_wrap::after{
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: #f2f2f2;
+}
+.line_wrap em{
+  display: block;
+  position: absolute;
+  top:0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background-color:#f2f2f2;
+}
+.sm_circle{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #f2f2f2;
+}
+.sm_circle:nth-child(2){top: 572px;}
+.sm_circle:nth-child(3){top: 614px;}
+.sm_circle:nth-child(4){top: 656px;}
+.sm_circle:nth-child(5){top: 698px;}
+.sm_circle:nth-child(6){top: 740px;}
+.oreo{
+  position: absolute;
+  top: 290px;
+  left: 50%;
+  z-index: 5;
+  transform: translateX(-50%);
+}
+.oreo::after{
+  display: block;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #161616;
+  content: "";
+  mix-blend-mode: difference;
+}
+
 
 header{
   position: fixed;
