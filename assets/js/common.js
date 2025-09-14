@@ -48,3 +48,5 @@ const cmn = {
 }
 
 document.addEventListener("DOMContentLoaded", cmn.init());
+
+export default cmn;
