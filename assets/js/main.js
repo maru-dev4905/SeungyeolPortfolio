@@ -2,8 +2,8 @@ gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const mainFunc = {
   _inited: false,
-  _loco: null,
   _scroller_el: null,
+  _smooth: null,
 
   scrAnim: function () {
     // gsap.to('.circle_box', {
@@ -16,10 +16,15 @@ const mainFunc = {
     //     end: ""
     //   }
     // });
-    let smoother = ScrollSmoother.create({
-      smooth: 2,
-      effects: true,
-      normalizeScroll: true
+
+    const workListPin = ScrollTrigger.create({
+      trigger: ".sec_cont3 .work_list",
+      scrub: true,
+      pin: ".sec_cont3 .line_wrap",
+      start: "top top",
+      end: "bottom bottom",
+      pinSpacing: true,
+      markers: true,
     });
   },
 
@@ -27,8 +32,13 @@ const mainFunc = {
     if (this._inited) return;
     this._inited = true;
 
-    // this._setup_smooth_scroll();
-        setTimeout(() => {
+    this._smooth = ScrollSmoother.create({
+      smooth: 2,
+      effects: true,
+      normalizeScroll: true
+    })
+
+    setTimeout(() => {
       ScrollTrigger.refresh();
       mainFunc.scrAnim(); 
     }, 100);
