@@ -1,22 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Proza+Libre:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+/* Helvetica Neue – Roman (Regular) */
 @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Roman.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
+
+/* Helvetica Neue – Light */
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Helvetica Neue – Thin */
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Thin.otf') format('opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Helvetica Neue – Medium */
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Helvetica Neue – Bold */
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('../fonts/HelveticaNeue-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Brown Sugar – Decorative font */
+@font-face {
+  font-family: 'Brown Sugar';
+  src: url('../fonts/brown-sugar.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 :root{
   --white1: #f2f2f2;
   --gray1: #6D7077;
   --gray2: #77736D;
   --gray3: #888;
+  --black1: #111;
 }
 .space{
   height: 100vh;
 }
 body{
-  font-family: Proza Libre;
-  background-color: #171717f2;
+  font-family: "Helvetica Neue";
+  background-color: #141414;
+}
+i{
+  font-family: "Brown Sugar";
 }
 .inner{
   width: calc(100% - 100px);
@@ -27,235 +79,132 @@ body{
   column-gap: 1.25rem;
 }
 
-.noise_bg{
-  position: fixed;
-  top: 0; left: 0;
-  mix-blend-mode:multiply;
-  background-image:url(https://static.tumblr.com/rxfwyqf/20Zlzzth8/noise.png);
-  opacity:.5;
-  height:100vh;
-  width:100%;
-}
-  
-  
-.line_wrap{
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  z-index: 15;
-  width: 1px;
-  height: 100vh;
-}
-.line_wrap::after{
-  position: absolute;
-  top: 0; left: 50%;
-  transform: translateX(-50%);
-  content: "";
-  width: 2px;
-  height: 100%;
-  background-color: #f2f2f2;
-}
-.line_wrap em{
-  display: block;
-  position: absolute;
-  top:0; left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 100%;
-  background-color:#f2f2f2;
-}
-.sm_circle{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: #f2f2f2;
-}
-.sm_circle:nth-child(2){top: 572px;}
-.sm_circle:nth-child(3){top: 614px;}
-.sm_circle:nth-child(4){top: 656px;}
-.sm_circle:nth-child(5){top: 698px;}
-.sm_circle:nth-child(6){top: 740px;}
-.oreo{
-  position: absolute;
-  top: 290px;
-  left: 50%;
-  z-index: 5;
-  transform: translateX(-50%);
-}
-.oreo::after{
-  display: block;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #161616;
-  content: "";
-  mix-blend-mode: difference;
+.noise-canvas{
+  position: fixed; 
+  z-index: 9999;
+  inset: 0; 
+  pointer-events:none; 
+  opacity: 0.4;
 }
 
 
 header{
   position: fixed;
-  top: 0; left: 0;
-  z-index: 10000;
+  top: 0;
+  left: 0;
+  z-index: 1000000;
   width: 100%;
-  height: 85px;
-  mix-blend-mode: difference;
+  padding: 10px 0;
 }
 header .inner{
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  padding: 0 50px;
-  color: var(--white1)
+  align-items: flex-start;
 }
-header .logo{
-  font-size: 16px;
-  font-family: Playfair Display;
-  font-weight: 800;
+header h1{
+  width: max-content;
+  height: 120px;
+  background-color: #000;
+  border-radius: 106px;
+  color: var(--white1);
+  transition: height .5s ease-in-out, background-color .5s .5s ease-in-out;
+  transition-duration: .5s;
+  transition-timing-function: ease-in-out;
+  overflow: hidden;
 }
-header .datetime{
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%,-50%);
-  font-size: 16px;
-  font-weight: 400;
-}
-header .gnb{
-  display: flex;  
-  gap: 20px;
-}
-header .gnb a{
-  font-size: 16px;
-  font-weight: 400;
-}
-
-footer{
-  position: relative;
-  z-index: 10;
-}
-footer .line_wrap{
-  width: 100%;
-  height: 2px;
-}
-footer .line_wrap::after{
-  width: 100%;
-  height: 2px;
-}
-footer .oreo{
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-footer .sm_circle{
-  top: 50% !important;
-  transform: translateY(-50%);
-}
-footer .sm_circle:nth-child(2){
-  left: 477px;
-}
-footer .sm_circle:nth-child(3){
-  left: 527px;
-}
-footer .sm_circle:nth-child(4){
-  left: 1300px;
-}
-footer .sm_circle:nth-child(5){
-  left: 1350px;
-}
-footer .sm_circle:nth-child(6){
-  left: 1400px;
-}
-footer h2 a{
-  transition: opacity .2s ease-in-out;
-}
-footer h2 a:hover{
-  opacity: 0.6;
-}
-footer .inner{
-  padding-top: 160px;
-  padding-bottom: 40px;
-}
-footer .inner > .cont{
-  margin-top: 140px;;
-}
-footer .submit_link{
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.8);
-}
-footer .resume_txt{
-  padding-right: 180px;
-}
-footer .resume_txt p{
-  padding-top: 10px;
-  border-top: 1px solid rgba(255, 255, 255, .2);
-  font-size: 18px;
-  color: #bbb;
-}
-footer .resume_txt a{
+header h1 a{
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 16px;
-  color: rgba(186, 186, 186, 0.6);
+  gap: 6.25rem;
+  height: 120px;
+  padding: 0 2.5rem 0 3.75rem;
 }
-footer .resume_txt a::after{
+header h1 strong{
+  font-weight: 300;
+}
+header h1 span{
+  font-size: 14px;
+  font-weight: 300;
+  opacity: 1;
+  visibility: visible;
+  /* transition: opacity .1s ease-in-out, visibility .5s ease-in-out; */
+}
+header h1 p{
+  font-size: 2.5rem;
+  font-weight: 400;
+  opacity: 1;
+  visibility: visible;
+  /* transition: opacity .5s ease-in-out, visibility .5s ease-in-out; */
+}
+header nav{
+  padding-top: 12px;
+}
+header nav ul{
+  display: flex;
+  align-items: center;
+  border-radius: 5rem;
+  background-color: #000;
+  padding: 0 2.5rem;
+}
+header nav ul a{
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white1);
+  padding: 0 2.5rem;
+  mix-blend-mode: difference;
+  transition: color .5s ease-in-out;
+}
+header nav ul a:active{
+  color: var(--white1);
+}
+header nav ul li{position: relative;}
+header nav ul li a{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  height: 50px;
+  padding: 12px 50px;
+  overflow: hidden;
+}
+header nav ul li a::after{
+  content: attr(data-nav);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white1);
+  mix-blend-mode: difference;
+}
+header nav ul li a span,
+header nav ul li a::after{
   display: block;
+  transition: transform .4s ease-in-out;
+  min-height: 48px;
+}
+header nav ul li a:hover span,
+header nav ul li a:hover::after{
+  transform: translateY(-100%);
+}
+header nav ul li.on::before{
+  display: block;
+  position: absolute;
+  top: 50%; left: 20px;
+  transform: translateY(-50%);
   content: "";
   width: 24px;
   height: 24px;
-  background: url(../images/common/resume_down_ico.svg) no-repeat center / cover;
-}
-footer .cont > div{
-  border-top: rgba(186, 186, 186, 0.6);
-  padding-top: 10px;
-}
-footer .cont a,
-footer .cont p{
-  font-size: 14px;
-  color: #bbb;
-  line-height: 150%;
-  transition: opacity .2s ease-in-out;
-}
-footer .cont a:hover{
-  opacity: 0.6;
+  background: url("../images/icons/ico_nav_on.svg") no-repeat center / cover;
 }
 
-.btn1{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-  padding: 16px 32px;
-  border-radius: 16px;
-  background-color: rgba(195, 195, 195, 0.08);
+/* is scroll */
+header.scroll h1{
+  height: 0;
+  background-color: var(--white1);
 }
-.btn1::after{
-  display: block;
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%,-50%);
-  width: calc(100% - 8px);
-  height: calc(100% - 8px);
-  content: "";
-  border-radius: 16px;
-  border: 1px solid rgba(100, 100, 100, .7)
+header.scroll-a h1{
+  height: 120px;
+  color: var(--black1);
 }
-
-.scr_txt_anim i{
-  display: inline-block;
-  font-size: 256px;
-  color: #F2F2F2;
-  line-height: 80%;
-  letter-spacing: -0.04em;
-  font-family: "Playfair Display";
-  transform-origin: center;
+header.scroll-a span,
+header.scroll-a p{
+  display: none;
 }

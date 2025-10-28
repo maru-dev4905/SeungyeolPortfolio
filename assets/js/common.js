@@ -1,4 +1,3 @@
-import dateTimeModule from "./modules/datetime.js";
 import noiseBackgroundAnimation from "./modules/noiseAnim.js";
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -41,9 +40,24 @@ const cmn = {
       normalizeScroll: true
     })
 
-    dateTimeModule();
+    // dateTimeModule();
     noiseBackgroundAnimation();
     cmn.anim.init();
+
+    window.addEventListener('scroll', ()=>{
+      let winY = window.scrollY;
+      let hd = this._q('header');
+
+      if(winY > hd.offsetHeight){
+        hd.classList.add('scroll');
+        setTimeout(()=>{
+          hd.classList.add('scroll-a')
+        },500)
+      }else{
+        hd.classList.remove('scroll-a')
+        hd.classList.remove('scroll');
+      }
+    });
   }
 }
 

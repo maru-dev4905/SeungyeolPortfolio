@@ -31,7 +31,7 @@
   <link rel="icon" href="./assets/images/favicon.ico" />
   <link rel="apple-touch-icon" href="./assets/images/favicon.ico" />
 
-  <title>LeeSeungyeol</title>
+  <title>LeeSeungyeol - PORTFOLIO</title>
 
   <!-- css  -->
   <link rel="stylesheet" href="./assets/css/base.css" />
@@ -45,303 +45,40 @@
 </head>
 
 <body>
-  <div class="noise_bg"></div>
+  <div class="noise-canvas" aria-hidden="true">
+    <canvas id="grain"></canvas>
+  </div>
   <div id="smooth-wrapper">
     <header>
       <div class="inner">
-        <h1 class="logo">
-          <a href="./index.html" title="LEE SEUNGYEOL">LEE SEUNGYEOL</a>
+        <h1>
+          <a href="./index.html">
+            <strong>
+              LEE S<i>E</i>UNG<i>Y</i>EOL <br>
+              P<i>U</i>BLIS<i>H</i>ER
+            </strong>
+            <span>.PORTFOLIO</span>
+            <p>SY</p>
+          </a>
         </h1>
-        <p class="datetime"></p>
-        <nav>
-          <ul class="gnb">
-            <li><a href="./about.html">Who I Am</a></li>
-            <li><a href="./works.html">My Works</a></li>
-            <li><a href="./contact.html">Contact Me</a></li>
-            <li><a href="./playground.html">Playground</a></li>
+        <nav class="gnb">
+          <ul>
+            <li class="on"><a href="#" data-nav="Who I Am"><span>Who I Am</span></a></li>
+            <li><a href="#" data-nav="My Works"><span>My Works</span></a></li>
+            <li><a href="#" data-nav="Contact Me"><span>Contact Me</span></a></li>
+            <li><a href="#" data-nav="Playground"><span>Playground</span></a></li>
           </ul>
         </nav>
       </div>
     </header>
     <div id="smooth-content">
       <main>
-        <section class="sec_cont1">
-          <div class="cont">
-            <img src="./assets/images/main/main_visual_img.png" alt="" />
-            <div class="txt">
-              <p>
-                <span>PUBLISHER</span>
-                <em>(DESIGN)</em>
-              </p>
-              <p>
-                <span>LEESEUNGYEOL</span>
-              </p>
-              <p>
-                <i>(2025)</i>
-              </p>
-              <p>
-                <span>WORK</span>
-                <em>( - )</em>
-                <span>PORTFOLIO</span>
-              </p>
-            </div>
-          </div>
-          <button type="button" class="scr_btn">
-            <span>(</span> <em>SCROLL</em> <span>)</span>
-          </button>
-        </section>
-        <section class="sec_cont2">
-          <article class="arti1">
-            <div class="inner pb_240">
-              <h2>
-                <p class="scr_txt_anim">SILENCE&nbsp;IS</p>
-                <p class="scr_txt_anim">STRUCTURE,</p>
-                <p class="scr_txt_anim">RHYTHM&nbsp;IS</p>
-                <p class="scr_txt_anim">FLOW</p>
-              </h2>
-            </div>
-          </article>
-          <article class="arti2">
-            <div class="inner pb_240">
-              <h2>
-                <p class="scr_txt_anim">STRUCTURE</p>
-                <p class="scr_txt_anim">ACCESSIBILITY</p>
-                <p class="scr_txt_anim">INTENTION</p>
-              </h2>
-              <p class="anim">
-                깨끗한 구조, 누구나 사용할 수 있는 웹사이트, 그리고 의도 있는
-                코드. <br />
-                그것이 제가 퍼블리싱할 때 가장 중요하게 생각하는 가치입니다.
-              </p>
-            </div>
-          </article>
-          <article class="arti3">
-            <div class="inner pb_240">
-              <h2>
-                <p class="scr_txt_anim">TO ME,</p>
-                <p class="scr_txt_anim">PUBLISHING IS</p>
-                <p class="scr_txt_anim">ABOUT CLARITY</p>
-                <p class="scr_txt_anim">AND FLOW</p>
-              </h2>
-              <p class="anim">
-                사용자가 자연스럽게 흘러가듯 <br>
-                머무르고 싶은 페이지를 만드는 것 — <br>
-                그게 제가 생각하는 좋은 웹사이트입니다.
-              </p>
-              <div class="grid_lay pt_240">
-                <div class="colST1 colED6 message_area">
-                  <div class="hd">
-                    <span>W</span>
-                    <p>( WRITE )</p>
-                    <strong>THE THOUGHT</strong>
-                  </div>
-                  <div class="txt">
-                    <p>
-                      HTML은 구조를 위한 선 <br>
-                      CSS는 형태를 위한 선 <br>
-                      JS는 움직임을 위한 선 <br>
-                      <br>
-                      퍼블리싱은 이 모든 선을 연결하여 <br>
-                      하나의 경험을 짓는 일이라고 생각합니다 <br>
-                      <br>
-                      HTML draws the structure, <br>
-                      CSS defines the shape <br>
-                      JavaScript adds movement <br>
-                      Publishing is the act of connection these lines <br>
-                      to construct meaningful experiences
-                    </p>
-                  </div>
-                </div>
-                <div class="colST6 colED-3 rowST2 message_area mt_40">
-                  <div class="hd">
-                    <span>C</span>
-                    <p>( CONNECT )</p>
-                    <strong>THOUGHT TO FORM</strong>
-                  </div>
-                  <div class="txt">
-                    <p>
-                      이 포트폴리오에서 저는 퍼블리셔로서 구조와 흐름을 선으로 표현했습니다. <br>
-                      각 라인은 정보와 디자인, 사용자의 동선을 연결하는 도구이며, <br>
-                      저의 언어이자 작품의 구성 요소 중 하나입니다. <br>
-                      <br>
-                      이 포트폴리오에 흐르는 선들은, <br>
-                      제가 짓고 연결해온 웹의 조각들입니다. <br>
-                      <br>
-                      In this portfolio, I expressed structure and flow through lines — as a publisher. Each line serves as a tool that connects information, design, and user navigation. These lines are my language, and a core element of my work. <br>
-                      The lines that run through this portfolio represent fragments of the web I've built and connected.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-          <article class="arti4">
-            <div class="inner pb_240">
-              <h2>
-                <span>LET'S</span><em></em>
-                <span>KEEP</span>
-              </h2>
-              <h2>
-                CONNECTING
-              </h2>
-              <p class="mt_200">
-                <span>(</span> <em> STAY </em> <span>)</span>
-              </p>
-            </div>
-          </article>
-        </section>
-        <section class="sec_cont3 ">
-          <h2 class="sticky_txt"><img src="./assets/images/main/workArchive_txt.svg" alt="work archive" class="w_100per "></h2>
-          <div class="inner pos_re">
-            <div class="line_wrap">
-              <div class="dots">
-                <i class="sm_circle oreo"></i>
-                <i class="sm_circle"></i>
-                <i class="sm_circle"></i>
-                <i class="sm_circle"></i>
-                <i class="sm_circle"></i>
-                <i class="sm_circle"></i>
-              </div>
-            </div>
-            
-            <ul class="work_list grid_lay">
-              <li class="colST1 colED5 ">
-                <a href="#">
-                  <div class="img_box">
-                    <img src="./assets/images/works/samwhapaper/samwhapaper_t.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h3>SAMWHA PAPER</h3>
-                    <p>Interective & Adaptive</p>
-                    <span>(Publishing)</span>
-                  </div>
-                </a>
-              </li>
-              <li class="colST8 colED-1">
-                <a href="#">
-                  <div class="img_box">
-                    <img src="./assets/images/works/pss/pss_t.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h3>대통령 경호처</h3>
-                    <p>Responsive Web</p>
-                    <span>(Publishing)</span>
-                  </div>
-                </a>
-              </li>
-              <li class="colST3 colED6">
-                <a href="#">
-                  <div class="img_box">
-                    <img src="./assets/images/works/wevercns/wevercns_t.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h3>WeverCNS</h3>
-                    <p>Responsive Web</p>
-                    <span>(Publishing)</span>
-                  </div>
-                </a>
-              </li>
-              <li class="colST8 colED-2">
-                <a href="#">
-                  <div class="img_box">
-                    <img src="./assets/images/works/maumhana/maumhana_t.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h3>마음하나</h3>
-                    <p>Responsive Web</p>
-                    <span>(Publishing)</span>
-                  </div>
-                </a>
-              </li>
-              <li class="colST1 colED6">
-                <a href="#">
-                  <div class="img_box">
-                    <img src="./assets/images/works/daedongmobility/daedongmobility_t.png" alt="">
-                  </div>
-                  <div class="txt">
-                    <h3>Dadedong Mobility</h3>
-                    <p>Responsive Web</p>
-                    <span>(Publishing)</span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="view_more">
-            <div class="bg">
-              <img src="./assets/images/common/visual_bg.png" alt="" class="w_100per">
-            </div>
-            <div class="cont">
-              <div class="txt message_area">
-                <div class="hd">
-                  <span>M</span>
-                  <p>( MORE )</p>
-                  <strong>ARCHIVE</strong>
-                </div>
-                <div class="txt">
-                  <p>
-                    보여드릴 작업물은 아직 더 많습니다. <br>
-                    아카이브에서 지금까지의 모든 프로젝트를 확인해보세요 <br>
-                    <br>
-                    Ther’s more to show. <br>
-                    Explore the full archive of projects I've built
-                  </p>
-                </div>
-              </div>
-              <a href="./works.html">VIEW ALL WORKS</a>
-            </div>
-          </div>
-        </section>
+        <div class="space"></div>
+        <div class="space"></div>
       </main>
 
       <footer>
-        <div class="line_wrap">
-          <div class="dots">
-            <i class="sm_circle oreo"></i>
-            <i class="sm_circle"></i>
-            <i class="sm_circle"></i>
-            <i class="sm_circle"></i>
-            <i class="sm_circle"></i>
-            <i class="sm_circle"></i>
-          </div>
-        </div>
-        <div class="inner">
-          <h2 >
-            <a href="#" class="w_100per dp_b mx_auto"><img src="./assets/images/common/footer_txt.svg"
-                alt="PUBLISHE TO CONNECT" class="mx_auto"></a>
-          </h2>
-          <div class="cont grid_lay">
-            <div class="colST1 colED4">
-              <a href="#" class="btn1 w_max_content submit_link">Submit creation</a>
-            </div>
-            <div class="colST4 colED9 resume_txt">
-              <p>Seungyeol Portfolio - Thank you for looking at my portfolio</p>
-              <a href="#" download>Download Resume _ PDF, 3 MB</a>
-            </div>
-            <div class="colST9 colED-1 dp_f gap10 cont">
-              <div class="fx_1">
-                <p>LINK :<br>
-                  <a href="#" target="_blank">Github</a><br>
-                  <a href="#" target="_blank">Facebook</a><br>
-                  <a href="#" target="_blank">Instagram</a>
-                </p> 
-              </div>
-              <div class="fx_1">
-                <p>CREDITS : <br>
-                  Site by LeeSeungyeol
-                </p>
-                <p>CONTACT : <br>
-                  iseung10e@gmail.com
-                </p>
-              </div>
-              <div class="fx_1">
-                <p>LEGAL : <br>
-                  © 2025 / All rights reserved
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+
       </footer>
     </div>
   </div>
