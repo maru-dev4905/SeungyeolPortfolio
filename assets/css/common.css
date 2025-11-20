@@ -107,9 +107,6 @@ header h1{
   background-color: #000;
   border-radius: 106px;
   color: var(--white1);
-  transition: height .5s ease-in-out, background-color .5s .5s ease-in-out;
-  transition-duration: .5s;
-  transition-timing-function: ease-in-out;
   overflow: hidden;
 }
 header h1 a{
@@ -144,7 +141,9 @@ header nav ul{
   align-items: center;
   border-radius: 5rem;
   background-color: #000;
+  height:3.125rem;
   padding: 0 2.5rem;
+  overflow:hidden;
 }
 header nav ul a{
   font-size: 24px;
@@ -178,7 +177,7 @@ header nav ul li a span,
 header nav ul li a::after{
   display: block;
   transition: transform .4s ease-in-out;
-  min-height: 48px;
+  min-height: 50px;
 }
 header nav ul li a:hover span,
 header nav ul li a:hover::after{
@@ -193,18 +192,4 @@ header nav ul li.on::before{
   width: 24px;
   height: 24px;
   background: url("../images/icons/ico_nav_on.svg") no-repeat center / cover;
-}
-
-/* is scroll */
-header.scroll h1{
-  height: 0;
-  background-color: var(--white1);
-}
-header.scroll-a h1{
-  height: 120px;
-  color: var(--black1);
-}
-header.scroll-a span,
-header.scroll-a p{
-  display: none;
 }
