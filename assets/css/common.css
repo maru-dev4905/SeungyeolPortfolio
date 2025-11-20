@@ -354,3 +354,52 @@ footer{
     }
   }
 }
+
+#intro{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: fixed;
+  top: 0; left: 0;
+  width : 100%;
+  height: 100%;
+  z-index : 100000000;
+  background-color: #111;
+  .item{
+    width : 80px;
+    height: auto;
+    will-change: transform, opacity;
+  }
+  .item.left svg{
+    transform: scaleX(-1);
+  }
+  .item.center{
+    position: fixed;
+    transform: scaleX(0);
+    transform-origin: center;
+    width: 0;
+    height: 300px;
+  }
+  .item.center img{
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%,-50%);
+    aspect-ratio: 1/1;
+    width : 300px;
+    height: 100%;
+    object-fit: cover;
+  }
+  svg{
+    width : 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .trace{
+    fill: transparent;
+    stroke: #fff;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
