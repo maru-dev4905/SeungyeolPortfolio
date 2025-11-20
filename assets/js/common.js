@@ -53,11 +53,7 @@ const cmn = {
       let winY = window.scrollY;
       let hd = this._q('header');
 
-      if (winY > hd.offsetHeight) {
-        hdScrAnim.play();
-      } else {
-        hdScrAnim.reverse();
-      }
+      winY > hd.offsetHeight ? hdScrAnim.play() : hdScrAnim.reverse();
     });
 
     let hdScrAnim = gsap.timeline({paused: true});
@@ -95,7 +91,20 @@ const cmn = {
           duration: .35,
           opacity: 0.8,
           ease: "power2.out",
-        },">")
+        },">");
+
+    const ft = this._q("footer");
+    const ftLineAnim = gsap.to("footer",{
+      scrollTrigger:{
+        trigger: "footer",
+        onEnter: ()=>{
+          ft.classList.add("on");
+        },
+        onLeaveBack: ()=>{
+          ft.classList.remove("on");
+        }
+      }
+    })
   }
 }
 

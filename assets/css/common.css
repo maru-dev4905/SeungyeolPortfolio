@@ -80,10 +80,10 @@ i{
 }
 
 .noise-canvas{
-  position: fixed; 
+  position: fixed;
   z-index: 9999;
-  inset: 0; 
-  pointer-events:none; 
+  inset: 0;
+  pointer-events:none;
   opacity: 0.4;
 }
 
@@ -192,4 +192,165 @@ header nav ul li.on::before{
   width: 24px;
   height: 24px;
   background: url("../images/icons/ico_nav_on.svg") no-repeat center / cover;
+}
+
+
+footer{
+  .line{
+    position: relative;
+    height: 50px;
+
+    &:after{
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      content:"";
+      width: 0;
+      height: 1px;
+      background-color: #fff;
+      transition: width 1s ease-in-out;
+    }
+    span{
+      display: block;
+      position: absolute;
+      top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      z-index : 10;
+      width : 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #000;
+      opacity: 0;
+      transition: opacity 1s 1s ease-in-out;
+    }
+    span:before{
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      content: "";
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 50%;
+    }
+    i{
+      display:inline-block;
+      position:absolute;
+      top:50%; left: -10px;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 8px;
+      background-color: #fff;
+      border-radius: 50%;
+      transition: left 1.25s .75s ease-out;
+    }
+  }
+
+  .inner{padding-top : 50px;}
+  .links{
+    display: flex;
+    gap: 1.25rem;
+    margin-bottom : 60px;
+    color: #Fff;
+    >div{
+      position:relative;
+      padding-top: 11px;
+      max-width : 240px;
+      width : 100%;
+      opacity: 0;
+      transform: translateY(20%);
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    }
+    >div:before{
+      display: block;
+      position:absolute;
+      top: 0;
+      content:"";
+      width : 0;
+      height: 1px;
+      background-color: #fff;
+      transition: width 1s ease-in-out;
+    }
+
+    strong,
+    a,
+    p{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 150%;
+    }
+    strong:not(:first-of-type){
+      margin-top: 10px;
+    }
+  }
+  .desc{
+    position : relative;
+    padding: 50px 0;
+    color: #fff;
+
+    &:before{
+      display: block;
+      position:absolute;
+      top: 0;
+      content:"";
+      width : 0;
+      height: 1px;
+      background-color: #fff;
+      transition: width 1s ease-in-out;
+    }
+
+    div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    button{
+      position: absolute;
+      top: -68px;
+      right: 0;
+      width : 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #222;
+    }
+    button::after{
+      display:block;
+      width : 100%;
+      height: 100%;
+      content: "";
+      mask: url("../images/icons/ico_top_arrow.svg") no-repeat center / 24px;
+      background-color : #fff;
+    }
+    p{
+      font-size: 18px;
+      font-weight: 400;
+      opacity: 0;
+      transform: translateY(20%);
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+    }
+  }
+
+  &.on {
+    .line i{
+      &:nth-child(1){left: 10%}
+      &:nth-child(2){left: 30%}
+      &:nth-child(3){left: 40%}
+      &:nth-child(4){left: 70%}
+      &:nth-child(5){left: 80%}
+    }
+    .line span{opacity: 1}
+    .line:after,
+    .links>div:before,
+    .desc:before{width : 100%;}
+    .desc p,
+    .links>div{
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }
