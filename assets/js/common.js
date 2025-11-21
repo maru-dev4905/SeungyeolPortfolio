@@ -35,6 +35,71 @@ const cmn = {
     }
   },
 
+  introAnim: function () {
+    const paths = [this._q("#path1"), this._q("#path2")];
+    paths.forEach(p => {
+      const len = p.getTotalLength();
+      p.style.strokeDasharray = len;
+      p.style.strokeDashoffset = len;
+    });
+    const pathTL = gsap.timeline({defaults: {ease: "power2.out"}});
+    pathTL
+        .to(paths, {
+          strokeDashoffset: 0,
+          duration: 2,
+          delay: 0.5,
+        }, 0)
+        .to(paths, {
+          fill: "#fff",
+          attr: {fill: "#fff"},
+          duration: 0.35
+        },">")
+        .to(".item.left", {
+          x: `-10vw`,
+          duration: 0.9,
+          ease: "power3.inOut"
+        },">")
+        .to(".item.right", {
+          x: `10vw`,
+          duration: 0.9,
+          ease: "power3.inOut"
+        },"<")
+        .to(".item.center", {
+          width: 300,
+          scaleX: 1,
+          duration: 0.9,
+          ease: "power3.inOut"
+        },"<")
+        .to(".item.center", {
+          width: `100%`,
+          height: `100vh`,
+          scaleX: 1,
+          duration: 1.5,
+          ease: "power3.inOut"
+        },">")
+        .to("#intro", {
+          opacity: 0,
+          visibility: 'hidden',
+          duration: 0.2,
+          ease: "power3.inOut",
+          onComplete: () => {
+            cmn._q(".sec_visual").classList.add('on');
+            cmn._q(".coordinate_display").classList.add('on');
+            this._smooth.paused(false);
+          }
+        },">")
+        .to("header h1", {
+          height: 120,
+          duration: 1,
+          ease: "power2.out",
+        }, ">")
+        .to("header nav ul", {
+          height: 50,
+          duration: 1,
+          ease: "power2.out",
+        },"<");
+  },
+
   init: function () {
     if (this._inited) return;
     this._inited = true;
@@ -44,10 +109,12 @@ const cmn = {
       effects: true,
       normalizeScroll: true
     })
+    this._smooth.paused(true);
 
     // dateTimeModule();
     noiseBackgroundAnimation();
     cmn.anim.init();
+    cmn._q("#intro") && this.introAnim();
 
     window.addEventListener('scroll', () => {
       let winY = window.scrollY;
@@ -58,8 +125,16 @@ const cmn = {
 
     let hdScrAnim = gsap.timeline({paused: true});
     hdScrAnim
+        .set("header h1", {
+          height: 120,
+          color: "#fff",
+          backgroundColor: "#000",
+          duration: .25,
+          ease: "power2.out",
+        })
         .to("header h1", {
           height: 0,
+          color: "#fff",
           backgroundColor: "#000",
           duration: .25,
           ease: "power2.out",
