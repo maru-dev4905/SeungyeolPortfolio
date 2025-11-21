@@ -1,5 +1,5 @@
 import noiseBackgroundAnimation from "./modules/noiseAnim.js";
-
+import moveMouseAnimation from "./modules/moveToMouse.js";
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const cmn = {
@@ -113,6 +113,7 @@ const cmn = {
 
     // dateTimeModule();
     noiseBackgroundAnimation();
+    moveMouseAnimation();
     cmn.anim.init();
     cmn._q("#intro") && this.introAnim();
 

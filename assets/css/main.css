@@ -8,30 +8,6 @@ html, body{
   min-height: 100%;
 }
 
-.coordinate_display{
-  position: fixed;
-  left: 50%; bottom: 0;
-  z-index : 1;
-  transform: translateX(-50%);
-  width:max-content;
-  padding: 12px 1.25rem;
-  border-radius:50px;
-  background-color: rgba(31, 31, 31, 0.4);
-  border: 1px solid #aaa;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.15rem;
-  text-align: center;
-  color: var(--white1);
-  opacity: 0;
-  backdrop-filter: blur(2px);
-  transition: opacity .5s ease-in-out, bottom .5s ease-in-out;
-}
-.coordinate_display.on{
-  opacity: 1;
-  bottom: 2.5rem;
-}
-
 .sec_visual{
   position: relative;
   .visual{
