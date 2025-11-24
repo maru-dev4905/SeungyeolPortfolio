@@ -109,13 +109,13 @@ const cmn = {
       effects: true,
       normalizeScroll: true
     })
-    this._smooth.paused(true);
+    // this._smooth.paused(true);
 
     // dateTimeModule();
     noiseBackgroundAnimation();
     moveMouseAnimation();
     cmn.anim.init();
-    cmn._q("#intro") && this.introAnim();
+    // cmn._q("#intro") && this.introAnim();
 
     window.addEventListener('scroll', () => {
       let winY = window.scrollY;
@@ -147,7 +147,7 @@ const cmn = {
           ease: "power2.out",
         },">")
         .set("header h1", {
-          backgroundColor: "rgba(244,244,244,0.95)",
+          backgroundColor: "rgba(244,244,244,0.9)",
         }, ">")
         .set("header h1 p, header h1 span", {
           display: "none"
@@ -158,7 +158,7 @@ const cmn = {
         .to("header h1", {
           height: 120,
           color: "#000",
-          backdropFilter: "blur(4px)",
+          backdropFilter: "blur(5px)",
           duration: .35,
           ease: "power2.out",
         }, "+=0.5")
