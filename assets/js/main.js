@@ -13,7 +13,7 @@ const mainFunc = {
     const test = gsap.to(".sec_about h2 span", {
       scrollTrigger: {
         trigger:".sec_about h2 span",
-        markers: true,
+        markers: false,
         scrub: true,
         start: "bottom center",
         onEnter: ()=>{
@@ -68,6 +68,33 @@ const mainFunc = {
     }
   },
 
+  marqueeAnim: function () {
+    const marquee = this._q('.marquee');
+    if (!marquee) return;
+
+    let currentScroll = 0;
+    let isScrollingDown = true;
+
+    let tween = gsap.to(".marquee_part", {xPercent: -100, repeat: -1, duration: 15, ease: "linear"}).totalProgress(0.5);
+
+    gsap.set(".marquee_inner", {xPercent: -50});
+
+    window.addEventListener("scroll", function(){
+
+      if ( window.pageYOffset > currentScroll ) {
+        isScrollingDown = true;
+      } else {
+        isScrollingDown = false;
+      }
+
+      gsap.to(tween, {
+        timeScale: isScrollingDown ? 1 : -1
+      });
+
+      currentScroll = window.pageYOffset
+    });
+  },
+  
   init: function () {
     if (this._inited) return;
     this._inited = true;
@@ -76,6 +103,7 @@ const mainFunc = {
       ScrollTrigger.refresh();
       this.scrAnim();
       this.mainAnim();
+      this.marqueeAnim();
     }, 100);
   }
 };

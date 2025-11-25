@@ -35,6 +35,18 @@ const cmn = {
     }
   },
 
+  scrTopAnim: {
+    scrTop: function(){
+      const btn = cmn._q('.scr_btn');
+      btn.addEventListener('click', ()=>{
+        cmn._smooth.scrollTo(0 , true);
+      });
+    },
+    init: function(){
+      cmn._q(".scr_btn") && this.scrTop();
+    }
+  },
+
   introAnim: function () {
     const paths = [this._q("#path1"), this._q("#path2")];
     paths.forEach(p => {
@@ -115,6 +127,7 @@ const cmn = {
     noiseBackgroundAnimation();
     moveMouseAnimation();
     cmn.anim.init();
+    cmn.scrTopAnim.init();
     // cmn._q("#intro") && this.introAnim();
 
     window.addEventListener('scroll', () => {
