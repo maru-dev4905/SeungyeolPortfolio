@@ -84,6 +84,27 @@ body{
   opacity: 0.4;
 }
 
+.cursor-outline {
+  border-radius: 50px;
+  position: fixed;
+  z-index : 50;
+  width: 80px;
+  height: 80px;
+  border: solid 1px #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+.cursor-dot {
+  mix-blend-mode: difference;
+  border-radius: 50px;
+  position: fixed;
+  z-index : 50;
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border: solid 1px #fff;
+  pointer-events: none;
+}
 
 header{
   position: fixed;
