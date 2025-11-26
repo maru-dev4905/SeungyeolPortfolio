@@ -45,55 +45,56 @@
 </head>
 
 <body>
-<!--  <div id="intro">-->
-<!--    <div class="item left">-->
-<!--      <svg width="50" height="228" viewBox="0 0 50 228" xmlns="http://www.w3.org/2000/svg" aria-label="shape left">-->
-<!--        <path id="path1" class="trace" d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"/>-->
-<!--      </svg>-->
-<!--    </div>-->
-<!--    <div class="item center">-->
-<!--      <img src="./assets/images/visuals/visual.png" alt="" class="item_img">-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Right &ndash;&gt;-->
-<!--    <div class="item right">-->
-<!--      <svg width="50" height="228" viewBox="0 0 50 228" xmlns="http://www.w3.org/2000/svg" aria-label="shape right">-->
-<!--        <path id="path2" class="trace" d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"/>-->
-<!--      </svg>-->
-<!--    </div>-->
-<!--  </div>-->
+  <div id="intro">
+    <div class="item left">
+      <svg width="50" height="228" viewBox="0 0 50 228" xmlns="http://www.w3.org/2000/svg" aria-label="shape left">
+        <path id="path1" class="trace" d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"/>
+      </svg>
+    </div>
+    <div class="item center">
+      <img src="./assets/images/visuals/visual.png" alt="" class="item_img">
+    </div>
+    <!-- Right -->
+    <div class="item right">
+      <svg width="50" height="228" viewBox="0 0 50 228" xmlns="http://www.w3.org/2000/svg" aria-label="shape right">
+        <path id="path2" class="trace" d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"/>
+      </svg>
+    </div>
+  </div>
   <div class="noise-canvas" aria-hidden="true">
     <canvas id="grain"></canvas>
   </div>
   <div id="smooth-wrapper">
     <div class="cursor-outline"></div>
     <div class="cursor-dot"></div>
-    <header class="on">
-      <div class="inner">
-        <h1>
-          <a href="./index.html">
-            <strong>
-              LEE S<i>E</i>UNG<i>Y</i>EOL <br>
-              P<i>U</i>BLIS<i>H</i>ER
-            </strong>
-            <span>.PORTFOLIO</span>
-            <p>SY</p>
-          </a>
-        </h1>
-        <nav class="gnb">
-          <ul>
-            <li class="on"><a href="#" data-nav="Who I Am"><span>Who I Am</span></a></li>
-            <li><a href="#" data-nav="My Works"><span>My Works</span></a></li>
-            <li><a href="#" data-nav="Contact Me"><span>Contact Me</span></a></li>
-            <li><a href="#" data-nav="Playground"><span>Playground</span></a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
     <div class="coordinate_display">
       ( <span class="coordinate_display_x">X: 0px</span>,
       <span class="coordinate_display_y">Y: 0px</span> )
     </div>
     <div id="smooth-content">
+      <header class="on">
+        <div class="inner">
+          <h1>
+            <a href="./index.html" class="target">
+              <strong>
+                LEE S<i>E</i>UNG<i>Y</i>EOL <br>
+                P<i>U</i>BLIS<i>H</i>ER
+              </strong>
+              <span>.PORTFOLIO</span>
+              <p>SY</p>
+            </a>
+          </h1>
+          <nav class="gnb">
+            <ul>
+              <li class="on"><a href="#" data-nav="Who I Am" class="target"><span>Who I Am</span></a></li>
+              <li><a href="#" data-nav="My Works" class="target"><span>My Works</span></a></li>
+              <li><a href="#" data-nav="Contact Me" class="target"><span>Contact Me</span></a></li>
+              <li><a href="#" data-nav="Playground" class="target"><span>Playground</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
       <main>
         <section class="sec_visual">
           <div class="visual">
@@ -116,9 +117,9 @@
                 The lines that run through this portfolio <br>
                 represent fragments of the web I’ve built and connected.
               </p>
-              <a href="#">GO TO WORKS</a>
+              <a href="#" class="target">GO TO WORKS</a>
             </div>
-            <button type="button" class="scr_down_btn">
+            <button type="button" class="scr_down_btn target">
               <span>SCROLL DOWN</span>
             </button>
           </div>
@@ -269,7 +270,7 @@
             <p>W<em>O</em>RK ARC<em>H</em>IVE</p>
             <ul>
               <li class="colST1 colED2 on_left anim" style="background:#BFCEDC">
-                <a href="#" >
+                <a href="#"  class="target">
                   <img src="./assets/images/works/samwhapaper/visual.png" alt="">
                   <span class="awards">
                     <span class="webaward"></span>
@@ -278,7 +279,7 @@
                 </a>
               </li>
               <li class="col3 colED4 on_bottom anim" style="background:#FFFFFF">
-                <a href="#" >
+                <a href="#"  class="target">
                   <img src="./assets/images/works/pss/visual.png" alt="">
                   <span class="awards">
                     <span class="gdweb"></span>
@@ -286,7 +287,7 @@
                 </a>
               </li>
               <li class="col2 colED3 on_right anim" style="background:#000">
-                <a href="#" >
+                <a href="#"  class="target">
                   <img src="./assets/images/works/wevercns/visual.png" alt="">
                   <span class="awards">
                     <span class="gdweb"></span>
@@ -294,7 +295,7 @@
                 </a>
               </li>
               <li class="col4 colED5 on_top anim" style="background:#F85B72">
-                <a href="#" >
+                <a href="#" class="target">
                   <img src="./assets/images/works/maumhana/visual.png" alt="">
                   <span class="awards">
                     <span class="gdweb"></span>
@@ -302,7 +303,7 @@
                 </a>
               </li>
               <li class="col1 colED2 on_left anim" style="background:#212121">
-                <a href="#" >
+                <a href="#"  class="target">
                   <img src="./assets/images/works/daedongmobility/visual.png" alt="">
                   <span class="awards">
                     <span class="gdweb"></span>
@@ -315,7 +316,7 @@
 
         <section class="sec_contact">
           <h2 class="anim">
-            <a href="./contact.html">
+            <a href="./contact.html" class="target">
               <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
               <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
               <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
@@ -362,9 +363,9 @@
             <div>
               <div>
                 <strong>LINK :</strong>
-                <a href="#">Github</a>
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
+                <a href="#" class="target">Github</a>
+                <a href="#" class="target">Facebook</a>
+                <a href="#" class="target">Instagram</a>
               </div>
             </div>
             <div>
@@ -381,7 +382,7 @@
           </div>
           <div class="desc">
             <div>
-              <button type="button" class="scr_btn"></button>
+              <button type="button" class="scr_btn target" ></button>
               <p>Seungyeol Portfolio - Thank you for looking at my portfolio</p>
               <p>@ 2025 / All rights reserved</p>
             </div>

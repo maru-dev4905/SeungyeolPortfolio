@@ -45,7 +45,7 @@ const mainFunc = {
         `Turning design into living interaction`,
         `Building structures that last.`,
         `Balancing accessibility with creativity.`,
-    ]
+    ];
     const r_img = this._q('.rolling_img img');
     const r_txt = this._q('.rolling_txt');
     let r_img_idx = 1;
@@ -94,6 +94,16 @@ const mainFunc = {
       currentScroll = window.pageYOffset
     });
   },
+
+  scrDown: function(){
+    const btn = this._q('.scr_down_btn ');
+    console.log(window._smooth);
+    if(btn){
+      btn.addEventListener('click', function(){
+        window._smooth.scrollTo(window.innerHeight, 1);
+      });
+    }
+  },
   
   init: function () {
     if (this._inited) return;
@@ -104,6 +114,7 @@ const mainFunc = {
       this.scrAnim();
       this.mainAnim();
       this.marqueeAnim();
+      this.scrDown();
     }, 100);
   }
 };

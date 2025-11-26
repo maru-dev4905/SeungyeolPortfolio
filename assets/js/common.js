@@ -120,15 +120,16 @@ const cmn = {
       smooth: 2,
       effects: true,
       normalizeScroll: true
-    })
-    // this._smooth.paused(true);
+    });
+    window._smooth = this._smooth;
+    this._smooth.paused(true);
 
     // dateTimeModule();
     noiseBackgroundAnimation();
     moveMouseAnimation();
     cmn.anim.init();
     cmn.scrTopAnim.init();
-    // cmn._q("#intro") && this.introAnim();
+    cmn._q("#intro") && this.introAnim();
 
     window.addEventListener('scroll', () => {
       let winY = window.scrollY;
@@ -137,6 +138,15 @@ const cmn = {
       winY > hd.offsetHeight ? hdScrAnim.play() : hdScrAnim.reverse();
     });
 
+    let hdPin = gsap.to("body",{
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        markers: true,
+        pin: "header",
+        pinSpacing: false,
+      }
+    });
     let hdScrAnim = gsap.timeline({paused: true});
     hdScrAnim
         .set("header h1", {
@@ -176,6 +186,7 @@ const cmn = {
           ease: "power2.out",
         }, "+=0.5")
         .to("header nav ul", {
+          backgroundColor: "rgba(244,244,244,1)",
           height: 50,
           duration: .35,
           opacity: 0.8,

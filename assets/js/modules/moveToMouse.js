@@ -63,12 +63,10 @@ export default function moveMouseAnimation() {
 
   targets.forEach((target) => {
     target.addEventListener("mouseenter", (e) => {
-      console.log('play')
       scaleAnim.play();
     });
 
     target.addEventListener("mouseleave", (e) => {
-      console.log('reverse')
       scaleAnim.reverse();
     });
   });
