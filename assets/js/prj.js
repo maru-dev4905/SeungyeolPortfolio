@@ -4,83 +4,52 @@ gsap.registerPlugin(ScrollTrigger);
 const prjFunc = {
   _inited: false,
 
+  aboutRollingImgAnim: {
+    _imgs: null,
+    _length: null,
+    _intervalId: null,
+    _idx: 0,
+
+    rolling: function(){
+      this._imgs.forEach(img=>img.classList.remove('on'));
+      this._imgs[this._idx].classList.add('on');
+    },
+    start: function(){
+      this.stop();
+
+      this._intervalId = setInterval(()=>{
+        this._idx >= this._length - 1 ? this._idx = 0 : this._idx++;
+        this.rolling()
+      }, 2000);
+    },
+    stop: function () {
+      if (this._intervalId !== null) {
+        clearInterval(this._intervalId);
+        this._intervalId = null;
+      }
+    },
+    init: function(){
+      this._imgs = _qq('.about_visual img');
+      this._length = _qq('.about_visual img').length;
+
+      this.start();
+
+      this._imgs.forEach(img => {
+        img.addEventListener('mouseenter', () =>{
+          this.stop();
+        });
+        img.addEventListener('mouseleave', () =>{
+          this.start();
+        });
+      })
+    }
+  },
+
   scrTxtAnim: {
     _isSlice: false,
 
-    txtSplit: function () {
-      if (!this._isSlice) {
-        let txtArr = [];
-        const scrTxtEls = document.querySelectorAll(".scr_txt_anim");
-
-        if (!scrTxtEls) return false;
-        scrTxtEls.forEach((el) => {
-          txtArr.push(el.textContent.trim().split(''));
-        });
-        for (const idx in txtArr) {
-          scrTxtEls[idx].textContent = '';
-          txtArr[idx].forEach((word) => {
-            let wordEl = `<i>${word}</i>`;
-
-            scrTxtEls[idx].innerHTML += wordEl;
-          })
-        }
-        this._isSlice = true;
-
-        this.txtAnim();
-      }
-    },
-    txtAnim: function () {
-      const els = document.querySelectorAll(".scr_txt_anim");
-      if (!els.length) return;
-
-      els.forEach((el) => {
-        const chars = el.querySelectorAll("i");
-        if (!chars.length) return;
-
-        // 이전 타임라인/트리거 정리 (재실행 대비)
-        if (el._scrTl) {
-          el._scrTl.scrollTrigger && el._scrTl.scrollTrigger.kill();
-          el._scrTl.kill();
-          el._scrTl = null;
-        }
-
-        // 초기 상태
-        gsap.set(chars, { yPercent: 50, scaleY: 1.75, opacity: 0 });
-
-        const len = chars.length;
-
-        const tl = gsap.timeline({
-          defaults: { ease: "none" },
-          scrollTrigger: {
-            trigger: el,
-            start: "top bottom",  
-            end: "bottom center",    
-            scrub: true,          
-            // markers: true,      
-            invalidateOnRefresh: true,
-          },
-        });
-
-
-        tl.to(chars, {
-          yPercent: 0,
-          scaleY: 1,
-          opacity: 1,
-          duration: .85,                
-          stagger: {
-            each: 1 / len,
-            from: 0
-          },
-        }, 1);
-        el._scrTl = tl;
-      });
-
-      // 레이아웃 변동 반영
-      ScrollTrigger.refresh();
-    },
-
     init: function () {
-      this.txtSplit();
+
     },
   },
 
@@ -88,7 +57,7 @@ const prjFunc = {
     if (prjFunc._inited) return;
     prjFunc._inited = true;
 
-    prjFunc.scrTxtAnim.init();
+    _q('#about') && prjFunc.aboutRollingImgAnim.init();
   }
 };
 

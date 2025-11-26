@@ -12,6 +12,7 @@ const cmn = {
   _inited: false,
   _smooth: null,
   _fadeEl: null,
+  _isIntro: null,
 
   anim: {
     toggleClass: function () {
@@ -115,16 +116,18 @@ const cmn = {
   init: function () {
     if (this._inited) return;
     this._inited = true;
-
+    this._isIntro = this._q("#intro");
     this._smooth = ScrollSmoother.create({
       smooth: 2,
       effects: true,
       normalizeScroll: true
     });
     window._smooth = this._smooth;
-    this._smooth.paused(true);
+    window._q = this._q;
+    window._qq = this._qq;
 
-    // dateTimeModule();
+    this._isIntro ? this._smooth.paused(true) : null;
+
     noiseBackgroundAnimation();
     moveMouseAnimation();
     cmn.anim.init();
@@ -142,7 +145,7 @@ const cmn = {
       scrollTrigger: {
         trigger: "body",
         start: "top top",
-        markers: true,
+        markers: false,
         pin: "header",
         pinSpacing: false,
       }
@@ -204,7 +207,19 @@ const cmn = {
           ft.classList.remove("on");
         }
       }
-    })
+    });
+
+    !this._isIntro && gsap.timeline({})
+        .to("header h1", {
+          height: 120,
+          duration: 1,
+          ease: "power2.out",
+        }, ">")
+        .to("header nav ul", {
+          height: 50,
+          duration: 1,
+          ease: "power2.out",
+        },"<");
   }
 }
 

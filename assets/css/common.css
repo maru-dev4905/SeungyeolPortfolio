@@ -74,6 +74,9 @@ button,
   height: 100%;
   margin: 0 auto;
 }
+em{
+  font-family: "Brown Sugar";
+}
 .grid_lay{
   column-gap: 1.25rem;
 }
@@ -673,25 +676,50 @@ footer{
   .marquee{
     display: flex;
     align-items: center;
+    position: static;
     overflow: hidden;
     white-space: nowrap;
+    color: var(--white1);
+    mix-blend-mode: normal;
+    letter-spacing: 10px;
+    line-height: 4;
 
-    .marquee_inner {
-      -webkit-font-smoothing: antialiased;
-      width: fit-content;
-      display: flex;
-      flex: auto;
-      flex-direction: row;
-    }
-
-    p{
+    span{
       display: block;
       padding: 0 4px;
       font-size: 24px;
       font-weight: 300;
       color: var(--white1);
-      letter-spacing: 10px;
       font-smooth: always;
     }
   }
+}
+
+.marquee {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 60px;
+  font-weight: 400;
+  line-height: 125%;
+  letter-spacing: -0.05em;
+  color: #00C9A7;
+  mix-blend-mode: difference;
+}
+.marquee_track {
+  display: inline-flex;
+  width: max-content;
+  animation: scroll 30s linear infinite;
+}
+.marquee_track .content {
+  display: flex;
+}
+.marquee_track span {
+  margin-right: 1rem;
+}
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

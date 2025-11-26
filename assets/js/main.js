@@ -97,7 +97,6 @@ const mainFunc = {
 
   scrDown: function(){
     const btn = this._q('.scr_down_btn ');
-    console.log(window._smooth);
     if(btn){
       btn.addEventListener('click', function(){
         window._smooth.scrollTo(window.innerHeight, 1);
@@ -113,7 +112,6 @@ const mainFunc = {
       ScrollTrigger.refresh();
       this.scrAnim();
       this.mainAnim();
-      this.marqueeAnim();
       this.scrDown();
     }, 100);
   }
