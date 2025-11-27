@@ -1,59 +1,63 @@
 .coordinate_display{opacity: 1 !important; bottom: 40px;}
 
-#about{
-  .sec_visual{
-    width : 100%;
-    aspect-ratio: 16/9;
-    background-color: #141414;
+.sec_visual{
+  width : 100%;
+  aspect-ratio: 16/9;
+  background-color: #141414;
 
-    .inner{
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-      justify-content: center;
-      gap: 2.5rem;
-      position: relative;
-    }
-    .inner > em{
+  .inner{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.5rem;
+    position: relative;
+  }
+  .inner > em{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 200px;
+    font-weight: 300;
+    font-family: "Brown Sugar";
+    color: var(--white1);
+  }
+  .inner > em:first-of-type{left: 0}
+  .inner > em:last-of-type{right: 0}
+
+  .about_visual{
+    position: relative;
+    width : 340px;
+    aspect-ratio: 1/1;
+    border-radius: 20px;
+    overflow: hidden;
+
+    video,
+    img{
       position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 200px;
-      font-weight: 300;
-      font-family: "Brown Sugar";
-      color: var(--white1);
+      top: 0;
+      width : 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      -webkit-user-drag: none;
+      transition: opacity 1s ease-in-out;
     }
-    .inner > em:first-of-type{left: 0}
-    .inner > em:last-of-type{right: 0}
-
-    .about_visual{
-      position: relative;
-      width : 340px;
-      aspect-ratio: 1/1;
-      border-radius: 20px;
-      overflow: hidden;
-
-      img{
-        position: absolute;
-        top: 0;
-        width : 100%;
-        height: 100%;
-        opacity: 0;
-        -webkit-user-drag: none;
-        transition: opacity 1s ease-in-out;
-      }
-      img.on{
-        opacity: 1;
-      }
-    }
-    h2{
-      font-size: 48px;
-      font-weight: 400;
-      color: var(--white1);
-      line-height: 125%;
-      text-indent: 2.625em;
+    video.on,
+    img.on{
+      opacity: 1;
     }
   }
+  h2{
+    font-size: 48px;
+    font-weight: 400;
+    color: var(--white1);
+    line-height: 125%;
+    text-indent: 2.625em;
+  }
+}
+
+#about{
   .sec_introduce{
     padding: 200px 0;
     background: url("../images/visuals/about_bg.png") no-repeat center / cover;
@@ -305,6 +309,7 @@
     }
   }
   .sec_skills{
+    background-color : #111;
     padding: 180px 0;
 
     h2{
@@ -365,3 +370,6 @@
   }
 }
 
+#works{
+
+}

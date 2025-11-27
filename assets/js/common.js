@@ -16,10 +16,11 @@ const cmn = {
 
   anim: {
     toggleClass: function () {
-      const els = cmn._qq(".anim");
+      const els = cmn._qq(".anim:not([data-st-init])");
       if (!els.length) return;
 
       els.forEach((el) => {
+        el.setAttribute('data-st-init', 1);
         ScrollTrigger.create({
           trigger: el,
           start: "top 85%",
@@ -31,7 +32,6 @@ const cmn = {
     },
     init: function () {
       this._fadeEl = cmn._qq(".anim");
-
       this.toggleClass();
     }
   },
@@ -223,6 +223,6 @@ const cmn = {
   }
 }
 
-document.addEventListener("DOMContentLoaded", cmn.init());
+document.addEventListener("DOMContentLoaded", ()=>cmn.init());
 
 export default cmn;
