@@ -1,4 +1,5 @@
 // prj.js
+import cmn from './common.js';
 gsap.registerPlugin(ScrollTrigger);
 
 const prjFunc = {
@@ -61,4 +62,6 @@ const prjFunc = {
   }
 };
 
-document.addEventListener("DOMContentLoaded", prjFunc.init);
+document.addEventListener("DOMContentLoaded", ()=>{
+  prjFunc.init();
+});

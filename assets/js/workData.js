@@ -13,7 +13,7 @@ const workData =[
     nameEN: "pss",
     nameKR: "대통령 경호처",
     color: "#FFFFFF",
-    awards: ["wa","gd"],
+    awards: ["","gd"],
     anim: "bottom",
     colPC: 3,
     rowPC: 1,
@@ -150,4 +150,238 @@ const workData =[
     colMO: null,
   },
 ]
-export default workData;
+
+const workData2 = {
+  "Official Websites" : [
+    {
+      name: "TripClip",
+      txt: "Publishing",
+      date: "2023.02",
+    },
+    {
+      name: "DrainFilter",
+      txt: "Publishing",
+      date: "2023.08",
+    },
+    {
+      name: "Optima Solution",
+      txt: "Publishing",
+      date: "2023.12",
+    },
+    {
+      name: "Deeply",
+      txt: "Publishing",
+      date: "2024.04",
+    },
+    {
+      name: "Intellisys",
+      txt: "Publishing",
+      date: "2021",
+    },
+    {
+      name: "대동 계열사 - 대동 애그테크",
+      txt: "Publishing",
+      date: "2025.06",
+    },
+    {
+      name: "대동 계열사 - 대동 로보틱스",
+      txt: "Publishing",
+      date: "2025.02",
+    },
+    {
+      name: "대동 공식 홈페이지 유지보수",
+      txt: "Publishing",
+      date: "2023.06",
+    },
+    {
+      name: "삼화제지",
+      txt: "Publishing",
+      date: "2021",
+    },
+    {
+      name: "대동 모빌리티(ko,jp)",
+      txt: "Publishing",
+      date: "2024-2025",
+    },
+    {
+      name: "WWG",
+      txt: "Publishing",
+      date: "2024",
+    },
+    {
+      name: "STAXX",
+      txt: "Publishing",
+      date: "2023",
+    },
+  ],
+  "Portfolio Sites": [
+    {
+      name: "POPMSCO",
+      txt: "Publishing",
+      date: "2023.12"
+    },
+    {
+      name: "Amon Design",
+      txt: "Publishing & Design",
+      date: "2023.12"
+    },
+    {
+      name: "Aprilmarch",
+      txt: "Publishing & Design",
+      date: "2024"
+    },
+    {
+      name: "WeverCNS",
+      txt: "Publishing",
+      date: "2023"
+    },
+    {
+      name: "DFRY",
+      txt: "Publishing",
+      date: "2021"
+    },
+    {
+      name: "M.BUSH 기획",
+      txt: "Publishing",
+      date: "2025"
+    },
+  ],
+  "Campaign & Promotions": [
+    {
+      name: "컴패션 2023 결연아동후원 캠페인",
+      txt: "Publishing",
+      date: "2023.09"
+    },
+    {
+      name: "유니세프 in 블루",
+      txt: "Publishing",
+      date: "2023.11"
+    },
+    {
+      name: "NC DInos Kiosk Event",
+      txt: "Publishing",
+      date: "2021"
+    },
+    {
+      name: "NC DInos Kiosk Event",
+      txt: "Publishing",
+      date: "2021"
+    },
+    {
+      name: "삼성 #YouMake 오픈 알림 신청",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "삼성 #YouMake 프로젝트",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "삼성전자 세일 페스타",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "삼성전자 BESPOKE 그랑데 AI 신상 컬렉션",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "삼성 선물하기 & 연말",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "삼성 e식품관 SUMMER FOOD FESTA",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "삼성 e식품관 메리 추석 선물하기 기획전",
+      txt: "Publishing",
+      date: ""
+    },
+    {
+      name: "그린피스 드라이빙 체인지",
+      txt: "Publishing",
+      date: "2023"
+    },
+    {
+      name: "탄소중립 녹색 성장 캠페인",
+      txt: "Publishing",
+      date: "2023"
+    }
+  ],
+  "Institutions & Non-profits": [
+    {
+      name: "태제연구재단",
+      txt: "Publishing",
+      date:"2024"
+    },
+    {
+      name:"매원장학재단",
+      txt: "Publishing",
+      date: "2024",
+    },
+    {
+      name:"BAU 공간디자인학과 온라인 전시회",
+      txt: "Publishing",
+      date: "2022-2025",
+    },
+    {
+      name:"K-GO K-arts on the GO",
+      txt: "Publishing",
+      date: "2025",
+    },
+    {
+      name:"대통령 경호처",
+      txt: "Publishing",
+      date: "2023",
+    },
+    {
+      name:"KIC 한국투자공사",
+      txt: "Publishing",
+      date: "2025",
+    }
+  ],
+  "Services & Systems": [
+    {
+      name:"맘시터 비즈니스",
+      txt: "Publishing",
+      date:"2024"
+    },
+    {
+      name:"CLDB 형사법 DB",
+      txt: "Publishing",
+      date:"2024"
+    },
+    {
+      name:"스티비 뉴스레터 ",
+      txt: "Publishing",
+      date:"2021",
+    },
+    {
+      name:"KLAY RABBIT (NFT)",
+      txt: "Publishing",
+      date:"2021",
+    },
+    {
+      name:"마음하나",
+      txt: "Publishing",
+      date:"2024-2025",
+    },
+    {
+      name:"매칭코리아",
+      txt: "Publishing",
+      date:"2024",
+    },
+    {
+      name:"헬스맥스",
+      txt: "Publishing",
+      date:"2021",
+    }
+  ]
+}
+
+export {workData, workData2};

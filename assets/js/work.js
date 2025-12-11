@@ -1,27 +1,26 @@
 import cmn from './common.js';
-import workData from "./workData.js";
+import {workData} from "./workData.js";
 
 const workList = {
   _workData: null,
   _workListEl: null,
 
   _workPushList: function(){
-    let awardsInner = '';
-    if (Array.isArray(work.awards) && work.awards.length > 0) {
-      if (work.awards.includes('wa')) {
-        awardsInner += '<span class="webaward"></span>';
-      }
-      if (work.awards.includes('gd')) {
-        awardsInner += '<span class="gdweb"></span>';
-      }
-    }
-
-    // 실제로 awardsInner에 뭔가 들어있을 때만 .awards 래퍼 생성
-    const awardsHTML = awardsInner
-        ? `<span class="awards">${awardsInner}</span>`
-        : '';
-
     this._workData.forEach((work)=>{
+      let awardsInner = '';
+      if (Array.isArray(work.awards) && work.awards.length > 0) {
+        if (work.awards.includes('wa')) {
+          console.log(work.awards);
+          awardsInner += '<span class="webaward"></span>';
+        }
+        if (work.awards.includes('gd')) {
+          awardsInner += '<span class="gdweb"></span>';
+        }
+      }
+      let awardsHTML = awardsInner
+          ? `<span class="awards">${awardsInner}</span>`
+          : '';
+
       let item = `
         <li class="colST${work.colPC} md_colST${work.colMO} on_${work.anim} anim" style="background:${work.color}">
           <a href="#" class="target">
@@ -43,6 +42,7 @@ const workList = {
     this._workPushList();
   }
 }
+
 const work = {
   init: function(){
     
