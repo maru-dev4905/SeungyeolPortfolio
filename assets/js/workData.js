@@ -1,4 +1,4 @@
-const workData =[
+const featuredData =[
   {
     nameEN: "samwhapaper",
     nameKR: "삼화제지",
@@ -149,29 +149,29 @@ const workData =[
     rowPC: 10,
     colMO: null,
   },
-]
+];
 
-const workData2 = {
+const allData = {
   "Official Websites" : [
     {
       name: "TripClip",
       txt: "Publishing",
-      date: "2023.02",
+      date: "2023",
     },
     {
       name: "DrainFilter",
       txt: "Publishing",
-      date: "2023.08",
+      date: "2023",
     },
     {
       name: "Optima Solution",
       txt: "Publishing",
-      date: "2023.12",
+      date: "2023",
     },
     {
       name: "Deeply",
       txt: "Publishing",
-      date: "2024.04",
+      date: "2024",
     },
     {
       name: "Intellisys",
@@ -181,17 +181,17 @@ const workData2 = {
     {
       name: "대동 계열사 - 대동 애그테크",
       txt: "Publishing",
-      date: "2025.06",
+      date: "2025",
     },
     {
       name: "대동 계열사 - 대동 로보틱스",
       txt: "Publishing",
-      date: "2025.02",
+      date: "2025",
     },
     {
       name: "대동 공식 홈페이지 유지보수",
       txt: "Publishing",
-      date: "2023.06",
+      date: "2023",
     },
     {
       name: "삼화제지",
@@ -218,12 +218,12 @@ const workData2 = {
     {
       name: "POPMSCO",
       txt: "Publishing",
-      date: "2023.12"
+      date: "2023"
     },
     {
       name: "Amon Design",
       txt: "Publishing & Design",
-      date: "2023.12"
+      date: "2023"
     },
     {
       name: "Aprilmarch",
@@ -250,12 +250,12 @@ const workData2 = {
     {
       name: "컴패션 2023 결연아동후원 캠페인",
       txt: "Publishing",
-      date: "2023.09"
+      date: "2023"
     },
     {
       name: "유니세프 in 블루",
       txt: "Publishing",
-      date: "2023.11"
+      date: "2023"
     },
     {
       name: "NC DInos Kiosk Event",
@@ -270,37 +270,37 @@ const workData2 = {
     {
       name: "삼성 #YouMake 오픈 알림 신청",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "삼성 #YouMake 프로젝트",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "삼성전자 세일 페스타",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "삼성전자 BESPOKE 그랑데 AI 신상 컬렉션",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "삼성 선물하기 & 연말",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "삼성 e식품관 SUMMER FOOD FESTA",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "삼성 e식품관 메리 추석 선물하기 기획전",
       txt: "Publishing",
-      date: ""
+      date: "2023"
     },
     {
       name: "그린피스 드라이빙 체인지",
@@ -384,4 +384,4 @@ const workData2 = {
   ]
 }
 
-export {workData, workData2};
+export {featuredData, allData};
