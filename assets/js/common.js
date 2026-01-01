@@ -1,5 +1,8 @@
 import noiseBackgroundAnimation from "./modules/noiseAnim.js";
 import moveMouseAnimation from "./modules/moveToMouse.js";
+import prjFunc from "./prj.js";
+import work_list from "./work.js";
+
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
 const cmn = {
@@ -13,6 +16,53 @@ const cmn = {
   _smooth: null,
   _fadeEl: null,
   _isIntro: null,
+  _pageNamespace: null,
+
+  pageInit: function(){
+    this._isIntro = this._q("#intro");
+    this._isIntro ? this._smooth.paused(true) : this._smooth.paused(false);
+    this._pageNamespace = this._q('div[data-barba-namespace]').getAttribute('data-barba-namespace');
+    
+    noiseBackgroundAnimation();
+    moveMouseAnimation();
+
+    // if(this._pageNamespace === 'about'){
+    //   prjFunc.aboutRollingImgAnim.init();
+    // }
+
+    cmn.anim.init();
+    cmn.scrTopAnim.init();
+
+    // Footer on class toggle
+    const ft = this._q("footer");
+    gsap.to("footer",{
+      scrollTrigger:{
+        trigger: "footer",
+        onEnter: ()=>{
+          ft.classList.add("on");
+        },
+        onLeaveBack: ()=>{
+          ft.classList.remove("on");
+        }
+      }
+    });
+
+    // Intro 없을 시 Header 애니메이션
+    !this._isIntro && gsap.timeline({})
+        .to("header h1", {
+          height: 120,
+          duration: 1,
+          ease: "power2.out",
+        }, ">")
+        .to("header nav ul", {
+          height: 50,
+          duration: 1,
+          ease: "power2.out",
+        },"<");
+
+        
+    ScrollTrigger.refresh();
+  },
 
   anim: {
     toggleClass: function () {
@@ -113,10 +163,43 @@ const cmn = {
         },"<");
   },
 
+
+  pageMoveTransition: {
+    transition:function(){
+      let tl = gsap.timeline();
+      tl.to('.page-transition', { duration: .5, scaleX:1, transformOrigin: "bottom right", stagger: .2})
+      tl.to('.page-transition', { duration: .5, scaleX: 0, transformOrigin: "bottom right", stagger: .1 , delay:.1})
+    },
+    init: ()=>{
+      barba.init({
+        transitions: [{
+          name: 'default',
+          leave(data){
+            return gsap.to(data.current.container, {
+              opacity: 0,
+            })
+          },
+          enter(data){
+            return gsap.from(data.next.container, {
+              opacity: 0,
+            })
+          }
+        }]
+      });
+
+      barba.hooks.once(()=>{
+        cmn.pageInit();
+      });
+
+      barba.hooks.afterEnter(()=>{
+        cmn.pageInit();
+      });
+    }
+  },
+
   init: function () {
     if (this._inited) return;
     this._inited = true;
-    this._isIntro = this._q("#intro");
     this._smooth = ScrollSmoother.create({
       smooth: 2,
       effects: true,
@@ -126,13 +209,8 @@ const cmn = {
     window._q = this._q;
     window._qq = this._qq;
 
-    this._isIntro ? this._smooth.paused(true) : null;
-
-    noiseBackgroundAnimation();
-    moveMouseAnimation();
-    cmn.anim.init();
-    cmn.scrTopAnim.init();
     cmn._q("#intro") && this.introAnim();
+    cmn._q('div[data-barba]') && this.pageMoveTransition.init();
 
     window.addEventListener('scroll', () => {
       let winY = window.scrollY;
@@ -141,7 +219,7 @@ const cmn = {
       winY > hd.offsetHeight ? hdScrAnim.play() : hdScrAnim.reverse();
     });
 
-    let hdPin = gsap.to("body",{
+    gsap.to("body",{
       scrollTrigger: {
         trigger: "body",
         start: "top top",
@@ -152,74 +230,51 @@ const cmn = {
     });
     let hdScrAnim = gsap.timeline({paused: true});
     hdScrAnim
-        .set("header h1", {
-          height: 120,
-          color: "#fff",
-          backgroundColor: "#000",
-          duration: .25,
-          ease: "power2.out",
-        })
-        .to("header h1", {
-          height: 0,
-          color: "#fff",
-          backgroundColor: "#000",
-          duration: .25,
-          ease: "power2.out",
-        })
-        .to("header nav ul", {
-          height: 0,
-          backgroundColor: "#000",
-          duration: .25,
-          ease: "power2.out",
-        },">")
-        .set("header h1", {
-          backgroundColor: "rgba(244,244,244,0.9)",
-        }, ">")
-        .set("header h1 p, header h1 span", {
-          display: "none"
-        }, ">")
-        .set("header nav ul",{
-          backgroundColor: "rgba(0,0,0,0)",
-        },">")
-        .to("header h1", {
-          height: 120,
-          color: "#000",
-          backdropFilter: "blur(5px)",
-          duration: .35,
-          ease: "power2.out",
-        }, "+=0.5")
-        .to("header nav ul", {
-          backgroundColor: "rgba(244,244,244,1)",
-          height: 50,
-          duration: .35,
-          opacity: 0.8,
-          ease: "power2.out",
-        },">");
+      .set("header h1", {
+        height: 120,
+        color: "#fff",
+        backgroundColor: "#000",
+        duration: .25,
+        ease: "power2.out",
+      })
+      .to("header h1", {
+        height: 0,
+        color: "#fff",
+        backgroundColor: "#000",
+        duration: .25,
+        ease: "power2.out",
+      })
+      .to("header nav ul", {
+        height: 0,
+        backgroundColor: "#000",
+        duration: .25,
+        ease: "power2.out",
+      },">")
+      .set("header h1", {
+        backgroundColor: "rgba(244,244,244,0.9)",
+      }, ">")
+      .set("header h1 p, header h1 span", {
+        display: "none"
+      }, ">")
+      .set("header nav ul",{
+        backgroundColor: "rgba(0,0,0,0)",
+      },">")
+      .to("header h1", {
+        height: 120,
+        color: "#000",
+        backdropFilter: "blur(5px)",
+        duration: .35,
+        ease: "power2.out",
+      }, "+=0.5")
+      .to("header nav ul", {
+        backgroundColor: "rgba(244,244,244,1)",
+        height: 50,
+        duration: .35,
+        opacity: 0.8,
+        ease: "power2.out",
+      },">");
 
-    const ft = this._q("footer");
-    const ftLineAnim = gsap.to("footer",{
-      scrollTrigger:{
-        trigger: "footer",
-        onEnter: ()=>{
-          ft.classList.add("on");
-        },
-        onLeaveBack: ()=>{
-          ft.classList.remove("on");
-        }
-      }
-    });
-
-    !this._isIntro && gsap.timeline({})
-        .to("header h1", {
-          height: 120,
-          duration: 1,
-          ease: "power2.out",
-        }, ">")
-        .to("header nav ul", {
-          height: 50,
-          duration: 1,
-          ease: "power2.out",
-        },"<");
+    this.pageInit();
   }
 }
 

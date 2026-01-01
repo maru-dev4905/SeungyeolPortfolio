@@ -137,3 +137,5 @@ document.addEventListener("DOMContentLoaded", ()=>{
   const id = ({ work: 0, works: 1 })[mainEl?.id] ?? 0;
   id ? work_list.init() : work.init();
 });
+
+export default work_list;
