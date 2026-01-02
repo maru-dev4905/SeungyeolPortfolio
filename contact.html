@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="theme-color" content="" />
+  <meta name="apple-mobile-web-app-capable" content="" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="" />
+  <meta name="title" content="" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <!-- BEGIN FACEBOOK Meta -->
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:description" content="" />
+  <!-- END FACEBOOK Meta -->
+
+  <!-- BEGIN TWITTER Meta -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
+  <!-- END TWITTER Meta -->
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="./assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="./assets/images/favicon.ico" />
+
+  <title>LeeSeungyeol - CONTACT ME</title>
+
+  <!-- css  -->
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/common.css" />
+  <link rel="stylesheet" href="./assets/css/sub.css" />
+
+  <!-- JS -->
+  <script src="./assets/js/common.js" type="module" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+</head>
+
+<body>
+<div class="noise-canvas" aria-hidden="true">
+  <canvas id="grain"></canvas>
+</div>
+<div id="smooth-wrapper">
+  <div class="cursor-outline"></div>
+  <div class="cursor-dot"></div>
+  <div class="coordinate_display">
+    ( <span class="coordinate_display_x">X: 0px</span>,
+    <span class="coordinate_display_y">Y: 0px</span> )
+  </div>
+  <div id="smooth-content">
+    <header class="on">
+      <div class="inner">
+        <h1>
+          <a href="./index.html" class="target">
+            <strong>
+              LEE S<i>E</i>UNG<i>Y</i>EOL <br>
+              P<i>U</i>BLIS<i>H</i>ER
+            </strong>
+            <span>.PORTFOLIO</span>
+            <p>SY</p>
+          </a>
+        </h1>
+        <nav class="gnb">
+          <ul>
+            <li ><a href="./about.html" data-nav="Who I Am" class="target"><span>Who I Am</span></a></li>
+            <li><a href="./works.html" data-nav="My Works" class="target"><span>My Works</span></a></li>
+            <li class="on"><a href="./contact.html" data-nav="Contact Me" class="target"><span>Contact Me</span></a></li>
+            <li><a href="#" data-nav="Playground" class="target"><span>Playground</span></a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="works">
+      <section class="sec_visual">
+        <div class="inner">
+          <em>(</em>
+          <em>)</em>
+          <h2>
+            LET’S START A CONVERSATION. <br>
+            OR BUILD SOMETHING TOGETHER.
+          </h2>
+        </div>
+      </section>
+      <div class="banner anim">
+        <p>
+          <span>EACH</span>
+          <span>PROJECT</span>
+          <span>/</span>
+          <span>BEGINS</span>
+          <span>WITH</span>
+          <span>AN</span>
+          <span>IDEA</span>
+          <span>/</span>
+          <span>AND</span>
+          <span>GROWS</span>
+          <span>THROUGH</span>
+          <span>DETAIL.</span>
+        </p>
+        <p>
+          <span>EVERY</span>
+          <span>PIXEL</span>
+          <span>/</span>
+          <span>EVERY</span>
+          <span>MOTION</span>
+          <span>/</span>
+          <span>EVERY</span>
+          <span>LINE</span>
+          <span>/</span>
+          <span>TELLS</span>
+          <span>A</span>
+          <span>STORY.</span>
+        </p>
+      </div>
+
+      <section class="sec_contact">
+        <div class="inner_base">
+          <div class="lang">
+            <button type="button" class="kor_btn">KOR</button>
+            <div></div>
+            <button type="button" class="eng_btn">ENG</button>
+          </div>
+          <div class="kor">
+            <form action="#" method="POST" id="kor_mail">
+              <p>안녕하세요, 저는</p>
+              <label for="kor_company" class="hidden"></label>
+              <input type="text" placeholder="회사명을 입력해주세요 (선택)" id="kor_company" name="kor_company"><p>의</p>
+              <label for="kor_name" class="hidden"></label>
+              <input type="text" placeholder="이름을 입력해주세요" id="kor_name" name="kor_name"><p>입니다.</p>
+              <p>연락 가능한 이메일은</p>
+              <label for="kor_email" class="hidden"></label>
+              <input type="email" placeholder="이메일을 입력해주세요" id="kor_email" name="kor_email"><p>입니다.</p>
+              <p>문의 유형은</p>
+              <div class="select_wrap">
+                <button type="button" class="select_btn">유형</button>
+                <div class="options">
+                  <label for="kor_type1">협업</label>
+                  <input type="radio" id="kor_type1" name="kor_type" value="0">
+                  <label for="kor_type2">의뢰</label>
+                  <input type="radio" id="kor_type2" name="kor_type" value="1">
+                  <label for="kor_type3">채용</label>
+                  <input type="radio" id="kor_type3" name="kor_type" value="2">
+                  <label for="kor_type4">기타</label>
+                  <input type="radio" id="kor_type4" name="kor_type" value="3">
+                </div>
+              </div>
+              <p>입니다.</p>
+              <p>주요 내용은</p>
+              <label for="kor_description" class="hidden"></label>
+              <textarea name="kor_description" id="kor_description" placeholder="내용을 입력해주세요"></textarea>
+              <p>입니다.</p>
+
+              <button type="submit">SEND</button>
+            </form>
+          </div>
+          <div class="eng">
+            <form action="#" method="POST" id="eng_mail">
+              <p>Hello, I'm</p>
+              <label for="eng_company" class="hidden"></label>
+              <input type="text" placeholder="name" id="eng_name" name="eng_name">
+              <label for="eng_name" class="hidden"></label>
+              <input type="text" placeholder="company" id="eng_company" name="eng_company">
+              <p>You can reach me at</p>
+              <label for="eng_email" class="hidden"></label>
+              <input type="email" placeholder="email" id="eng_email" name="eng_email">
+              <p>The inquiry type is</p>
+              <div class="select_wrap">
+                <button type="button" class="select_btn">Type</button>
+                <div class="options">
+                  <label for="eng_type1">collaboration1</label>
+                  <input type="radio" id="eng_type1" name="eng_type" value="0">
+                  <label for="eng_type2">project</label>
+                  <input type="radio" id="eng_type2" name="eng_type" value="1">
+                  <label for="eng_type3">hiring</label>
+                  <input type="radio" id="eng_type3" name="eng_type" value="2">
+                  <label for="eng_type4">others</label>
+                  <input type="radio" id="eng_type4" name="eng_type" value="3">
+                </div>
+              </div>
+              <p>Please write down the main details in the message field below</p>
+              <label for="eng_description" class="hidden"></label>
+              <textarea name="eng_description" id="eng_description" placeholder="message"></textarea>
+
+              <button type="submit">SEND</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="line">
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <i></i>
+        <span></span>
+      </div>
+      <div class="inner">
+        <div class="links">
+          <div>
+            <div>
+              <strong>LINK :</strong>
+              <a href="#" class="target">Github</a>
+              <a href="#" class="target">Facebook</a>
+              <a href="#" class="target">Instagram</a>
+            </div>
+          </div>
+          <div>
+            <strong>CREDITS :</strong>
+            <p>Site by Lee-Seungyeol</p>
+            <strong>CONTACT :</strong>
+            <p><span id="emailTxt">iseung10e@gmail.com</span> <button type="button" class="copy_btn" data-target="emailTxt"></button></p>
+            <p><span id="phoneNum">010-2269-0763</span> <button type="button" class="copy_btn" data-target="phoneNum"></button></p>
+          </div>
+          <div>
+            <strong>Resume :</strong>
+            <a href="#" class="resume" download>Download Resume _ PDF, 3MB</a>
+          </div>
+        </div>
+        <div class="desc">
+          <div>
+            <button type="button" class="scr_btn target" ></button>
+            <p>Seungyeol Portfolio - Thank you for looking at my portfolio</p>
+            <p>@ 2025 / All rights reserved</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="./assets/js/prj.js" type="module"></script>
+<script src="./assets/js/work.js" type="module"></script>
+</body>
+
+</html>
