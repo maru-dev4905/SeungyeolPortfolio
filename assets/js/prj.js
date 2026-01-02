@@ -46,22 +46,16 @@ const prjFunc = {
     }
   },
 
-  scrTxtAnim: {
-    _isSlice: false,
-
-    init: function () {
-
-    },
-  },
-
   init: function () {
     if (prjFunc._inited) return;
     prjFunc._inited = true;
 
-    _q('#about') && prjFunc.aboutRollingImgAnim.init();
+    // cmn._q('#about') && prjFunc.aboutRollingImgAnim.init();
   }
 };
 
 document.addEventListener("DOMContentLoaded", ()=>{
   prjFunc.init();
 });
+
+export default prjFunc;
