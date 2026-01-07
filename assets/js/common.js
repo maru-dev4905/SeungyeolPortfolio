@@ -58,23 +58,14 @@ const cmn = {
     this._pageNamespace =
         page.getAttribute("data-namespace") || page.id || null;
 
-    // 인트로 유무
-    this._isIntro = this._q("#intro");
-    if (this._isIntro) {
-      this._smooth && this._smooth.paused(true);
-      this.introAnim();
-    } else {
-      this._smooth && this._smooth.paused(false);
-    }
-
     // 공통 애니메이션
     this.anim.init();
     this.scrTopAnim.init();
     this._setupHeaderScroll();
     this._setupFooterAnim();
 
-    // 인트로 없는 페이지에서는 헤더 오픈 애니메이션
-    if (!this._isIntro) {
+    // 메인 제외 헤더 오픈 애니메이션
+    if (!this._pageNamespace.includes('main')) {
       gsap
           .timeline({})
           .to(
@@ -102,6 +93,8 @@ const cmn = {
     }else if(this._pageNamespace.includes('about')){
       prjFunc.aboutRollingImgAnim.init();
     }else if(this._pageNamespace.includes('main')){
+      this._smooth && this._smooth.paused(true);
+      this.introAnim();
       mainFunc.init();
     }
 
@@ -140,6 +133,7 @@ const cmn = {
     init() {
       this._fadeEl = cmn._qq(".anim");
       this.toggleClass();
+      ScrollTrigger.refresh();
     }
   },
 
@@ -285,6 +279,14 @@ const cmn = {
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
     tl.to(
+        "#intro",
+        {
+          opacity: 1,
+          visibility:'visible',
+          duration: 0,
+        }
+    )
+    tl.to(
         paths,
         {
           strokeDashoffset: 0,
@@ -398,6 +400,7 @@ const cmn = {
       prjFunc.init();
       this.setupScrollThings();
       moveMouseAnimation();
+      ScrollTrigger.refresh();
     });
   },
 

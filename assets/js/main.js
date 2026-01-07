@@ -106,12 +106,11 @@ const mainFunc = {
     if (this._inited) return;
     this._inited = true;
 
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-      this.scrAnim();
-      this.mainAnim();
-      this.scrDown();
-    }, 100);
+    ScrollTrigger.refresh();
+
+    this.scrAnim();
+    this.mainAnim();
+    this.scrDown();
   }
 };
 

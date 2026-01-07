@@ -83,7 +83,7 @@ em{
 
 /* Define a transition duration during page visits */
 html.is-changing .transition-fade {
-  transition: opacity 0.25s;
+  transition: opacity 1s;
   opacity: 1;
 }
 /* Define the styles for the unloaded pages */
@@ -418,6 +418,8 @@ footer{
   height: 100%;
   z-index : 100000000;
   background-color: #111;
+  opacity: 0;
+  visibility : hidden;
   .item{
     width : 80px;
     height: auto;
