@@ -1,9 +1,11 @@
 // common.js
 import Swup from 'https://unpkg.com/swup@4?module';
+import SwupHeadPlugin from 'https://unpkg.com/@swup/head-plugin@2?module';
 
 import noiseBackgroundAnimation from "./modules/noiseAnim.js";
 import moveMouseAnimation from "./modules/moveToMouse.js";
 import prjFunc from "./prj.js";
+import mainFunc from "./main.js";
 import work_list from "./work.js";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -99,6 +101,8 @@ const cmn = {
       work_list.init();
     }else if(this._pageNamespace.includes('about')){
       prjFunc.aboutRollingImgAnim.init();
+    }else if(this._pageNamespace.includes('main')){
+      mainFunc.init();
     }
 
     ScrollTrigger.refresh();
@@ -380,7 +384,8 @@ const cmn = {
 
     this._swup = new Swup({
       containers: [".page"],
-      animationSelector: ".transition-fade"
+      animationSelector: ".transition-fade",
+      plugins: [new SwupHeadPlugin()]
     });
 
     // 새 콘텐츠 들어오기 직전: 기존 ScrollTrigger 정리

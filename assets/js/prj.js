@@ -1,5 +1,4 @@
 // prj.js
-import cmn from './common.js';
 gsap.registerPlugin(ScrollTrigger);
 
 const prjFunc = {
@@ -49,8 +48,6 @@ const prjFunc = {
   init: function () {
     if (prjFunc._inited) return;
     prjFunc._inited = true;
-
-    // cmn._q('#about') && prjFunc.aboutRollingImgAnim.init();
   }
 };
 

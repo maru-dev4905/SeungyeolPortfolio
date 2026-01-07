@@ -1,11 +1,6 @@
-html, body{
+body{
   height: 100%;
   overflow: hidden;
-}
-[data-scroll-container]{
-  position: relative;
-  overflow-x: hidden;
-  min-height: 100%;
 }
 
 .sec_visual{

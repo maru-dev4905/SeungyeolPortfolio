@@ -1,5 +1,3 @@
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
 const mainFunc = {
   _q(sel, ctx = document) {
     return ctx.querySelector(sel);
@@ -117,6 +115,4 @@ const mainFunc = {
   }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  mainFunc.init();
-});
+export default mainFunc;
