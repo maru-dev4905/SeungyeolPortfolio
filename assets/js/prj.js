@@ -54,8 +54,4 @@ const prjFunc = {
   }
 };
 
-document.addEventListener("DOMContentLoaded", ()=>{
-  prjFunc.init();
-});
-
 export default prjFunc;

@@ -32,6 +32,8 @@ const work_list = {
     btn.classList.add('on');
 
     this._renderList();
+
+    ScrollTrigger.refresh();
   },
 
   _getListItemHTML(category,work){
@@ -106,6 +108,31 @@ const work_list = {
     cmn.anim.toggleClass();
   },
 
+  _setPinText(){
+    const pinTxt = cmn._q(".work_list .pin_txt");
+    const workList = cmn._q(".work_list");
+
+    ScrollTrigger.create({
+      trigger: ".work_list",
+      start: "top+=5% 50%",
+      end: () => "+=" + (workList.offsetHeight - window.innerHeight / 2),
+      pin: pinTxt,
+      pinSpacing: false,
+      onEnter:()=>{
+        pinTxt.classList.add("on");
+      },
+      onEnterBack:()=>{
+        pinTxt.classList.add("on");
+      },
+      onLeaveBack:()=>{
+        pinTxt.classList.remove("on");
+      },
+      onLeave:()=>{
+        pinTxt.classList.remove("on");
+      }
+    })
+  },
+
   init(){
     this._featuredData = Array.from(featuredData) || [];
     this._allData = {...allData} || [];
@@ -123,6 +150,7 @@ const work_list = {
     this._renderList();
 
     cmn.anim.toggleClass();
+    this._setPinText();
   },
 }
 
@@ -131,11 +159,5 @@ const work = {
     
   }
 }
-
-document.addEventListener("DOMContentLoaded", ()=>{
-  const mainEl = cmn._q('main'); 
-  const id = ({ work: 0, works: 1 })[mainEl?.id] ?? 0;
-  id ? work_list.init() : work.init();
-});
 
 export default work_list;

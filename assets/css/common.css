@@ -81,6 +81,16 @@ em{
   column-gap: 1.25rem;
 }
 
+/* Define a transition duration during page visits */
+html.is-changing .transition-fade {
+  transition: opacity 0.25s;
+  opacity: 1;
+}
+/* Define the styles for the unloaded pages */
+html.is-animating .transition-fade {
+  opacity: 0;
+}
+
 .noise-canvas{
   position: fixed;
   z-index: 9999;
@@ -530,17 +540,20 @@ footer{
         opacity: 1;
       }
     }
-    &>p{
+    .pin_txt{
       position: absolute;
-      top: 50%; left: 50%;
-      z-index : 1;
+      left: 50%; top: 5%;
+      z-index : 10;
+      transform: translateX(-50%);
       touch-action: none;
       -webkit-user-drag: none;
-      transform: translate(-50%,-50%);
       font-size: 1.25rem;
       font-weight: 300;
       color: var(--white1);
       mix-blend-mode: difference;
+      opacity: 0;
+      transition: opacity .3s ease-in-out;
+      &.on{opacity: 1}
     }
     em{
       font-family: "Brown Sugar";

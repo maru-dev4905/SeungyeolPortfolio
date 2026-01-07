@@ -1,3 +1,6 @@
+// common.js
+import Swup from 'https://unpkg.com/swup@4?module';
+
 import noiseBackgroundAnimation from "./modules/noiseAnim.js";
 import moveMouseAnimation from "./modules/moveToMouse.js";
 import prjFunc from "./prj.js";
@@ -12,272 +15,416 @@ const cmn = {
   _qq(sel, ctx = document) {
     return Array.from(ctx.querySelectorAll(sel));
   },
+
   _inited: false,
   _smooth: null,
-  _fadeEl: null,
-  _isIntro: null,
   _pageNamespace: null,
+  _isIntro: null,
+  _swup: null,
 
-  pageInit: function(){
-    this._isIntro = this._q("#intro");
-    this._isIntro ? this._smooth.paused(true) : this._smooth.paused(false);
-    this._pageNamespace = this._q('div[data-barba-namespace]').getAttribute('data-barba-namespace');
-    
-    noiseBackgroundAnimation();
-    moveMouseAnimation();
+  // ---------------------------
+  // ScrollSmoother 한 번만 만들기
+  // ---------------------------
+  initSmoother() {
+    const wrapper = this._q("#smooth-wrapper");
+    const content = this._q("#smooth-content");
+    if (!wrapper || !content) {
+      return;
+    }
 
-    // if(this._pageNamespace === 'about'){
-    //   prjFunc.aboutRollingImgAnim.init();
-    // }
+    if (this._smooth) return; // 한 번만 생성
 
-    cmn.anim.init();
-    cmn.scrTopAnim.init();
-
-    // Footer on class toggle
-    const ft = this._q("footer");
-    gsap.to("footer",{
-      scrollTrigger:{
-        trigger: "footer",
-        onEnter: ()=>{
-          ft.classList.add("on");
-        },
-        onLeaveBack: ()=>{
-          ft.classList.remove("on");
-        }
-      }
+    this._smooth = ScrollSmoother.create({
+      wrapper: "#smooth-wrapper",
+      content: "#smooth-content",
+      smooth: 2,
+      effects: true,
+      normalizeScroll: true
     });
-
-    // Intro 없을 시 Header 애니메이션
-    !this._isIntro && gsap.timeline({})
-        .to("header h1", {
-          height: 120,
-          duration: 1,
-          ease: "power2.out",
-        }, ">")
-        .to("header nav ul", {
-          height: 50,
-          duration: 1,
-          ease: "power2.out",
-        },"<");
-
-        
-    ScrollTrigger.refresh();
   },
 
+  // ---------------------------
+  // 페이지마다 다시 세팅되는 부분
+  // ---------------------------
+  setupScrollThings() {
+
+    const page = this._q(".page[data-swup='container']");
+    if (!page) {
+      return;
+    }
+
+    this._pageNamespace =
+        page.getAttribute("data-namespace") || page.id || null;
+
+    // 인트로 유무
+    this._isIntro = this._q("#intro");
+    if (this._isIntro) {
+      this._smooth && this._smooth.paused(true);
+      this.introAnim();
+    } else {
+      this._smooth && this._smooth.paused(false);
+    }
+
+    // 공통 애니메이션
+    this.anim.init();
+    this.scrTopAnim.init();
+    this._setupHeaderScroll();
+    this._setupFooterAnim();
+
+    // 인트로 없는 페이지에서는 헤더 오픈 애니메이션
+    if (!this._isIntro) {
+      gsap
+          .timeline({})
+          .to(
+              "header h1",
+              {
+                height: 120,
+                duration: 1,
+                ease: "power2.out"
+              },
+              ">"
+          )
+          .to(
+              "header nav ul",
+              {
+                height: 50,
+                duration: 1,
+                ease: "power2.out"
+              },
+              "<"
+          );
+    }
+
+    if(this._pageNamespace.includes('works')){
+      work_list.init();
+    }else if(this._pageNamespace.includes('about')){
+      prjFunc.aboutRollingImgAnim.init();
+    }
+
+    ScrollTrigger.refresh();
+    this._smooth && this._smooth.refresh();
+  },
+
+  // ---------------------------
+  // 페이지 떠나기 전에 ScrollTrigger 정리
+  // ---------------------------
+  destroyScrollThings() {
+    ScrollTrigger.getAll().forEach((st) => st.kill());
+    this._qq(".anim[data-st-init]").forEach((el) =>
+        el.removeAttribute("data-st-init")
+    );
+  },
+
+  // ---------------------------
+  // 애니메이션: .anim show 토글
+  // ---------------------------
   anim: {
-    toggleClass: function () {
+    toggleClass() {
       const els = cmn._qq(".anim:not([data-st-init])");
       if (!els.length) return;
 
       els.forEach((el) => {
-        el.setAttribute('data-st-init', 1);
+        el.setAttribute("data-st-init", 1);
         ScrollTrigger.create({
           trigger: el,
           start: "top 85%",
-          markers: false,
-          onEnter: () => el.classList.add('show'),
-          onLeaveBack: () => el.classList.remove('show')
+          onEnter: () => el.classList.add("show"),
+          onLeaveBack: () => el.classList.remove("show")
         });
       });
     },
-    init: function () {
+    init() {
       this._fadeEl = cmn._qq(".anim");
       this.toggleClass();
     }
   },
 
+  // ---------------------------
+  // 맨 위로 이동 버튼 (ScrollSmoother 사용)
+  // ---------------------------
   scrTopAnim: {
-    scrTop: function(){
-      const btn = cmn._q('.scr_btn');
-      btn.addEventListener('click', ()=>{
-        cmn._smooth.scrollTo(0 , true);
+    scrTop() {
+      const btn = cmn._q(".scr_btn");
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        if (cmn._smooth && cmn._smooth.scrollTo) {
+          cmn._smooth.scrollTo(0, true);
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       });
     },
-    init: function(){
+    init() {
       cmn._q(".scr_btn") && this.scrTop();
     }
   },
 
-  introAnim: function () {
-    const paths = [this._q("#path1"), this._q("#path2")];
-    paths.forEach(p => {
+  // ---------------------------
+  // 헤더 스크롤 고정/축소
+  // ---------------------------
+  _setupHeaderScroll() {
+    const hd = this._q("header");
+    if (!hd) return;
+
+    gsap.to("body", {
+      scrollTrigger: {
+        trigger: "body",
+        start: "top top",
+        pin: "header",
+        pinSpacing: false,
+        markers: false
+      }
+    });
+
+    const tl = gsap.timeline({ paused: true });
+
+    tl.set("header h1", {
+      height: 120,
+      color: "#fff",
+      backgroundColor: "#000",
+      duration: 0.25,
+      ease: "power2.out"
+    })
+        .to("header h1", {
+          height: 0,
+          color: "#fff",
+          backgroundColor: "#000",
+          duration: 0.25,
+          ease: "power2.out"
+        })
+        .to(
+            "header nav ul",
+            {
+              height: 0,
+              backgroundColor: "#000",
+              duration: 0.25,
+              ease: "power2.out"
+            },
+            ">"
+        )
+        .set(
+            "header h1",
+            {
+              backgroundColor: "rgba(244,244,244,0.9)"
+            },
+            ">"
+        )
+        .set(
+            "header h1 p, header h1 span",
+            {
+              display: "none"
+            },
+            ">"
+        )
+        .set(
+            "header nav ul",
+            {
+              backgroundColor: "rgba(0,0,0,0)"
+            },
+            ">"
+        )
+        .to("header h1", {
+          height: 120,
+          color: "#000",
+          backdropFilter: "blur(5px)",
+          duration: 0.35,
+          ease: "power2.out"
+        })
+        .to(
+            "header nav ul",
+            {
+              backgroundColor: "rgba(244,244,244,1)",
+              height: 50,
+              duration: 0.35,
+              opacity: 0.8,
+              ease: "power2.out"
+            },
+            ">"
+        );
+
+    window.addEventListener("scroll", () => {
+      const winY = window.scrollY;
+      winY > hd.offsetHeight ? tl.play() : tl.reverse();
+    });
+  },
+
+  // ---------------------------
+  // 푸터 애니메이션
+  // ---------------------------
+  _setupFooterAnim() {
+    const ft = this._q("footer");
+    if (!ft) return;
+
+    gsap.to("footer", {
+      scrollTrigger: {
+        trigger: "footer",
+        onEnter: () => ft.classList.add("on"),
+        onLeaveBack: () => ft.classList.remove("on")
+      }
+    });
+  },
+
+  // ---------------------------
+  // Intro 애니메이션
+  // ---------------------------
+  introAnim() {
+    const paths = [this._q("#path1"), this._q("#path2")].filter(Boolean);
+    if (!paths.length) return;
+
+    paths.forEach((p) => {
       const len = p.getTotalLength();
       p.style.strokeDasharray = len;
       p.style.strokeDashoffset = len;
     });
-    const pathTL = gsap.timeline({defaults: {ease: "power2.out"}});
-    pathTL
-        .to(paths, {
+
+    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+    tl.to(
+        paths,
+        {
           strokeDashoffset: 0,
           duration: 2,
-          delay: 0.5,
-        }, 0)
-        .to(paths, {
-          fill: "#fff",
-          attr: {fill: "#fff"},
-          duration: 0.35
-        },">")
-        .to(".item.left", {
-          x: `-10vw`,
-          duration: 0.9,
-          ease: "power3.inOut"
-        },">")
-        .to(".item.right", {
-          x: `10vw`,
-          duration: 0.9,
-          ease: "power3.inOut"
-        },"<")
-        .to(".item.center", {
-          width: 300,
-          scaleX: 1,
-          duration: 0.9,
-          ease: "power3.inOut"
-        },"<")
-        .to(".item.center", {
-          width: `100%`,
-          height: `100vh`,
-          scaleX: 1,
-          duration: 1.5,
-          ease: "power3.inOut"
-        },">")
-        .to("#intro", {
-          opacity: 0,
-          visibility: 'hidden',
-          duration: 0.2,
-          ease: "power3.inOut",
-          onComplete: () => {
-            cmn._q(".sec_visual").classList.add('on');
-            cmn._q(".coordinate_display").classList.add('on');
-            this._smooth.paused(false);
-          }
-        },">")
-        .to("header h1", {
-          height: 120,
-          duration: 1,
-          ease: "power2.out",
-        }, ">")
-        .to("header nav ul", {
-          height: 50,
-          duration: 1,
-          ease: "power2.out",
-        },"<");
+          delay: 0.5
+        },
+        0
+    )
+        .to(
+            paths,
+            {
+              fill: "#fff",
+              attr: { fill: "#fff" },
+              duration: 0.35
+            },
+            ">"
+        )
+        .to(
+            ".item.left",
+            {
+              x: "-10vw",
+              duration: 0.9,
+              ease: "power3.inOut"
+            },
+            ">"
+        )
+        .to(
+            ".item.right",
+            {
+              x: "10vw",
+              duration: 0.9,
+              ease: "power3.inOut"
+            },
+            "<"
+        )
+        .to(
+            ".item.center",
+            {
+              width: 300,
+              scaleX: 1,
+              duration: 0.9,
+              ease: "power3.inOut"
+            },
+            "<"
+        )
+        .to(
+            ".item.center",
+            {
+              width: "100%",
+              height: "100vh",
+              scaleX: 1,
+              duration: 1.5,
+              ease: "power3.inOut"
+            },
+            ">"
+        )
+        .to(
+            "#intro",
+            {
+              opacity: 0,
+              visibility: "hidden",
+              duration: 0.2,
+              ease: "power3.inOut",
+              onComplete: () => {
+                this._q(".sec_visual")?.classList.add("on");
+                this._q(".coordinate_display")?.classList.add("on");
+                this._smooth && this._smooth.paused(false);
+              }
+            },
+            ">"
+        )
+        .to(
+            "header h1",
+            {
+              height: 120,
+              duration: 1,
+              ease: "power2.out"
+            },
+            ">"
+        )
+        .to(
+            "header nav ul",
+            {
+              height: 50,
+              duration: 1,
+              ease: "power2.out"
+            },
+            "<"
+        );
   },
 
+  // ---------------------------
+  // Swup 설정 (ScrollSmoother와 공존)
+  // ---------------------------
+  setupSwup() {
+    if (this._swup) return;
 
-  pageMoveTransition: {
-    transition:function(){
-      let tl = gsap.timeline();
-      tl.to('.page-transition', { duration: .5, scaleX:1, transformOrigin: "bottom right", stagger: .2})
-      tl.to('.page-transition', { duration: .5, scaleX: 0, transformOrigin: "bottom right", stagger: .1 , delay:.1})
-    },
-    init: ()=>{
-      barba.init({
-        transitions: [{
-          name: 'default',
-          leave(data){
-            return gsap.to(data.current.container, {
-              opacity: 0,
-            })
-          },
-          enter(data){
-            return gsap.from(data.next.container, {
-              opacity: 0,
-            })
-          }
-        }]
-      });
+    this._swup = new Swup({
+      containers: [".page"],
+      animationSelector: ".transition-fade"
+    });
 
-      barba.hooks.once(()=>{
-        cmn.pageInit();
-      });
+    // 새 콘텐츠 들어오기 직전: 기존 ScrollTrigger 정리
+    this._swup.hooks.before("content:replace", () => {
+      this.destroyScrollThings();
+    });
 
-      barba.hooks.afterEnter(()=>{
-        cmn.pageInit();
-      });
-    }
+    // 새 콘텐츠가 들어온 뒤: 공통 UI + 애니 다시 세팅
+    this._swup.hooks.on("page:view", () => {
+      prjFunc.init();
+      this.setupScrollThings();
+      moveMouseAnimation();
+    });
   },
 
-  init: function () {
+  // ---------------------------
+  // 최초 init
+  // ---------------------------
+  init() {
     if (this._inited) return;
     this._inited = true;
-    this._smooth = ScrollSmoother.create({
-      smooth: 2,
-      effects: true,
-      normalizeScroll: true
-    });
-    window._smooth = this._smooth;
+
     window._q = this._q;
     window._qq = this._qq;
 
-    cmn._q("#intro") && this.introAnim();
-    cmn._q('div[data-barba]') && this.pageMoveTransition.init();
+    // ScrollSmoother 먼저 생성
+    this.initSmoother();
 
-    window.addEventListener('scroll', () => {
-      let winY = window.scrollY;
-      let hd = this._q('header');
+    // 공통 UI
+    prjFunc.init();
 
-      winY > hd.offsetHeight ? hdScrAnim.play() : hdScrAnim.reverse();
-    });
+    // 전역 애니메이션
+    noiseBackgroundAnimation();
+    moveMouseAnimation();
 
-    gsap.to("body",{
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        markers: false,
-        pin: "header",
-        pinSpacing: false,
-      }
-    });
-    let hdScrAnim = gsap.timeline({paused: true});
-    hdScrAnim
-      .set("header h1", {
-        height: 120,
-        color: "#fff",
-        backgroundColor: "#000",
-        duration: .25,
-        ease: "power2.out",
-      })
-      .to("header h1", {
-        height: 0,
-        color: "#fff",
-        backgroundColor: "#000",
-        duration: .25,
-        ease: "power2.out",
-      })
-      .to("header nav ul", {
-        height: 0,
-        backgroundColor: "#000",
-        duration: .25,
-        ease: "power2.out",
-      },">")
-      .set("header h1", {
-        backgroundColor: "rgba(244,244,244,0.9)",
-      }, ">")
-      .set("header h1 p, header h1 span", {
-        display: "none"
-      }, ">")
-      .set("header nav ul",{
-        backgroundColor: "rgba(0,0,0,0)",
-      },">")
-      .to("header h1", {
-        height: 120,
-        color: "#000",
-        backdropFilter: "blur(5px)",
-        duration: .35,
-        ease: "power2.out",
-      }, "+=0.5")
-      .to("header nav ul", {
-        backgroundColor: "rgba(244,244,244,1)",
-        height: 50,
-        duration: .35,
-        opacity: 0.8,
-        ease: "power2.out",
-      },">");
+    // 첫 페이지 세팅
+    this.setupScrollThings();
 
-    this.pageInit();
+    // Swup 페이지 전환 붙이기
+    this.setupSwup();
+
   }
-}
+};
 
-document.addEventListener("DOMContentLoaded", ()=>cmn.init());
+document.addEventListener("DOMContentLoaded", () => cmn.init());
 
 export default cmn;
