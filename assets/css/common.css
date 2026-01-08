@@ -66,7 +66,11 @@
 body{
   font-family: "Helvetica Neue";
   background-color: #141414;
-}
+}body{
+   height: 100%;
+   overflow: hidden;
+ }
+
 button,
 *{cursor:none;}
 .inner{
@@ -81,15 +85,30 @@ em{
   column-gap: 1.25rem;
 }
 
-/* Define a transition duration during page visits */
-html.is-changing .transition-fade {
-  transition: opacity 1s;
-  opacity: 1;
-}
-/* Define the styles for the unloaded pages */
-html.is-animating .transition-fade {
+#swup-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0);
   opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+  backdrop-filter: blur(0);
+  transition: opacity .7s ease-in-out, backdrop-filter .8s ease-in-out, background .8s ease-in-out;
 }
+
+html.is-changing #swup-overlay{
+  background: rgba(0,0,0,1);
+  opacity: 1;
+  pointer-events: auto;
+  backdrop-filter: blur(50px);
+}
+
+/* 원하면 header도 같이 페이드 */
+html.is-changing header{
+  opacity: 0.2;
+  transition: opacity .25s ease;
+}
+
 
 .noise-canvas{
   position: fixed;
@@ -511,6 +530,7 @@ footer{
   position: relative;
   .inner{
     position : relative;
+    &>.pin-spacer{mix-blend-mode: difference}
     &>span{
       display: flex;
       align-items: center;

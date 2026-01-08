@@ -67,6 +67,8 @@ const cmn = {
     this._setupHeaderScroll();
     this._setupFooterAnim();
 
+    const menus = this._qq('.gnb li');
+
     // 메인 제외 헤더 오픈 애니메이션
     if (!this._pageNamespace.includes('main')) {
       gsap
@@ -91,9 +93,12 @@ const cmn = {
           );
     }
 
+    menus.forEach((menu)=>menu.classList.remove('on'));
     if(this._pageNamespace.includes('works')){
+      menus[1].classList.add('on');
       work_list.init();
     }else if(this._pageNamespace.includes('about')){
+      menus[0].classList.add('on');
       prjFunc.aboutRollingImgAnim.init();
     }else if(this._pageNamespace.includes('main')){
       this._q(".sec_visual")?.classList.add("on");
@@ -335,17 +340,19 @@ const cmn = {
 
     this._swup = new Swup({
       containers: [".page"],
-      animationSelector: ".transition-fade",
+      animationSelector: "#swup-overlay",
       plugins: [new SwupHeadPlugin()]
     });
 
     // 새 콘텐츠 들어오기 직전: 기존 ScrollTrigger 정리
     this._swup.hooks.before("content:replace", () => {
       this.destroyScrollThings();
+      document.documentElement.classList.add("is-changing");
     });
 
     // 새 콘텐츠가 들어온 뒤: 공통 UI + 애니 다시 세팅
     this._swup.hooks.on("page:view", () => {
+      document.documentElement.classList.remove("is-changing");
       if(this._smooth && this._smooth.scrollTo){
         this._smooth.scrollTo(0, false);
       }else{
