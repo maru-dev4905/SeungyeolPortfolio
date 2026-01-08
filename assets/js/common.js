@@ -23,6 +23,9 @@ const cmn = {
   _pageNamespace: null,
   _isIntro: null,
   _swup: null,
+  _headerST: null,
+  _headerPinST: null,
+  _headerTL: null,
 
   // ---------------------------
   // ScrollSmoother 한 번만 만들기
@@ -93,8 +96,11 @@ const cmn = {
     }else if(this._pageNamespace.includes('about')){
       prjFunc.aboutRollingImgAnim.init();
     }else if(this._pageNamespace.includes('main')){
-      this._smooth && this._smooth.paused(true);
-      this.introAnim();
+      this._q(".sec_visual")?.classList.add("on");
+      this._q(".coordinate_display")?.classList.add("on");
+
+      this._openHeaderInstant();
+      this._smooth && this._smooth.paused(false);
       mainFunc.init();
     }
 
@@ -110,6 +116,16 @@ const cmn = {
     this._qq(".anim[data-st-init]").forEach((el) =>
         el.removeAttribute("data-st-init")
     );
+
+    this._headerST && this._headerST.kill(); this._headerST = null;
+    this._headerPinST && this._headerPinST.kill(); this._headerPinST = null;
+    this._headerTL && this._headerTL.kill(); this._headerTL = null;
+
+    gsap.set("header h1", { clearProps: "height,color,backgroundColor,backdropFilter" });
+    gsap.set("header nav ul", { clearProps: "height,backgroundColor,opacity" });
+    gsap.set("header h1 p, header h1 span", { clearProps: "display" });
+
+    if(this._pageNamespace.includes('main')) mainFunc.destroy && mainFunc.destroy();
   },
 
   // ---------------------------
@@ -158,6 +174,15 @@ const cmn = {
     }
   },
 
+
+  // ---------------------------
+  // 헤더 즉시 열림 함수
+  // ---------------------------
+  _openHeaderInstant() {
+    gsap.set("header h1", { height: 120 });
+    gsap.set("header nav ul", { height: 50 });
+  },
+
   // ---------------------------
   // 헤더 스크롤 고정/축소
   // ---------------------------
@@ -165,85 +190,49 @@ const cmn = {
     const hd = this._q("header");
     if (!hd) return;
 
-    gsap.to("body", {
-      scrollTrigger: {
-        trigger: "body",
-        start: "top top",
-        pin: "header",
-        pinSpacing: false,
-        markers: false
-      }
-    });
+    // 만들어진 헤더 트리거/타임라인 제거
+    this._headerST && this._headerST.kill();
+    this._headerPinST && this._headerPinST.kill();
+    this._headerTL && this._headerTL.kill();
 
+    // 이전 페이지 남은 인라인 스타일 초기화
+    gsap.set("header h1", { clearProps: "height,color,backgroundColor,backdropFilter" });
+    gsap.set("header nav ul", { clearProps: "height,backgroundColor,opacity" });
+    gsap.set("header h1 p, header h1 span", { clearProps: "display" });
+
+    this._headerST && this._headerST.kill();
+    this._headerST = null;
+
+
+    // 헤더 상태 변화 타임라인
     const tl = gsap.timeline({ paused: true });
 
-    tl.set("header h1", {
-      height: 120,
-      color: "#fff",
-      backgroundColor: "#000",
-      duration: 0.25,
-      ease: "power2.out"
-    })
-        .to("header h1", {
-          height: 0,
-          color: "#fff",
-          backgroundColor: "#000",
-          duration: 0.25,
-          ease: "power2.out"
-        })
-        .to(
-            "header nav ul",
-            {
-              height: 0,
-              backgroundColor: "#000",
-              duration: 0.25,
-              ease: "power2.out"
-            },
-            ">"
-        )
-        .set(
-            "header h1",
-            {
-              backgroundColor: "rgba(244,244,244,0.9)"
-            },
-            ">"
-        )
-        .set(
-            "header h1 p, header h1 span",
-            {
-              display: "none"
-            },
-            ">"
-        )
-        .set(
-            "header nav ul",
-            {
-              backgroundColor: "rgba(0,0,0,0)"
-            },
-            ">"
-        )
-        .to("header h1", {
-          height: 120,
-          color: "#000",
-          backdropFilter: "blur(5px)",
-          duration: 0.35,
-          ease: "power2.out"
-        })
-        .to(
-            "header nav ul",
-            {
-              backgroundColor: "rgba(244,244,244,1)",
-              height: 50,
-              duration: 0.35,
-              opacity: 0.8,
-              ease: "power2.out"
-            },
-            ">"
-        );
+    tl.set("header h1", { height: 120, color:"#fff", backgroundColor:"#000" })
+        .to("header h1", { height: 0, color:"#fff", backgroundColor:"#000", duration:0.25, ease:"power2.out" })
+        .to("header nav ul", { height: 0, backgroundColor:"#000", duration:0.25, ease:"power2.out" }, ">")
+        .set("header h1", { backgroundColor:"rgba(244,244,244,0.9)" }, ">")
+        .set("header h1 p, header h1 span", { display:"none" }, ">")
+        .set("header nav ul", { backgroundColor:"rgba(0,0,0,0)" }, ">")
+        .to("header h1", { height:120, color:"#000", backdropFilter:"blur(5px)", duration:0.35, ease:"power2.out" })
+        .to("header nav ul", { backgroundColor:"rgba(244,244,244,1)", height:50, opacity:0.8, duration:0.35, ease:"power2.out" }, ">");
 
-    window.addEventListener("scroll", () => {
-      const winY = window.scrollY;
-      winY > hd.offsetHeight ? tl.play() : tl.reverse();
+    this._headerTL = tl;
+    tl.progress(0).pause();
+
+    this._headerST = ScrollTrigger.create({
+      trigger: "body",
+      start: () => `${hd.offsetHeight} top`,
+      end: "max",
+      onEnter: () => tl.play(),
+      onLeaveBack: () => tl.reverse(),
+      // smoother 쓰면 scroller 지정
+      scroller: this._smooth ? this._smooth.wrapper() : undefined,
+    });
+
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh(true);
+      this._headerST && this._headerST.refresh();
+      this._headerST && this._headerST.update();
     });
   },
 
@@ -266,9 +255,12 @@ const cmn = {
   // ---------------------------
   // Intro 애니메이션
   // ---------------------------
-  introAnim() {
+  introAnim(done) {
     const paths = [this._q("#path1"), this._q("#path2")].filter(Boolean);
-    if (!paths.length) return;
+    if (!paths.length) {
+      done && done();
+      return;
+    }
 
     paths.forEach((p) => {
       const len = p.getTotalLength();
@@ -278,104 +270,61 @@ const cmn = {
 
     const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-    tl.to(
-        "#intro",
-        {
-          opacity: 1,
-          visibility:'visible',
-          duration: 0,
-        }
-    )
-    tl.to(
-        paths,
-        {
-          strokeDashoffset: 0,
-          duration: 2,
-          delay: 0.5
-        },
-        0
-    )
-        .to(
-            paths,
-            {
-              fill: "#fff",
-              attr: { fill: "#fff" },
-              duration: 0.35
-            },
-            ">"
-        )
-        .to(
-            ".item.left",
-            {
-              x: "-10vw",
-              duration: 0.9,
-              ease: "power3.inOut"
-            },
-            ">"
-        )
-        .to(
-            ".item.right",
-            {
-              x: "10vw",
-              duration: 0.9,
-              ease: "power3.inOut"
-            },
-            "<"
-        )
-        .to(
-            ".item.center",
-            {
-              width: 300,
-              scaleX: 1,
-              duration: 0.9,
-              ease: "power3.inOut"
-            },
-            "<"
-        )
-        .to(
-            ".item.center",
-            {
-              width: "100%",
-              height: "100vh",
-              scaleX: 1,
-              duration: 1.5,
-              ease: "power3.inOut"
-            },
-            ">"
-        )
-        .to(
-            "#intro",
-            {
-              opacity: 0,
-              visibility: "hidden",
-              duration: 0.2,
-              ease: "power3.inOut",
-              onComplete: () => {
-                this._q(".sec_visual")?.classList.add("on");
-                this._q(".coordinate_display")?.classList.add("on");
-                this._smooth && this._smooth.paused(false);
-              }
-            },
-            ">"
-        )
-        .to(
-            "header h1",
-            {
-              height: 120,
-              duration: 1,
-              ease: "power2.out"
-            },
-            ">"
-        )
-        .to(
-            "header nav ul",
-            {
-              height: 50,
-              duration: 1,
-              ease: "power2.out"
-            },
-            "<"
-        );
+    tl.to("#intro", { opacity: 1, visibility: "visible", duration: 0 })
+        .to(paths, { strokeDashoffset: 0, duration: 2, delay: 0.5 }, 0)
+        .to(paths, { fill: "#fff", attr: { fill: "#fff" }, duration: 0.35 }, ">")
+        .to(".item.left", { x: "-10vw", duration: 0.9, ease: "power3.inOut" }, ">")
+        .to(".item.right", { x: "10vw", duration: 0.9, ease: "power3.inOut" }, "<")
+        .to(".item.center", { width: 300, scaleX: 1, duration: 0.9, ease: "power3.inOut" }, "<")
+        .to(".item.center", { width: "100%", height: "100vh", duration: 1.5, ease: "power3.inOut" }, ">")
+        .to("#intro", {
+          opacity: 0,
+          visibility: "hidden",
+          duration: 0.2,
+          ease: "power3.inOut",
+          onComplete: () => {
+            // 있으면 켜고, 없으면 그냥 패스
+            this._q(".sec_visual")?.classList.add("on");
+            this._q(".coordinate_display")?.classList.add("on");
+            done && done();
+          }
+        }, ">")
+        .to("header h1", { height: 120, duration: 1, ease: "power2.out" }, ">")
+        .to("header nav ul", { height: 50, duration: 1, ease: "power2.out" }, "<");
+  },
+
+  // ---------------------------
+  // Swup 전환 후 트리거 위치 안정화용 refresh
+  // (이미지/폰트 로드 + 다음 프레임)
+  // ---------------------------
+  _smartRefresh(){
+    const doRefresh = () => {
+      ScrollTrigger.refresh(true);
+      this._smooth && this._smooth.refresh();
+    };
+
+    requestAnimationFrame(()=>{
+      doRefresh();
+
+      if(document.fonts && document.fonts.ready){
+        document.fonts.ready.then(()=> doRefresh()).catch(()=>{});
+      }
+
+      const imgs = Array.from(document.images).filter(img => !img.complete);
+      if(imgs.length){
+        let done = 0;
+        const onDone = () => {
+          done +=1;
+          if(done === imgs.length) doRefresh();
+        };
+        imgs.forEach(img => {
+          img.addEventListener('load', onDone, {once:true});
+          img.addEventListener('error', onDone, {once: true});
+        });
+      }else{
+        setTimeout(doRefresh, 50);
+      }
+    })
   },
 
   // ---------------------------
@@ -397,11 +346,36 @@ const cmn = {
 
     // 새 콘텐츠가 들어온 뒤: 공통 UI + 애니 다시 세팅
     this._swup.hooks.on("page:view", () => {
+      if(this._smooth && this._smooth.scrollTo){
+        this._smooth.scrollTo(0, false);
+      }else{
+        window.scrollTo(0,0);
+      }
+
+      this._syncIntroVisibility();
+
       prjFunc.init();
       this.setupScrollThings();
       moveMouseAnimation();
-      ScrollTrigger.refresh();
+
+      this._smartRefresh();
     });
+  },
+
+  // ---------------------------
+  // 세션에 값이 있으면 인트로는 보여주지 않음
+  // ---------------------------
+  _syncIntroVisibility(){
+    const intro = this._q('#intro');
+    if(!intro) return false;
+
+    const KEY = 'intro_enabled';
+
+    if(sessionStorage.getItem(KEY)){
+      gsap.set(intro, {autoAlpha: 0, display: 'none'});
+    }else{
+      gsap.set(intro, {display: 'flex', autoAlpha: 0, visibility: 'hidden'});
+    }
   },
 
   // ---------------------------
@@ -417,19 +391,39 @@ const cmn = {
     // ScrollSmoother 먼저 생성
     this.initSmoother();
 
-    // 공통 UI
+    // 공통 UI & 전역 애니메이션
     prjFunc.init();
-
-    // 전역 애니메이션
     noiseBackgroundAnimation();
     moveMouseAnimation();
 
-    // 첫 페이지 세팅
-    this.setupScrollThings();
-
-    // Swup 페이지 전환 붙이기
+    // Swup 페이지 전환
     this.setupSwup();
 
+    this._syncIntroVisibility();
+
+    // 인트로 스킵 시 실행
+    const afterIntro = () => {
+      this._smooth && this._smooth.paused(false);
+      this.setupScrollThings();
+      this._smartRefresh && this._smartRefresh();
+    };
+
+    const KEY = 'intro_enabled';
+    const shouldPlayIntro = !sessionStorage.getItem(KEY);
+
+    if(shouldPlayIntro){
+      const intro = this._q('#intro');
+      if (intro) gsap.set(intro, {display: 'flex', autoAlpha: 1, visibility: 'visible'});
+
+      this._smooth && this._smooth.paused(true);
+      this.introAnim(()=>{
+        sessionStorage.setItem(KEY, '1');
+        this._syncIntroVisibility();
+        afterIntro();
+      });
+    }else{
+      afterIntro();
+    }
   }
 };
 

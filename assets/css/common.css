@@ -123,9 +123,7 @@ html.is-animating .transition-fade {
 
 header{
   position: fixed;
-  position: absolute;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   z-index: 1000000;
   width: 100%;
   min-height: 140px;
@@ -407,7 +405,7 @@ footer{
 }
 
 #intro{
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   overflow: hidden;

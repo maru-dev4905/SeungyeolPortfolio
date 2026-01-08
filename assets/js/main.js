@@ -7,8 +7,12 @@ const mainFunc = {
   },
   _inited: false,
   _scroller_el: null,
+  _rolling_img_timer: null,
+  _rolling_txt_timer: null,
+  _scrdown_handler: null,
+
   scrAnim: function () {
-    const test = gsap.to(".sec_about h2 span", {
+    gsap.to(".sec_about h2 span", {
       scrollTrigger: {
         trigger:".sec_about h2 span",
         markers: false,
@@ -23,19 +27,21 @@ const mainFunc = {
           this._q(".sec_about h3 p ").classList.remove("show")
         }
       }
-    })
-    const skillsAnim = gsap.to(".skills_wrap",{
+    });
+    gsap.set(".skills_wrap", { clearProps: "borderRadius,width,maxWidth" });
+
+    gsap.to(".skills_wrap", {
       borderRadius: 0,
-      width: '100%',
-      maxWidth: '100%',
-      scrollTrigger:{
+      width: "100%",
+      maxWidth: "100%",
+      scrollTrigger: {
         trigger: ".skills_wrap",
-        markers:false,
         scrub: true,
-        start: "top center ",
-        end: "center top ",
+        start: "top center",
+        end: "center top",
+        invalidateOnRefresh: true,
       }
-    })
+    });
   },
 
   mainAnim: function(){
@@ -49,64 +55,59 @@ const mainFunc = {
     let r_img_idx = 1;
     let r_txt_idx = 0;
 
-    const rollingImgInterval = setInterval(rollingImg, 300);
-    const rollingTxtInterval = setInterval(rollingTxt, 4000);
+    if(this._rolling_img_timer) clearInterval(this._rolling_img_timer);
+    if(this._rolling_txt_timer) clearInterval(this._rolling_txt_timer);
 
-    function rollingImg(){
+    this._rolling_img_timer = setInterval(()=> {
       r_img_idx = r_img_idx >= 4 ? 1 : r_img_idx + 1;
-      r_img.setAttribute('src',`./assets/images/visuals/rolling_v${r_img_idx}.png`);
-    }
-    function rollingTxt(){
-      r_txt.classList.add('hide');
-      r_txt_idx = r_txt_idx >= r_txts.length - 1 ? 0 : r_txt_idx + 1;
-      setTimeout(()=>{
-        r_txt.querySelector('span').innerText = r_txts[r_txt_idx];
-        r_txt.classList.remove('hide');
-      },1000)
-    }
-  },
+      r_img.setAttribute("src", `./assets/images/visuals/rolling_v${r_img_idx}.png`);
+    },300);
 
-  marqueeAnim: function () {
-    const marquee = this._q('.marquee');
-    if (!marquee) return;
+    this._rolling_txt_timer = setInterval(() => {
+     r_txt.classList.add("hide");
+     r_txt_idx = r_txt_idx >= r_txts.length - 1 ? 0 : r_txt_idx + 1;
 
-    let currentScroll = 0;
-    let isScrollingDown = true;
-
-    let tween = gsap.to(".marquee_part", {xPercent: -100, repeat: -1, duration: 15, ease: "linear"}).totalProgress(0.5);
-
-    gsap.set(".marquee_inner", {xPercent: -50});
-
-    window.addEventListener("scroll", function(){
-
-      if ( window.pageYOffset > currentScroll ) {
-        isScrollingDown = true;
-      } else {
-        isScrollingDown = false;
-      }
-
-      gsap.to(tween, {
-        timeScale: isScrollingDown ? 1 : -1
-      });
-
-      currentScroll = window.pageYOffset
-    });
+     setTimeout(()=>{
+       const span = r_txt?.querySelector('span');
+       if(span) span.innerText = r_txts[r_txt_idx];
+       r_txt?.classList.remove('hide');
+     },1000);
+    },4000);
   },
 
   scrDown: function(){
     const btn = this._q('.scr_down_btn ');
-    if(btn){
-      btn.addEventListener('click', function(){
-        window._smooth.scrollTo(window.innerHeight, 1);
-      });
+    if (!btn) return;
+
+    if(this._scrdown_handler){
+      btn.removeEventListener('click', this._scrdown_handler);
+      this._scrdown_handler = null;
     }
+
+    this._scrdown_handler = () => {
+      window._smooth?.scrollTo(window.innerHeight, 1);
+    };
+
+    btn.addEventListener('click', this._scrdown_handler);
   },
-  
+
+  destroy: function(){
+    this._inited = false;
+
+    if(this._rolling_img_timer) clearInterval(this._rolling_img_timer);
+    if(this._rolling_txt_timer) clearInterval(this._rolling_txt_timer);
+    this._rolling_img_timer = null;
+    this._rolling_txt_timer = null;
+
+    this._scrdown_handler = null;
+  },
+
   init: function () {
+    const hasMain = !!this._q('.sec_about') || !!this._q('.rolling_img');
+    if(!hasMain) return;
+
     if (this._inited) return;
     this._inited = true;
-
-    ScrollTrigger.refresh();
 
     this.scrAnim();
     this.mainAnim();
