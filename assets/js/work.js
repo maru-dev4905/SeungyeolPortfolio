@@ -89,10 +89,11 @@ const work_list = {
 
   _getFeaturedItemHTML(work) {
     const awardsHTML = this._getAwardsHTML(work);
+    let projectEN = String(work.projectEN).replace(' ','').toLowerCase();
     return `
       <li class="colST${work.colPC} md_colST${work.colMO} on_${work.anim} anim" style="background:${work.color}">
         <a href="#" class="target">
-          <img src="./assets/images/works/${work.nameEN}/visual.png" alt="">
+          <img src="./assets/images/works/${projectEN}/visual.png" alt="">
           ${awardsHTML}
         </a>
       </li>
