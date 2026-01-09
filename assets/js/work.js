@@ -92,7 +92,7 @@ const work_list = {
     let projectEN = String(work.projectEN).replace(' ','').toLowerCase();
     return `
       <li class="colST${work.colPC} md_colST${work.colMO} on_${work.anim} anim" style="background:${work.color}">
-        <a href="#" class="target">
+        <a href="./work.html?w=${projectEN}" class="target">
           <img src="./assets/images/works/${projectEN}/visual.png" alt="">
           ${awardsHTML}
         </a>
@@ -156,9 +156,60 @@ const work_list = {
 }
 
 const work = {
+  _queryValue: null,
+  _projectKey: null,
+  _projectIndex: -1,
+  _projectItem: null,
+
+  _toSlug(str = ''){
+    return str.toString()
+        .toLowerCase()
+        .replace(/\s+/g, "")
+        .replace(/[^a-z0-9]/g, "");
+  },
+
+  _readQueryParam() {
+    this._queryValue = new URLSearchParams(window.location.search).get("w");
+    this._projectKey = this._toSlug(this._queryValue);
+  },
+
+  _findProject() {
+    if (!this._projectKey) {
+      this._projectIndex = -1;
+      this._projectItem = null;
+      return;
+    }
+
+    this._projectIndex = featuredData.findIndex((item) => {
+      const englishKey = item.projectEN;
+      if(!englishKey) return false;
+      return this._toSlug(englishKey) === this._projectKey;
+    });
+
+    this._projectItem = this._projectIndex >= 0 ? featuredData[this._projectIndex] : null;
+    console.log("[work] w:", this._queryValue, "key:", this._projectKey, "idx:", this._projectIndex, "item:", this._projectItem);
+  },
+
+  _renderProjectDetail() {
+    if (!this._projectItem) return;
+
+    const orderNumber = this._projectIndex + 1;
+
+    cmn._q(".sec_visual p").innerHTML = `<em>(</em>${
+        orderNumber < 10 ? "0" + orderNumber : orderNumber
+    }<em>)</em>`;
+
+    cmn._q(".sec_visual h2").innerText = this._projectItem.projectEN ?? "";
+    cmn._q(".sec_visual h3").innerText = this._projectItem.role ?? "";
+
+    cmn._q(".sec_visual img").setAttribute('src',`./assets/images/works/${this._projectKey}/visual.png`)
+  },
+
   init: function(){
-    
+    this._readQueryParam();
+    this._findProject();
+    this._renderProjectDetail();
   }
 }
 
-export default work_list;
+export {work_list , work};

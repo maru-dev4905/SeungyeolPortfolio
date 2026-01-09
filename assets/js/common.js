@@ -6,7 +6,7 @@ import noiseBackgroundAnimation from "./modules/noiseAnim.js";
 import moveMouseAnimation from "./modules/moveToMouse.js";
 import prjFunc from "./prj.js";
 import mainFunc from "./main.js";
-import work_list from "./work.js";
+import {work_list, work} from "./work.js";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
@@ -97,6 +97,9 @@ const cmn = {
     if(this._pageNamespace.includes('works')){
       menus[1].classList.add('on');
       work_list.init();
+    }else if(this._pageNamespace.includes('work')){
+      menus[1].classList.add('on');
+      work.init();
     }else if(this._pageNamespace.includes('about')){
       menus[0].classList.add('on');
       prjFunc.aboutRollingImgAnim.init();

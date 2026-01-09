@@ -504,5 +504,23 @@
 #work{
   .sec_visual{
     padding: 280px 0;
+
+    p{
+      font-size: 20px;
+      text-align : center;
+      color: var(--white1);
+    }
+    h2{
+      margin-top : 20px;
+      font-size: 120px;
+      font-weight: 400;
+      text-indent: 0;
+    }
+    h3{
+      font-size: 20px;
+      font-weight: 400;
+      text-align: center;
+      color: #bbb;
+    }
   }
 }
