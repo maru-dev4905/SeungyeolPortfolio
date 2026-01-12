@@ -276,9 +276,49 @@ const work = {
 
 
     //-------------PAGING-------------
-    const paging = cmn._q('.paging');
+    const prevContent = featuredData[this._projectIndex - 1];
+    const nextContent = featuredData[this._projectIndex + 1];
+    const prevName = this._toSlug(prevContent?.projectEN);
+    const nextName = this._toSlug(nextContent?.projectEN);
+
+    // prevName == undefined ?
+    // cmn._q('.paging .img_box img.next').setAttribute('src', `./assets/images/works/${featuredData.projectEN}.png`)
+
     const btns = cmn._qq('.paging a');
     const h2  = cmn._q('.paging h2');
+    const span = cmn._q('.paging span');
+
+    span.textContent = "";
+
+    const works = (h2.dataset.work || "")
+        .replace(/^\[|\]$/g, "")    
+        .split(",")                
+        .map(s => s.trim())        
+        .filter(Boolean);
+
+    function scrambleTo(text) {
+
+      gsap.to(span, {
+        duration: 0.6,
+        scrambleText: {
+          text,
+          chars: "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+          revealDelay: 0.05,
+          speed: 0.4
+        },
+        ease: "none"
+      });
+    }
+    btns.forEach((btn, idx) => {
+      btn.addEventListener("mouseenter", (e) => {
+        e.preventDefault();
+        scrambleTo(works[idx] ?? "");
+      });
+
+      btn.addEventListener("mouseleave", () => {
+        scrambleTo("");
+      });
+    });
 
     //-------------PAGING-------------
 

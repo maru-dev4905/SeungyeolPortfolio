@@ -724,8 +724,8 @@
         object-fit: cover;
         object-position: center;
         transition: clip-path .35s ease-in-out;
-        &:first-of-type{    clip-path: inset(0 50% 0 0);}
-        &:last-of-type{    clip-path: inset(0 0 0 50%);}
+        &.prev{    clip-path: inset(0 50% 0 0);}
+        &.next{    clip-path: inset(0 0 0 50%);}
       }
     }
     h2{
@@ -768,10 +768,10 @@
       &:hover:not(.disabled) em{
         transform: scaleX(1.5);
       }
-      &:first-of-type:hover ~ .img_box img:first-of-type{clip-path: inset(0 0 0 0);}
-      &:first-of-type:hover ~ .img_box img:last-of-type{clip-path: inset(0 0 0 100%);}
-      &:last-of-type:hover ~ .img_box img:last-of-type{clip-path: inset(0 0 0 0);}
-      &:last-of-type:hover ~ .img_box img:first-of-type{clip-path: inset(0 100% 0 0);}
+      &:first-of-type:hover ~ .img_box img.prev{clip-path: inset(0 0 0 0);}
+      &:first-of-type:hover ~ .img_box img.next{clip-path: inset(0 0 0 100%);}
+      &:last-of-type:hover ~ .img_box img.next{lclip-path: inset(0 0 0 0);}
+      &:last-of-type:hover ~ .img_box img.prev{clip-path: inset(0 100% 0 0);}
     }
   }
 }
