@@ -10,10 +10,10 @@ const work_list = {
   _sortBtnEls: null,
   _activeCategory: null,
 
-  _getYearKey(dataStr = ''){
+  _getYearKey(dataStr = '') {
     const v = String(dataStr).trim();
 
-    if(v.includes('-')){
+    if (v.includes('-')) {
       const last = v.split('-').pop().trim();
       return parseInt(last, 10) || 0;
     }
@@ -21,9 +21,9 @@ const work_list = {
     return parseInt(v, 10) || 0;
   },
 
-  _onSortClick(btn){
+  _onSortClick(btn) {
     const txt = btn.innerText;
-    if(this._activeCategory === txt) return;
+    if (this._activeCategory === txt) return;
 
     this._activeCategory = txt;
     this._currentLabelEl.innerText = txt;
@@ -36,7 +36,7 @@ const work_list = {
     ScrollTrigger.refresh();
   },
 
-  _getListItemHTML(category,work){
+  _getListItemHTML(category, work) {
     return `
       <li class="anim">
         <h3>${work.name}<span>${work.txt}</span></h3>
@@ -46,21 +46,21 @@ const work_list = {
     `;
   },
 
-  _renderList(){
-    if(!this._allListEl) return;
+  _renderList() {
+    if (!this._allListEl) return;
 
     const current = this._activeCategory;
     this._allListEl.innerHTML = '';
 
-    if(current === 'All.'){
+    if (current === 'All.') {
       let html = '';
       const flat = [];
 
       for (const [category, list] of Object.entries(this._allData)) {
-        for(const work of list) flat.push({category, work});
+        for (const work of list) flat.push({category, work});
       }
-      flat.sort((a,b)=> this._getYearKey(b.work.date) - this._getYearKey(a.work.date));
-      html += flat.map(({ category, work }) => this._getListItemHTML(category, work)).join('');
+      flat.sort((a, b) => this._getYearKey(b.work.date) - this._getYearKey(a.work.date));
+      html += flat.map(({category, work}) => this._getListItemHTML(category, work)).join('');
 
       this._allListEl.insertAdjacentHTML('beforeend', html);
 
@@ -69,7 +69,7 @@ const work_list = {
     }
 
     const list = (this._allData?.[current] || []).slice().sort(
-        (a,b) => this._getYearKey(b.date) - this._getYearKey(a.date)
+        (a, b) => this._getYearKey(b.date) - this._getYearKey(a.date)
     );
     const html = list.map(work => this._getListItemHTML(current, work)).join('');
     this._allListEl.insertAdjacentHTML('beforeend', html);
@@ -77,9 +77,9 @@ const work_list = {
     cmn.anim.toggleClass();
   },
 
-  _getAwardsHTML(work){
+  _getAwardsHTML(work) {
     const awards = work?.awards;
-    if(!Array.isArray(awards) || awards.length === 0) return '';
+    if (!Array.isArray(awards) || awards.length === 0) return '';
     let inner = '';
     if (awards.includes('wa')) inner += '<span class="webaward"></span>';
     if (awards.includes('gd')) inner += '<span class="gdweb"></span>';
@@ -89,7 +89,7 @@ const work_list = {
 
   _getFeaturedItemHTML(work) {
     const awardsHTML = this._getAwardsHTML(work);
-    let projectEN = String(work.projectEN).replace(' ','').toLowerCase();
+    let projectEN = String(work.projectEN).replace(' ', '').toLowerCase();
     return `
       <li class="colST${work.colPC} md_colST${work.colMO} on_${work.anim} anim" style="background:${work.color}">
         <a href="./work.html?w=${projectEN}" class="target">
@@ -100,8 +100,8 @@ const work_list = {
     `;
   },
 
-  _renderFeatured(){
-    if(!this._featuredListEl || !Array.isArray(this._featuredData)) return;
+  _renderFeatured() {
+    if (!this._featuredListEl || !Array.isArray(this._featuredData)) return;
 
     const html = this._featuredData.map(w => this._getFeaturedItemHTML(w)).join('');
     this._featuredListEl.insertAdjacentHTML('beforeend', html);
@@ -109,7 +109,7 @@ const work_list = {
     cmn.anim.toggleClass();
   },
 
-  _setPinText(){
+  _setPinText() {
     const pinTxt = cmn._q(".work_list .pin_txt");
     const workList = cmn._q(".work_list");
 
@@ -119,22 +119,22 @@ const work_list = {
       end: () => "+=" + (workList.offsetHeight - window.innerHeight / 2),
       pin: pinTxt,
       pinSpacing: false,
-      onEnter:()=>{
+      onEnter: () => {
         pinTxt.classList.add("on");
       },
-      onEnterBack:()=>{
+      onEnterBack: () => {
         pinTxt.classList.add("on");
       },
-      onLeaveBack:()=>{
+      onLeaveBack: () => {
         pinTxt.classList.remove("on");
       },
-      onLeave:()=>{
+      onLeave: () => {
         pinTxt.classList.remove("on");
       }
     })
   },
 
-  init(){
+  init() {
     this._featuredData = Array.from(featuredData) || [];
     this._allData = {...allData} || [];
 
@@ -145,7 +145,7 @@ const work_list = {
     this._sortBtnEls = cmn._qq('.sort_list > button');
     this._activeCategory = cmn._q('.sort_list > button.on').innerText;
 
-    this._sortBtnEls.forEach(btn => btn.addEventListener('click', ()=>this._onSortClick(btn)));
+    this._sortBtnEls.forEach(btn => btn.addEventListener('click', () => this._onSortClick(btn)));
 
     this._renderFeatured();
     this._renderList();
@@ -161,7 +161,7 @@ const work = {
   _projectIndex: -1,
   _projectItem: null,
 
-  _toSlug(str = ''){
+  _toSlug(str = '') {
     return str.toString()
         .toLowerCase()
         .replace(/\s+/g, "")
@@ -182,7 +182,7 @@ const work = {
 
     this._projectIndex = featuredData.findIndex((item) => {
       const englishKey = item.projectEN;
-      if(!englishKey) return false;
+      if (!englishKey) return false;
       return this._toSlug(englishKey) === this._projectKey;
     });
 
@@ -195,6 +195,7 @@ const work = {
 
     const orderNumber = this._projectIndex + 1;
 
+    //-------------VISUAL-------------
     cmn._q(".sec_visual p").innerHTML = `<em>(</em>${
         orderNumber < 10 ? "0" + orderNumber : orderNumber
     }<em>)</em>`;
@@ -202,14 +203,110 @@ const work = {
     cmn._q(".sec_visual h2").innerText = this._projectItem.projectEN ?? "";
     cmn._q(".sec_visual h3").innerText = this._projectItem.role ?? "";
 
-    cmn._q(".sec_visual img").setAttribute('src',`./assets/images/works/${this._projectKey}/visual.png`)
+    cmn._q(".sec_visual img").setAttribute('src', `./assets/images/works/${this._projectKey}/visual.png`);
+    //-------------VISUAL-------------
+
+
+    //-------------OVERVIEW-------------
+    cmn._q('.overview .project').innerText = this._projectItem.projectKR ?? "";
+    cmn._q('.overview .type').innerText = this._projectItem.type ?? "";
+    cmn._q('.overview .company').innerText = this._projectItem.company ?? "";
+    cmn._q('.overview .role').innerText = this._projectItem.role ?? "";
+    cmn._q('.overview .period').innerText = this._projectItem.period ?? "";
+    cmn._q('.overview .description').innerHTML = this._projectItem.descriptionKR ?? "";
+    for (const skill of this._projectItem.skills) {
+      cmn._q('.overview .skills').insertAdjacentHTML('beforeend', `
+        <dd>${skill}</dd>
+      `)
+    }
+    const awards = this._projectItem.awards ?? [];
+    const noneValid = !awards.every(a => a.trim() !== '');
+    console.log(noneValid);
+    if (noneValid) {
+      cmn._q('.overview li:last-of-type').remove();
+    } else {
+      cmn._q('.overview ul').insertAdjacentHTML('beforeend', `
+          <li class="anim">
+            <strong>Awards</strong>
+            <dl class="awards">
+            </dl>
+          </li>
+        `);
+
+      const dl = cmn._q('.overview ul li:last-of-type .awards');
+
+      for (const award of this._projectItem.awards) {
+        cmn._q('.overview .awards').insertAdjacentHTML('beforeend', `
+            <dd><img src="./assets/images/icons/ico_${award === 'wa' ? 'webaward' : 'gdweb'}.svg" alt=""></dd>
+        `);
+      }
+    }
+    cmn._q('.en_description  h3').innerText = `${this._projectItem.projectEN} Website :`;
+    cmn._q('.en_description  p').innerHTML = this._projectItem.descriptionEN;
+    //-------------OVERVIEW-------------
+
+
+    //-------------CONTENT-------------
+    const cols = this._projectItem.imgCol.entries();
+    for (const [index, col] of cols){
+      if(index === 3){
+        cmn._q('.sec_work .inner').insertAdjacentHTML('beforeend', `
+          <div class="point_txt colST1 colED5 fade anim">
+              <div class="point ">
+                <div class="hd">
+                  <p><em>(</em> ${this._projectItem.pointTxt[0]} <em>)</em></p>
+                  <span>${this._projectItem.pointTxt[1]}</span>
+                </div>
+                <div class="bd">
+                  <p>
+                    ${this._projectItem.pointTxt[2]}
+                  </p>
+                </div>
+              </div>
+          </div>
+          <img src="./assets/images/works/${this._projectKey}/img0${index + 1}.png" alt="" class="${col} fade anim">
+        `);
+      }else{
+        cmn._q('.sec_work .inner').insertAdjacentHTML('beforeend', `
+          <img src="./assets/images/works/${this._projectKey}/img0${index + 1}.png" alt="" class="${col} fade anim">
+        `)
+      }
+    }
+    //-------------CONTENT-------------
+
+
+    //-------------PAGING-------------
+    const paging = cmn._q('.paging');
+    const btns = cmn._qq('.paging a');
+    const h2  = cmn._q('.paging h2');
+
+    //-------------PAGING-------------
+
+    cmn.anim.init();
   },
 
-  init: function(){
+  _scrVisualAnim() {
+    if (!cmn._q('.sec_visual .img_box')) return;
+
+    gsap.to('.sec_visual .img_box', {
+      maxWidth: '100%',
+      borderRadius: 0,
+      scrollTrigger: {
+        trigger: ".sec_visual .img_box",
+        start: 'top center',
+        end: 'top top',
+        scrub: 1,
+      }
+    });
+  },
+
+  init: function () {
     this._readQueryParam();
     this._findProject();
     this._renderProjectDetail();
+
+    this._scrVisualAnim();
   }
 }
 
-export {work_list , work};
+export {work_list, work};

@@ -8,7 +8,7 @@ import prjFunc from "./prj.js";
 import mainFunc from "./main.js";
 import {work_list, work} from "./work.js";
 
-gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrambleTextPlugin);
 
 const cmn = {
   _q(sel, ctx = document) {
