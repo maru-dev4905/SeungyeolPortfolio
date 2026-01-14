@@ -196,9 +196,9 @@ const work = {
     const orderNumber = this._projectIndex + 1;
 
     //-------------VISUAL-------------
-    cmn._q(".sec_visual p").innerHTML = `<em>(</em>${
+    cmn._q(".sec_visual p").innerHTML = `<em>(</em> ${
         orderNumber < 10 ? "0" + orderNumber : orderNumber
-    }<em>)</em>`;
+    } <em>)</em>`;
 
     cmn._q(".sec_visual h2").innerText = this._projectItem.projectEN ?? "";
     cmn._q(".sec_visual h3").innerText = this._projectItem.role ?? "";
@@ -219,28 +219,30 @@ const work = {
         <dd>${skill}</dd>
       `)
     }
-    const awards = this._projectItem.awards ?? [];
-    const noneValid = !awards.every(a => a.trim() !== '');
-    console.log(noneValid);
-    if (noneValid) {
+    const awards = (this._projectItem.awards ?? [])
+        .map(a => (a ?? "").trim())
+        .filter(Boolean);
+
+    if(awards.length === 0){
       cmn._q('.overview li:last-of-type').remove();
-    } else {
+    }else{
       cmn._q('.overview ul').insertAdjacentHTML('beforeend', `
           <li class="anim">
             <strong>Awards</strong>
-            <dl class="awards">
-            </dl>
+            <dl class="awards"></dl>
           </li>
         `);
 
-      const dl = cmn._q('.overview ul li:last-of-type .awards');
-
-      for (const award of this._projectItem.awards) {
-        cmn._q('.overview .awards').insertAdjacentHTML('beforeend', `
-            <dd><img src="./assets/images/icons/ico_${award === 'wa' ? 'webaward' : 'gdweb'}.svg" alt=""></dd>
-        `);
-      }
+      const awardsEl = cmn._q('.overview .awards');
+      awards.forEach((award) => {
+        const icon = (award === "wa") ? "webaward" : "gdweb";
+        awardsEl?.insertAdjacentHTML(
+            "beforeend",
+            `<dd><img src="./assets/images/icons/ico_${icon}.svg" alt=""></dd>`
+        );
+      });
     }
+
     cmn._q('.en_description  h3').innerText = `${this._projectItem.projectEN} Website :`;
     cmn._q('.en_description  p').innerHTML = this._projectItem.descriptionEN;
     //-------------OVERVIEW-------------
@@ -248,7 +250,9 @@ const work = {
 
     //-------------CONTENT-------------
     const dType = this._projectItem.dType;
+    cmn._q('.sec_work').classList.add(`dType_${dType ? 'b' : 'a'}`);
     if(!dType){
+      // a type
       const cols = this._projectItem.imgCol.entries();
       for (const [index, col] of cols){
         if(index === 3){
@@ -275,7 +279,29 @@ const work = {
         }
       }
     }else{
+      // b type
+      cmn._q('.sec_work .inner').insertAdjacentHTML('afterbegin', `<div class="grid"><div class="grid-sizer"></div></div>`)
+      cmn._q('.sec_work .inner').insertAdjacentHTML('afterend', `<div class="mo_imgs"></div>`);
+      cmn._q('.sec_work .mo_imgs').insertAdjacentHTML('afterbegin', `<img src="./assets/images/works/${this._projectKey}/mo_imgs.png" class="">`);
 
+      const cols = this._projectItem.imgCol;
+      const msnryEl = document.querySelector('.sec_work .grid');
+      const msnryOptions = {
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-sizer',
+        percentPosition: true,
+        gutter: 50,
+      }
+      for(let i = 0 ; i < cols; i++){
+        msnryEl.insertAdjacentHTML('beforeend', `
+          <img src="./assets/images/works/${this._projectKey}/img0${i + 1}.png" alt="" class="grid-item fade anim">
+        `)
+      }
+      const msnry = new Masonry(msnryEl, msnryOptions);
+
+      imagesLoaded(msnryEl, () => {
+        msnry.layout();
+      });
     }
     //-------------CONTENT-------------
 
@@ -286,19 +312,25 @@ const work = {
 
     const prevContent = featuredData[this._projectIndex - 1];
     const nextContent = featuredData[this._projectIndex + 1];
+    // 링크용
     const prevName = prevContent ? this._toSlug(prevContent?.projectEN) : null;
     const nextName = nextContent ? this._toSlug(nextContent?.projectEN) : null;
+    // 표시용
+    const prevLabel = (prevContent?.projectEN ?? "").trim();
+    const nextLabel = (nextContent?.projectEN ?? "").trim();
 
     const items = [
       {
         key: 'prev',
         name: prevName,
+        label: prevLabel,
         a: paging.querySelector('a:first-of-type'),
         img: paging.querySelector('.img_box img.prev')
       },
       {
         key: 'next',
         name: nextName,
+        label: nextLabel,
         a: paging.querySelector('a:last-of-type'),
         img: paging.querySelector('.img_box img.next')
       }
@@ -310,7 +342,7 @@ const work = {
       item.a?.classList.toggle("target", isActive);
       if (item.a) {
         if (!isActive) {
-          item.a.removeAttribute("href"); // javascript:void(0) 보다 깔끔
+          item.a.removeAttribute("href");
         } else {
           item.a.href = `./work.html?w=${item.name}`;
         }
@@ -321,7 +353,7 @@ const work = {
     items.forEach(setPagingState);
 
     const h2 = paging.querySelector('h2');
-    if(h2) h2.dataset.work = JSON.stringify(items.map(i => i.name || ""));
+    if(h2) h2.dataset.work = JSON.stringify(items.map(i => i.label || ""));
 
     const btns = cmn._qq('.paging a');
     const span = cmn._q('.paging span');
@@ -334,7 +366,7 @@ const work = {
         .map(s => s.trim().replace(/^['"]|['"]$/g, "").toUpperCase())
         .filter(Boolean);
 
-    const worksName = items.map(i => (i.name || "").toUpperCase());
+    const worksName = items.map(i => (i.label || "").toUpperCase());
     const hasBoth = worksName.every(Boolean);
 
     if(!hasBoth){

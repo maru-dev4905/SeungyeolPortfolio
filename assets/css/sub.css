@@ -653,45 +653,83 @@
   .sec_work{
     margin-top: 80px;
 
-    .inner{
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 50px;
-    }
-    img{
-      width : 100%;
-      border-radius: 50px;
-    }
+    &.dType_a{
+      .inner{
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 50px;
+      }
+      img{
+        width : 100%;
+        border-radius: 50px;
+      }
 
 
-    .point_txt{
-      display : flex;
-      align-items: center;
-    }
-    .point{
-      width : 100%;
-      max-width : 746px;
-      color: var(--white1);
-      .hd{
-        display: flex;
-        gap: 40px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid var(--white1);
+      .point_txt{
+        display : flex;
+        align-items: center;
+      }
+      .point{
+        width : 100%;
+        max-width : 746px;
+        color: var(--white1);
+        .hd{
+          display: flex;
+          gap: 40px;
+          padding-bottom: 10px;
+          border-bottom: 1px solid var(--white1);
+          p{
+            opacity: .6;
+          }
+        }
+        span{
+        }
+        .bd{
+          padding: 32px;
+          padding-bottom : 0;
+          border-left: 1px solid var(--white1);
+        }
         p{
-          opacity: .6;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 150%;
         }
       }
-      span{
-      }
-      .bd{
-        padding: 32px;
-        padding-bottom : 0;
-        border-left: 1px solid var(--white1);
-      }
-      p{
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 150%;
+      .mo_imgs{display : none;}
+    }
+    &.dType_b{
+      .grid-sizer,.grid-item { width: calc(100% / 3 - 50px); }
+      .grid-item{margin-bottom: 50px;}
+      .mo_imgs{
+        position : relative;
+        width : 100%;
+        overflow: hidden;
+        margin-top: 90px;
+
+        img{
+          width : 100%;
+          object-fit: cover;
+          object-position: center;
+          clip-path:inset(4px 0 4px 0);
+        }
+
+        &::before,
+        &::after{
+          display : block;
+          position : absolute;
+          z-index : 1;
+          content: "";
+          width : 100%;
+          height: 10%;
+          background: linear-gradient(180deg, #151515 0%, rgba(21, 21, 21, 0.00) 100%);
+        }
+        &::before{
+          bottom: -1px;
+          transform: rotate(180deg);
+        }
+        &::after{
+          top: -1px;
+        }
       }
     }
   }
