@@ -247,10 +247,12 @@ const work = {
 
 
     //-------------CONTENT-------------
-    const cols = this._projectItem.imgCol.entries();
-    for (const [index, col] of cols){
-      if(index === 3){
-        cmn._q('.sec_work .inner').insertAdjacentHTML('beforeend', `
+    const dType = this._projectItem.dType;
+    if(!dType){
+      const cols = this._projectItem.imgCol.entries();
+      for (const [index, col] of cols){
+        if(index === 3){
+          cmn._q('.sec_work .inner').insertAdjacentHTML('beforeend', `
           <div class="point_txt colST1 colED5 fade anim">
               <div class="point ">
                 <div class="hd">
@@ -266,38 +268,83 @@ const work = {
           </div>
           <img src="./assets/images/works/${this._projectKey}/img0${index + 1}.png" alt="" class="${col} fade anim">
         `);
-      }else{
-        cmn._q('.sec_work .inner').insertAdjacentHTML('beforeend', `
+        }else{
+          cmn._q('.sec_work .inner').insertAdjacentHTML('beforeend', `
           <img src="./assets/images/works/${this._projectKey}/img0${index + 1}.png" alt="" class="${col} fade anim">
         `)
+        }
       }
+    }else{
+
     }
     //-------------CONTENT-------------
 
 
     //-------------PAGING-------------
+    const paging = cmn._q('.paging');
+    if(!paging) return;
+
     const prevContent = featuredData[this._projectIndex - 1];
     const nextContent = featuredData[this._projectIndex + 1];
-    const prevName = this._toSlug(prevContent?.projectEN);
-    const nextName = this._toSlug(nextContent?.projectEN);
+    const prevName = prevContent ? this._toSlug(prevContent?.projectEN) : null;
+    const nextName = nextContent ? this._toSlug(nextContent?.projectEN) : null;
 
-    // prevName == undefined ?
-    // cmn._q('.paging .img_box img.next').setAttribute('src', `./assets/images/works/${featuredData.projectEN}.png`)
+    const items = [
+      {
+        key: 'prev',
+        name: prevName,
+        a: paging.querySelector('a:first-of-type'),
+        img: paging.querySelector('.img_box img.prev')
+      },
+      {
+        key: 'next',
+        name: nextName,
+        a: paging.querySelector('a:last-of-type'),
+        img: paging.querySelector('.img_box img.next')
+      }
+    ];
+
+    const setPagingState = (item) => {
+      const isActive = !!item.name;
+      item.a?.classList.toggle("disabled", !isActive);
+      item.a?.classList.toggle("target", isActive);
+      if (item.a) {
+        if (!isActive) {
+          item.a.removeAttribute("href"); // javascript:void(0) 보다 깔끔
+        } else {
+          item.a.href = `./work.html?w=${item.name}`;
+        }
+      }
+      item.img?.classList.toggle('disabled', !isActive);
+      item.img?.setAttribute('src',`./assets/images/works/${item.name}/visual.png`);
+    };
+    items.forEach(setPagingState);
+
+    const h2 = paging.querySelector('h2');
+    if(h2) h2.dataset.work = JSON.stringify(items.map(i => i.name || ""));
 
     const btns = cmn._qq('.paging a');
-    const h2  = cmn._q('.paging h2');
     const span = cmn._q('.paging span');
 
     span.textContent = "";
 
     const works = (h2.dataset.work || "")
-        .replace(/^\[|\]$/g, "")    
-        .split(",")                
-        .map(s => s.trim())        
+        .replace(/^\[|\]$/g, "")
+        .split(",")
+        .map(s => s.trim().replace(/^['"]|['"]$/g, "").toUpperCase())
         .filter(Boolean);
 
-    function scrambleTo(text) {
+    const worksName = items.map(i => (i.name || "").toUpperCase());
+    const hasBoth = worksName.every(Boolean);
 
+    if(!hasBoth){
+      span.textContent = worksName.find(Boolean) || "";
+      cmn.anim.init();
+      return;
+    }
+    span.textContent = "";
+
+    function scrambleTo(text) {
       gsap.to(span, {
         duration: 0.6,
         scrambleText: {
@@ -309,9 +356,9 @@ const work = {
         ease: "none"
       });
     }
+
     btns.forEach((btn, idx) => {
       btn.addEventListener("mouseenter", (e) => {
-        e.preventDefault();
         scrambleTo(works[idx] ?? "");
       });
 

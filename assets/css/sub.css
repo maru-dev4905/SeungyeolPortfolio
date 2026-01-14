@@ -696,6 +696,9 @@
     }
   }
 
+  .banner{
+    margin-top: 140px;
+  }
   .paging{
     display : flex;
     justify-content: center;
@@ -703,7 +706,6 @@
     flex-direction: column;
     gap: 40px;
     position : relative;
-    margin-top: 140px;
     margin-bottom : 200px;
     aspect-ratio: 1920/880;
     background: url("../images/visuals/work_bg.png") no-repeat center / cover;
@@ -724,6 +726,7 @@
         object-fit: cover;
         object-position: center;
         transition: clip-path .35s ease-in-out;
+        &.disabled{opacity: 0; visibility: hidden;}
         &.prev{    clip-path: inset(0 50% 0 0);}
         &.next{    clip-path: inset(0 0 0 50%);}
       }
@@ -770,8 +773,10 @@
       }
       &:first-of-type:hover ~ .img_box img.prev{clip-path: inset(0 0 0 0);}
       &:first-of-type:hover ~ .img_box img.next{clip-path: inset(0 0 0 100%);}
-      &:last-of-type:hover ~ .img_box img.next{lclip-path: inset(0 0 0 0);}
+      &:last-of-type:hover ~ .img_box img.next{clip-path: inset(0 0 0 0);}
       &:last-of-type:hover ~ .img_box img.prev{clip-path: inset(0 100% 0 0);}
+      &:first-of-type.disabled ~ .img_box img.next{clip-path: inset(0 0 0 0);}
+      &:last-of-type.disabled ~ .img_box img.prev{clip-path: inset(0 0 0 0);}
     }
   }
 }

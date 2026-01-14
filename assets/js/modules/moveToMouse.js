@@ -42,7 +42,7 @@ export default function moveMouseAnimation() {
     function updateDisplay(e) {
       const pageX = document.querySelector(".coordinate_display_x");
       const pageY = document.querySelector(".coordinate_display_y");
-      if (!pageX || !pageY) return; // 이 페이지에 표시 UI 없으면 패스
+      if (!pageX || !pageY) return;
 
       pageX.innerText = `X: ${e.pageX}px`;
       pageY.innerText = `Y: ${e.pageY}px`;
@@ -96,10 +96,13 @@ export default function moveMouseAnimation() {
     target.dataset.cursorBound = "1";
 
     target.addEventListener("mouseenter", () => {
+      if(!target.classList.contains('target')) return;
       scaleAnim && scaleAnim.play();
     });
 
     target.addEventListener("mouseleave", () => {
+      if (!target.classList.contains("target")) return;
+
       scaleAnim && scaleAnim.reverse();
     });
   });

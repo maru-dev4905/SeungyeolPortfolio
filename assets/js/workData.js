@@ -36,6 +36,8 @@ const featuredData =[
     colPC: 3,
     rowPC: 1,
     colMO: null,
+    imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED9','colST1 colED7','colST7 colED-1'],
+    pointTxt: ['MOTION','Scroll Interaction', '삼화제지 프로젝트에서는 메인 페이지를 포함한 전 페이지 퍼블리싱을 전담하였습니다.<br> 제품 중심의 비주얼 사이트 특성에 맞춰, 사용자가 스크롤 흐름 속에서 자연스럽게 <br>정보를 탐색할 수 있도록 스크롤 기반 인터랙션과 전환 애니메이션을 구현하였습니다.<br><br>서브 페이지에서 상품 게이트로 이동하는 전환 구간, 그리고 각 서브 페이지의 비주얼 영역에는 사용 흐름을 방해하지 않으면서도 몰입을 높이는 모션을 적용하여 콘텐츠의 집중도를 강화하였습니다. <br>또한 적응형(Adaptive) 환경에서도 제품 상세 레이아웃이 무너져 가독성이 떨어지지 않도록 Grid/Flex 기반으로 레이아웃을 안정화하고, 브라우저 폭 변화에 따른 콘텐츠 우선순위가 유지되도록 조정하였습니다.']
   },
   {
     projectKR: "웨버씨엔에스",
