@@ -818,3 +818,228 @@
     }
   }
 }
+
+#contact{
+  .sec_contact{
+    .lang{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+      margin-bottom : 80px;
+
+      button{
+        font-size: 24px;
+        font-weight: 400;
+        color: var(--white1);
+        opacity: .4;
+        transition: opacity .3s ease-in-out;
+      }
+      button.on{opacity: 1;}
+      div{
+        position : relative;
+        width : 208px;
+        height: 1px;
+        background-color: var(--white1);
+        &::before{
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index : 1;
+          content: "";
+          width : 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: var(--white1);
+          transition: right .3s ease-in-out;
+        }
+        &::after{
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          content: "";
+          width : 48px;
+          height: 48px;
+          border-radius: 50%;
+          background-color: #1B263B;
+          transition: right .3s ease-in-out;
+        }
+      }
+      button.on+div{
+        &::before{right: calc(100% - 28px);}
+        &::after{right: calc(100% - 48px);}
+      }
+    }
+
+    .inner > div:not(.lang){
+      display : none;
+    }
+    .inner > div:not(.lang).on{
+      display : block;
+    }
+    form{
+      display : flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      width : 100%;
+      .col{
+        display : flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        width : 100%;
+      }
+      p{
+        font-size: 48px;
+        font-weight: 400;
+        color: var(--white1);
+      }
+      #kor_company{max-width : 480px;}
+      #kor_name{max-width : 428px;}
+      #kor_email{max-width : 480px;}
+      #eng_company{max-width : 260px;}
+      #eng_name{max-width : 260px;}
+      #eng_email{max-width : 480px;}
+      label.hidden{position : absolute;}
+      input[type=text]{
+        padding: 4px 12px;
+        font-size: 48px;
+        font-weight: 400;
+        color: var(--white1);
+        border-bottom: 2px solid rgba(255,255,255,.5);
+        background-color : transparent;
+        outline: none;
+        transition: border-bottom-color .3s ease-in-out;
+        &::placeholder{color: rgba(255,255,255,.4);}
+        &:focus{
+          border-bottom-color : rgba(255,255,255,1);
+        }
+      }
+      .select_wrap{
+        position: relative;
+        width : max-content;
+
+        .select_btn{
+          display : flex;
+          align-items: center;
+          gap: 10px;
+          width : max-content;
+          height: 70px;
+          font-size: 48px;
+          font-weight: 400;
+          border-bottom: 2px solid rgba(255,255,255,.5);
+          background-color: transparent;
+          padding: 4px 12px;
+          color: rgba(255,255,255,.4);
+          &::after{
+            content:"";
+            width : 32px;
+            height: 32px;
+            background-color: rgba(227, 227, 227, 0.6);
+            mask: url("../images/icons/ico_select_arrow.svg") no-repeat center / cover;
+            transition: transform .3s ease-in-out;
+          }
+        }
+        .options{
+          display : flex;
+          flex-direction: column;
+          gap: 12px;
+          position: absolute;
+          top: 100%; left: 0;
+          width : 100%;
+          min-width: max-content;
+          height: max-content;
+          padding: 0 16px;
+          background-color: #222;
+          font-size: 32px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height .65s ease-in-out, padding .3s ease-in-out;
+        }
+        label{
+          color: rgba(255,255,255,.5);
+          transition: color .3s ease-in-out;
+        }
+        input{
+          position : absolute;
+        }
+        input:checked + label{
+          color: rgba(255,255,255,1);
+        }
+        &.on .select_btn:after{
+          transform: rotate(180deg);
+        }
+        &.on .options{
+          max-height: 400px;
+          padding: 12px 16px;
+        }
+        &.val .select_btn{
+          color: rgba(255,255,255,1);
+          &::after{background-color: rgba(227,227,227,1);}
+        }
+      }
+
+      .col:nth-of-type(3){
+        z-index : 2;
+      }
+      .col:last-of-type{
+        align-items: flex-end;
+        p:first-of-type{
+          display : block;
+        }
+      }
+      textarea{
+        width : 768px;
+        height: 200px;
+        padding: 4px 12px;
+        font-size: 32px;
+        font-family: "Helvetica Neue";
+        font-weight: 400;
+        color: var(--white1);
+        border-bottom: 2px solid rgba(255,255,255,.5);
+        background-color : transparent;
+        outline: none;
+        transition: border-bottom-color .3s ease-in-out;
+        scrollbar-width: thin;
+        &::placeholder{color: rgba(255,255,255,.4);}
+        &:focus{border-bottom-color : rgba(255,255,255,1);}
+      }
+      button[type=submit]{
+        display : flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        width : 270px;
+        height: 82px;
+        margin-top : 140px;
+        font-size: 40px;
+        font-weight: 400;
+        color: var(--white1);
+        border-radius: 100px;
+        border: 1px solid var(--white1);
+        transition: border .3s ease-in-out, color .3s ease-in-out, background-color .3s ease-in-out;
+        &::after{
+          display : block;
+          content: "";
+          width : 34px;
+          height: 34px;
+          background-color: var(--white1);
+          mask: url("../images/icons/ico_submit_arrow.svg") no-repeat center / cover;
+          transition: background-color .3s ease-in-out;
+        }
+        &:hover{
+          border: 1px solid #000;
+          color: #000;
+          background-color: #fff;
+          &::after{
+            background-color: #000;
+          }
+        }
+      }
+    }
+  }
+}

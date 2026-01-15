@@ -46,6 +46,7 @@
 
   <script src="./assets/js/common.js" type="module"></script>
   <script src="./assets/js/prj.js" type="module"></script>
+  <script src="./assets/js/contact.js" type="module"></script>
 </head>
 
 <body>
@@ -149,74 +150,92 @@
         </div>
 
         <section class="sec_contact">
-          <div class="inner_base">
+          <div class="inner">
             <div class="lang">
-              <button type="button" class="kor_btn">KOR</button>
+              <button type="button" class="kor_btn target on">KOR</button>
               <div></div>
-              <button type="button" class="eng_btn">ENG</button>
+              <button type="button" class="eng_btn target">ENG</button>
             </div>
-            <div class="kor">
+            <div class="kor on">
               <form action="#" method="POST" id="kor_mail">
-                <p>안녕하세요, 저는</p>
-                <label for="kor_company" class="hidden"></label>
-                <input type="text" placeholder="회사명을 입력해주세요 (선택)" id="kor_company" name="kor_company"><p>의</p>
-                <label for="kor_name" class="hidden"></label>
-                <input type="text" placeholder="이름을 입력해주세요" id="kor_name" name="kor_name"><p>입니다.</p>
-                <p>연락 가능한 이메일은</p>
-                <label for="kor_email" class="hidden"></label>
-                <input type="email" placeholder="이메일을 입력해주세요" id="kor_email" name="kor_email"><p>입니다.</p>
-                <p>문의 유형은</p>
-                <div class="select_wrap">
-                  <button type="button" class="select_btn">유형</button>
-                  <div class="options">
-                    <label for="kor_type1">협업</label>
-                    <input type="radio" id="kor_type1" name="kor_type" value="0">
-                    <label for="kor_type2">의뢰</label>
-                    <input type="radio" id="kor_type2" name="kor_type" value="1">
-                    <label for="kor_type3">채용</label>
-                    <input type="radio" id="kor_type3" name="kor_type" value="2">
-                    <label for="kor_type4">기타</label>
-                    <input type="radio" id="kor_type4" name="kor_type" value="3">
-                  </div>
+                <div class="col fade anim">
+                  <p>안녕하세요,</p>
+                  <label for="kor_company" class="hidden"></label>
+                  <input type="text" placeholder="회사명을 입력해주세요" id="kor_company" name="kor_company"><p>의</p>
+                  <label for="kor_name" class="hidden"></label>
+                  <input type="text" placeholder="이름을 입력해주세요" id="kor_name" name="kor_name"><p>입니다.</p>
                 </div>
-                <p>입니다.</p>
-                <p>주요 내용은</p>
-                <label for="kor_description" class="hidden"></label>
-                <textarea name="kor_description" id="kor_description" placeholder="내용을 입력해주세요"></textarea>
-                <p>입니다.</p>
+                <div class="col fade anim">
+                  <p>연락 가능한 이메일은</p>
+                  <label for="kor_email" class="hidden"></label>
+                  <input type="text" placeholder="이메일을 입력해주세요" id="kor_email" name="kor_email"><p>입니다.</p>
+                </div>
+                <div class="col fade anim">
+                  <p>문의 유형은</p>
+                  <div class="select_wrap">
+                    <button type="button" class="select_btn">유형</button>
+                    <div class="options">
+                      <input type="radio" id="kor_type1" name="kor_type" value="0">
+                      <label for="kor_type1">협업</label>
+                      <input type="radio" id="kor_type2" name="kor_type" value="1">
+                      <label for="kor_type2">의뢰</label>
+                      <input type="radio" id="kor_type3" name="kor_type" value="2">
+                      <label for="kor_type3">채용</label>
+                      <input type="radio" id="kor_type4" name="kor_type" value="3">
+                      <label for="kor_type4">기타</label>
+                    </div>
+                  </div>
+                  <p>입니다.</p>
+                </div>
+                <div class="col fade anim">
+                  <p>자세히 전하고 싶은 내용은</p>
+                </div>
+                <div class="col fade anim">
+                  <label for="kor_description" class="hidden"></label>
+                  <textarea name="kor_description" id="kor_description" placeholder="내용을 입력해주세요"></textarea>
+                  <p>입니다.</p>
+                </div>
 
-                <button type="submit">SEND</button>
+                <button type="submit" class="target">SEND</button>
               </form>
             </div>
             <div class="eng">
               <form action="#" method="POST" id="eng_mail">
-                <p>Hello, I'm</p>
-                <label for="eng_company" class="hidden"></label>
-                <input type="text" placeholder="name" id="eng_name" name="eng_name">
-                <label for="eng_name" class="hidden"></label>
-                <input type="text" placeholder="company" id="eng_company" name="eng_company">
-                <p>You can reach me at</p>
-                <label for="eng_email" class="hidden"></label>
-                <input type="email" placeholder="email" id="eng_email" name="eng_email">
-                <p>The inquiry type is</p>
-                <div class="select_wrap">
-                  <button type="button" class="select_btn">Type</button>
-                  <div class="options">
-                    <label for="eng_type1">collaboration1</label>
-                    <input type="radio" id="eng_type1" name="eng_type" value="0">
-                    <label for="eng_type2">project</label>
-                    <input type="radio" id="eng_type2" name="eng_type" value="1">
-                    <label for="eng_type3">hiring</label>
-                    <input type="radio" id="eng_type3" name="eng_type" value="2">
-                    <label for="eng_type4">others</label>
-                    <input type="radio" id="eng_type4" name="eng_type" value="3">
+                <div class="col fade anim">
+                  <p>Hello, I'm</p>
+                  <label for="eng_company" class="hidden"></label>
+                  <input type="text" placeholder="name" id="eng_name" name="eng_name">
+                  <p>from</p>
+                  <label for="eng_name" class="hidden"></label>
+                  <input type="text" placeholder="company" id="eng_company" name="eng_company">
+                </div>
+                <div class="col fade anim">
+                  <p>You can reach me via</p>
+                  <label for="eng_email" class="hidden"></label>
+                  <input type="text" placeholder="email" id="eng_email" name="eng_email">
+                </div>
+                <div class="col fade anim">
+                  <p>This inquiry is about</p>
+                  <div class="select_wrap">
+                    <button type="button" class="select_btn">Type</button>
+                    <div class="options">
+                      <label for="eng_type1">collaboration1</label>
+                      <input type="radio" id="eng_type1" name="eng_type" value="0">
+                      <label for="eng_type2">project</label>
+                      <input type="radio" id="eng_type2" name="eng_type" value="1">
+                      <label for="eng_type3">hiring</label>
+                      <input type="radio" id="eng_type3" name="eng_type" value="2">
+                      <label for="eng_type4">others</label>
+                      <input type="radio" id="eng_type4" name="eng_type" value="3">
+                    </div>
                   </div>
                 </div>
-                <p>Please write down the main details in the message field below</p>
-                <label for="eng_description" class="hidden"></label>
+                <div class="col fade anim">
+                  <p>Here are the details:</p>
+                  <label for="eng_description" class="hidden"></label>
+                </div>
                 <textarea name="eng_description" id="eng_description" placeholder="message"></textarea>
-
-                <button type="submit">SEND</button>
+                <button type="submit" class="target">SEND</button>
               </form>
             </div>
           </div>
@@ -237,9 +256,10 @@
             <div>
               <div>
                 <strong>LINK :</strong>
-                <a href="#" class="target">Github</a>
-                <a href="#" class="target">Facebook</a>
-                <a href="#" class="target">Instagram</a>
+                <a href="https://github.com/maru-dev4905" class="target">Github</a>
+                <a href="https://www.facebook.com/seungyeol.lee.522/" class="target">Facebook</a>
+                <a href="https://www.instagram.com/syy1_publ/" class="target">Instagram</a>
+                <a href="https://cssbattle.dev/player/maru102" class="target">CSS Battles</a>
               </div>
             </div>
             <div>

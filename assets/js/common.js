@@ -7,6 +7,7 @@ import moveMouseAnimation from "./modules/moveToMouse.js";
 import prjFunc from "./prj.js";
 import mainFunc from "./main.js";
 import {work_list, work} from "./work.js";
+import contactFunc from "./contact.js";
 
 gsap.registerPlugin(ScrollTrigger, ScrollSmoother, ScrambleTextPlugin);
 
@@ -100,6 +101,9 @@ const cmn = {
     }else if(this._pageNamespace.includes('work')){
       menus[1].classList.add('on');
       work.init();
+    }else if(this._pageNamespace.includes('contact')){
+      menus[2].classList.add('on');
+      contactFunc.init();
     }else if(this._pageNamespace.includes('about')){
       menus[0].classList.add('on');
       prjFunc.aboutRollingImgAnim.init();
