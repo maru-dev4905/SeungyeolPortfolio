@@ -398,12 +398,28 @@ const cmn = {
   init() {
     if (this._inited) return;
     this._inited = true;
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
 
     window._q = this._q;
     window._qq = this._qq;
 
     // ScrollSmoother 먼저 생성
     this.initSmoother();
+
+    if (this._smooth && this._smooth.scrollTo) {
+      this._smooth.scrollTo(0, false);
+    }
+
+    window.addEventListener("load", () => {
+      if (this._smooth && this._smooth.scrollTo) {
+        this._smooth.scrollTo(0, false);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }, { once: true });
 
     // 공통 UI & 전역 애니메이션
     prjFunc.init();
