@@ -39,7 +39,7 @@ export default function noiseBackgroundAnimation(){
   }
 
   const init = () => {
-    // playNoiseAnim();
+    playNoiseAnim();
   }
   init();
 }
