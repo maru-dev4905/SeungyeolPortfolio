@@ -386,7 +386,7 @@ const cmn = {
     const KEY = 'intro_enabled';
 
     if(sessionStorage.getItem(KEY)){
-      gsap.set(intro, {autoAlpha: 0, display: 'none'});
+      gsap.set(intro, {autoAlpha: 0, opacity: 0, visibility: 'hidden'});
     }else{
       gsap.set(intro, {display: 'flex', autoAlpha: 0, visibility: 'hidden'});
     }

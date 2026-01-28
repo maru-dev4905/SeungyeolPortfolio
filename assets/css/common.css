@@ -485,6 +485,7 @@ footer{
   background-color : #111;
   opacity          : 0;
   visibility       : hidden;
+  transition: all .5s ease-in-out;
 
   .item{
     width       : 80px;

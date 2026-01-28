@@ -302,6 +302,7 @@ const work = {
       imagesLoaded(msnryEl, () => {
         msnry.layout();
       });
+      console.log("msnry" + msnry);
     }
     //-------------CONTENT-------------
 
