@@ -13,7 +13,7 @@
 
       p{
         width : max-content;
-        height: 250px;
+        height: 15.625rem;
         font-size:12.5rem;
         font-weight: 300;
         overflow: hidden;
@@ -24,7 +24,7 @@
       p:last-child{
         margin: 0 auto;
         color: transparent;
-        -webkit-text-stroke: 2px var(--white1);
+        -webkit-text-stroke: 0.125rem var(--white1);
       }
       em{font-family: "Brown Sugar"}
       span:first-of-type{
@@ -34,7 +34,7 @@
       span:first-of-type::after{
         content: "";
         width: 0;
-        height: 10px;
+        height: 0.625rem;
         display: block;
         background-color: var(--white1);
         margin: 0 2.5rem;
@@ -73,7 +73,7 @@
       bottom: 0; left: 0;
       z-index : 1;
       width: 100%;
-      height: 140px;
+      height: 8.75rem;
       background: linear-gradient(#11111100, #141414);
       content:"";
     }
@@ -92,8 +92,8 @@
       top: 5rem;
       opacity: 0;
       width : max-content;
-      padding: 20px;
-      font-size: 14px;
+      padding: 1.25rem;
+      font-size: 0.875rem;
       font-weight: 400;
       line-height: 150%;
       color: var(--white1);
@@ -113,14 +113,14 @@
     a{
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 0.375rem;
       position : relative;
       top: 2rem;
       opacity: 0;
       width : max-content;
       margin-top : 1.25rem;
       margin-left : 1.25rem;
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 500;
       line-height: 150%;
       color: var(--white1);
@@ -138,8 +138,8 @@
     }
     a:after{
       display : block;
-      width : 8px;
-      height: 8px;
+      width : .5rem;
+      height: .5rem;
       background-color: var(--white1);
       mask: url("../images/icons/ico_link_arrow.svg") no-repeat center / cover;
       content: "";
@@ -147,13 +147,13 @@
   }
   .scr_down_btn{
     position: absolute;
-    bottom: 40px; right : 0;
-    padding: 24px 28px 24px 0;
+    bottom: 2.5rem; right : 0;
+    padding: 1.5rem 1.75rem 1.5rem 0;
     overflow: hidden;
     opacity: 0;
     transition: opacity .5s .75s ease-in-out;
     span{
-      font-size: 14px;
+      font-size: 0.875rem;
       font-weight: 400;
       color: var(--white1);
       line-height: 150%;
@@ -161,7 +161,7 @@
     &::after{
       display: block;
       position: absolute;
-      top: 0; right : 5px;
+      top: 0; right : 0.313rem;
       content: "";
       width : 1px;
       height: 100%;
@@ -173,8 +173,8 @@
       top: -20%;
       right : 0;
       content: "";
-      width : 10px;
-      height: 10px;
+      width : 0.625rem;
+      height: 0.625rem;
       border-radius: 50%;
       background: var(--white1);
       animation: scrDot 2s ease-in-out forwards infinite;
@@ -205,15 +205,15 @@
     position: relative;
   }
   h2{
-    padding: 140px 0;
-    font-size: 140px;
+    padding: 8.75rem 0;
+    font-size: 8.75rem;
     font-weight: 500;
     color: var(--white1);
 
     span{
       display: block;
       overflow: hidden;
-      min-height: 156px;
+      min-height: 9.75rem;
       transform: translateY(0);
 
       em{
@@ -228,14 +228,14 @@
   }
   h3{
     position: relative;
-    margin-top: 360px;
+    margin-top: 22.5rem;
 
     p:first-of-type{
-      font-size: 160px;
+      font-size: 10rem;
       font-weight: 500;
       color: #3859FF;
       text-align: center;
-      min-height: 178px;
+      min-height: 11.125rem;
       overflow: hidden;
 
       em{
@@ -248,11 +248,11 @@
       }
     }
     p:last-of-type{
-      font-size: 60px;
+      font-size: 3.75rem;
       font-weight: 500;
       text-align: center;
       color: var(--white1);
-      min-height: 68px;
+      min-height: 4.25rem;
       overflow: hidden;
       span{
         display:block;
@@ -268,9 +268,9 @@
     &::after{
       content: "(";
       position: absolute;
-      top: 140px;
+      top: 8.75rem;
       left: 0;
-      font-size: 200px;
+      font-size: 12.5rem;
       font-weight: 400;
       font-family: "Brown Sugar";
       color: var(--white1);
@@ -295,8 +295,8 @@
       gap: 1.25rem;
     }
     .rolling_img{
-      width : 340px;
-      height: 160px;
+      width : 21.25rem;
+      height: 10rem;
       border-radius: 1.25rem;
       overflow: hidden;
       img{
@@ -316,19 +316,19 @@
 }
 
 .sec_skill{
-  padding-top: 340px;
+  padding-top: 21.25rem;
 
   h2{
-    font-size: 60px;
+    font-size: 3.75rem;
     font-weight: 500;
     width : max-content;
     margin: 0 auto;
     color:var(--white1);
   }
   .skills_wrap{
-    width : calc(100% - 40px);
-    max-width: 1200px;
-    margin: 120px auto 0;
+    width : calc(100% - 2.5rem);
+    max-width: 75rem;
+    margin: 7.5rem auto 0;
     background-color: var(--white1);
     border-radius: 5rem;
     ul{
@@ -336,17 +336,18 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 60px;
-      padding: 450px;
-      font-size: 100px;
+      gap: 3.75rem;
+      padding: 28.125rem;
+      font-size: 6.25rem;
       font-weight: 600;
       color:var(--black1);
+      white-space: nowrap;
     }
   }
 }
 
 .sec_values{
-  padding: 200px 0;
+  padding: 12.5rem 0;
 
   h2{
     font-size: 2rem;
@@ -356,8 +357,8 @@
     text-align: center;
   }
   .value_video{
-    width : 560px;
-    height: 298px;
+    width : 35rem;
+    height: 18.625rem;
     margin: 2.5rem auto 0;
     border-radius: 1.25rem;
     overflow: hidden;
@@ -370,7 +371,7 @@
   }
   h3{
     margin-top: 3.75rem;
-    font-size: 64px;
+    font-size: 4rem;
     font-weight: 500;
     line-height: 90%;
     color: var(--white1);
@@ -379,8 +380,8 @@
   }
   .line{
     position: relative;
-    width : 208px;
-    height: 208px;
+    width : 13rem;
+    height: 13rem;
     margin: 0 auto;
     overflow: hidden;
     &::before{
@@ -390,11 +391,11 @@
       left: 50%;
       z-index : 1;
       transform: translateX(-50%);
-      width : 8px;
-      height:8px;
+      width : .5rem;
+      height:.5rem;
       background:var(--white1);
       border-radius: 50%;
-      border: 20px solid #1B263B;
+      border: 1.25rem solid #1B263B;
       content: "";
       opacity: 0;
       transition: opacity 1s 0.5s ease-in-out;
@@ -406,7 +407,7 @@
       left: 50%; top: 0;
       transform: translateX(-50%);
       width : 1px;
-      height: 0%;
+      height: 0;
       content: "";
       background-color: var(--white1);
       transition: height 1s .25s ease-in-out;
@@ -424,10 +425,10 @@
     display: flex;
     justify-content: center;
     gap: 1.25rem;
-    max-width : 1420px;
+    max-width : 88.75rem;
     width : 100%;
     margin: 2.5rem auto 0;
-    min-height: 52px;
+    min-height: 3.25rem;
 
     li{
       display: flex;
@@ -437,16 +438,16 @@
       position: relative;
       height: 0;
       background: #334FDC;
-      border-radius: 10px;
+      border-radius: 0.625rem;
       color: var(--white1);
       overflow: hidden;
       transition: height 0.5s 0s ease-in-out;
 
       span{
         position:absolute;
-        top: 50%; left: 14px;
+        top: 50%; left: 0.875rem;
         transform:translateY(-50%);
-        font-size: 14px;
+        font-size: 0.875rem;
         font-weight: 400;
         font-family: "Brown Sugar";
         letter-spacing: 0.0376em;
@@ -463,7 +464,7 @@
         font-family: "Brown Sugar";
       }
       &.show{
-        height: 52px;
+        height: 3.25rem;
         transition: height 0.5s 1s ease-in-out;
         span, p{
           opacity: 1;
