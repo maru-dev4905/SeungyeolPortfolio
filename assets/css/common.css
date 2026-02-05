@@ -732,7 +732,7 @@ footer {
         height 0.5s ease-in-out;
 
       img {
-        width: calc((100vw - 126px) / 4);
+        width: calc((100vw - 7.875rem) / 4);
         object-fit: cover;
         object-position: center;
         left: 0;
@@ -1016,5 +1016,11 @@ footer {
 @media all and (max-width: 1600px){
   html,body{
     font-size:14px;
+  }
+}
+
+@media all and (max-width: 1440px){
+  html,body{
+    font-size:12px;
   }
 }
