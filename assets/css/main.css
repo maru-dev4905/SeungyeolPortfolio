@@ -222,7 +222,7 @@
         transition: transform 1s ease-in-out;
       }
       &.show em{
-        transform: translateY(100%);
+        transform: translateY(120%);
       }
     }
   }
@@ -260,7 +260,7 @@
         transition: transform 1s ease-in-out;
       }
       &.hide span{
-        transform: translateY(100%);
+        transform: translateY(120%);
       }
     }
 
