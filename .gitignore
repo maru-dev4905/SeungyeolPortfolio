@@ -5,6 +5,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
+.DS_Store
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -124,6 +125,7 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.idea/
 
 # yarn v3
 .pnp.*
@@ -139,3 +141,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 package-lock.json
+react-app/public/legacy/

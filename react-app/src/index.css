@@ -1,0 +1,27 @@
+#root {
+  min-height: 100vh;
+}
+
+/* React가 렌더링하는 영역만 잡아두고, 시각 스타일은 레거시 CSS가 담당합니다. */
+.react-page {
+  min-height: 100vh;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.react-page header h1 {
+  height: 7.5rem;
+}
+
+.react-page header nav ul {
+  height: 3.125rem;
+}
+
+.react-page .cursor-outline,
+.react-page .cursor-dot {
+  z-index: 1000002;
+  will-change: transform, left, top, opacity;
+}
