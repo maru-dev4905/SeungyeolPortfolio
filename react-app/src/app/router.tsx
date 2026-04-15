@@ -16,6 +16,7 @@ export const router = createBrowserRouter([
       { path: 'about', element: <AboutPage /> },
       { path: 'works', element: <WorksPage /> },
       { path: 'works/:projectSlug', element: <WorkDetailPage /> },
+      { path: 'work', element: <WorkDetailPage /> },
       { path: 'contact', element: <ContactPage /> },
     ],
   },

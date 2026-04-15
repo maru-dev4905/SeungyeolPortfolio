@@ -93,6 +93,14 @@ export function refreshLegacyMotion() {
   smoothScroller?.refresh?.()
 }
 
+export function scrollLegacyToTop() {
+  if (smoothScroller?.scrollTo) {
+    smoothScroller.scrollTo(0, false)
+  }
+
+  window.scrollTo(0, 0)
+}
+
 export function registerLegacyAnimToggles(root: ParentNode | Element = document) {
   const createScrollTrigger = getLegacyScrollTriggerCreator()
 

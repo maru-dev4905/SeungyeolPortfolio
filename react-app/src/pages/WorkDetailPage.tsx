@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom'
+import { Fragment } from 'react'
+import { useLocation, useParams } from 'react-router-dom'
 
 import { LegacyBanner } from '../components/common/LegacyBanner'
 import { TransitionLink } from '../components/common/TransitionLink'
@@ -7,11 +8,15 @@ import { getProjectBySlug, getProjectNeighbors, getProjectVisualPath, toProjectK
 import { useLegacyPage } from '../hooks/useLegacyPage'
 
 export function WorkDetailPage() {
+  const location = useLocation()
   const { projectSlug } = useParams()
-  const project = getProjectBySlug(projectSlug)
-  const { currentIndex, nextProject, previousProject } = getProjectNeighbors(projectSlug)
+  const legacyProjectSlug = toProjectKey(new URLSearchParams(location.search).get('w') ?? '')
+  const resolvedProjectSlug = projectSlug ?? legacyProjectSlug
+  const project = getProjectBySlug(resolvedProjectSlug)
+  const { currentIndex, nextProject, previousProject } = getProjectNeighbors(resolvedProjectSlug)
   const previousProjectName = previousProject?.projectEN ?? ''
   const nextProjectName = nextProject?.projectEN ?? ''
+  const projectKey = toProjectKey(project?.projectEN ?? '')
   const initialPagingLabel =
     previousProjectName && !nextProjectName
       ? previousProjectName
@@ -24,6 +29,11 @@ export function WorkDetailPage() {
     'sub',
   )
   useWorkDetailInteractions(previousProject?.projectEN, nextProject?.projectEN)
+
+  const detailImageClassList =
+    !project || project.dType || !Array.isArray(project.imgCol) ? [] : project.imgCol
+  const detailImageCount =
+    !project || !project.dType || typeof project.imgCol !== 'number' ? 0 : project.imgCol
 
   if (!project) {
     return (
@@ -131,27 +141,51 @@ export function WorkDetailPage() {
 
       <section className={`sec_work ${project.dType ? 'dType_b' : 'dType_a'}`}>
         <div className="inner">
-          <img src={getProjectVisualPath(project.projectEN)} alt={project.projectEN} />
-          {project.pointTxt ? (
-            <div className="point_txt">
-              <div className="point">
-                <div className="hd">
-                  <span>POINT</span>
-                  <p>
-                    <em>(</em> DETAIL <em>)</em>
-                  </p>
-                  <span>{project.pointTxt[0]}</span>
-                </div>
-                <div className="bd">
-                  <p>{project.pointTxt[1]}</p>
-                  <p dangerouslySetInnerHTML={{ __html: project.pointTxt[2] }}></p>
-                </div>
-              </div>
+          {project.dType ? (
+            <div className="grid">
+              <div className="grid-sizer"></div>
+              {Array.from({ length: detailImageCount }).map((_, index) => (
+                <img
+                  key={`${project.projectEN}-grid-${index + 1}`}
+                  src={`/assets/images/works/${projectKey}/img0${index + 1}.png`}
+                  alt={`${project.projectEN} detail ${index + 1}`}
+                  className="grid-item fade anim"
+                />
+              ))}
             </div>
-          ) : null}
+          ) : (
+            <>
+              {detailImageClassList.map((classNames, index) => (
+                <Fragment key={`${project.projectEN}-detail-${index + 1}`}>
+                  {index === 3 && project.pointTxt ? (
+                    <div className="point_txt colST1 colED5 fade anim">
+                      <div className="point">
+                        <div className="hd">
+                          <p>
+                            <em>(</em> {project.pointTxt[0]} <em>)</em>
+                          </p>
+                          <span>{project.pointTxt[1]}</span>
+                        </div>
+                        <div className="bd">
+                          <p dangerouslySetInnerHTML={{ __html: project.pointTxt[2] }}></p>
+                        </div>
+                      </div>
+                    </div>
+                  ) : null}
+                  <img
+                    src={`/assets/images/works/${projectKey}/img0${index + 1}.png`}
+                    alt={`${project.projectEN} detail ${index + 1}`}
+                    className={`${classNames} fade anim`}
+                  />
+                </Fragment>
+              ))}
+            </>
+          )}
         </div>
         <div className="mo_imgs">
-          <img src={getProjectVisualPath(project.projectEN)} alt={project.projectEN} />
+          {project.dType ? (
+            <img src={`/assets/images/works/${projectKey}/mo_imgs.png`} alt={`${project.projectEN} mobile view`} />
+          ) : null}
         </div>
 
         <LegacyBanner
@@ -168,18 +202,28 @@ export function WorkDetailPage() {
               <em>[</em>
             </TransitionLink>
           ) : (
-            <span className="target disabled">
+            <a
+              href="#"
+              className="target disabled"
+              aria-disabled="true"
+              onClick={(event) => event.preventDefault()}
+            >
               <em>[</em>
-            </span>
+            </a>
           )}
           {nextProject ? (
             <TransitionLink to={`/works/${toProjectKey(nextProject.projectEN)}`} className="target">
               <em>]</em>
             </TransitionLink>
           ) : (
-            <span className="target disabled">
+            <a
+              href="#"
+              className="target disabled"
+              aria-disabled="true"
+              onClick={(event) => event.preventDefault()}
+            >
               <em>]</em>
-            </span>
+            </a>
           )}
           <div className="img_box">
             <img

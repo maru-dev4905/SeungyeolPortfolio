@@ -3,11 +3,13 @@ import { useEffect } from 'react'
 import {
   getLegacyScrollerElement,
   refreshLegacyMotion,
+  registerLegacyAnimToggles,
 } from './useLegacyInteractions'
 
 type GsapWindow = Window &
   typeof globalThis & {
     gsap?: {
+      set?: (target: unknown, vars: Record<string, unknown>) => void
       to?: (target: unknown, vars: Record<string, unknown>) => {
         kill?: () => void
         scrollTrigger?: { kill?: () => void }
@@ -114,6 +116,12 @@ export function useWorkDetailInteractions(
       nextLink,
       labels[1] ?? '',
     )
+    const cleanupAnimations = registerLegacyAnimToggles()
+
+    gsap?.set?.('.sec_visual .img_box', {
+      maxWidth: '94.625rem',
+      borderRadius: '2.5rem',
+    })
 
     const visualTween = gsap?.to?.('.sec_visual .img_box', {
       maxWidth: '100%',
@@ -133,6 +141,7 @@ export function useWorkDetailInteractions(
       window.clearInterval(scrambleTimeoutId)
       cleanupPrevious()
       cleanupNext()
+      cleanupAnimations()
       visualTween?.scrollTrigger?.kill?.()
       visualTween?.kill?.()
     }

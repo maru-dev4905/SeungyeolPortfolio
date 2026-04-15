@@ -1,7 +1,8 @@
+import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 
 import { TransitionLink, TransitionNavLink } from '../common/TransitionLink'
-import { useLegacyInteractions } from '../../hooks/useLegacyInteractions'
+import { scrollLegacyToTop, useLegacyInteractions } from '../../hooks/useLegacyInteractions'
 import { SiteFooter } from './SiteFooter'
 
 const navItems = [
@@ -35,6 +36,11 @@ export function AppLayout() {
   const namespace = getNamespace(location.pathname)
 
   useLegacyInteractions(namespace)
+
+  useEffect(() => {
+    document.documentElement.classList.remove('is-changing')
+    scrollLegacyToTop()
+  }, [location.pathname, location.search, location.hash])
 
   return (
     <div className="react-page">

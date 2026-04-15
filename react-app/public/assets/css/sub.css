@@ -789,9 +789,20 @@
 
 #work .sec_work.dType_a .mo_imgs {display: none;}
 
-#work .sec_work.dType_b .grid-sizer, #work .sec_work.dType_b .grid-item { width: calc(100% / 3 - 3.125rem); }
+#work .sec_work.dType_b .grid {
+	column-count: 3;
+	column-gap: 3.125rem;
+}
 
-#work .sec_work.dType_b .grid-item {margin-bottom: 3.125rem;}
+#work .sec_work.dType_b .grid-sizer {display: none;}
+
+#work .sec_work.dType_b .grid-item {
+	display: block;
+	width: 100%;
+	margin-bottom: 3.125rem;
+	border-radius: 3.125rem;
+	break-inside: avoid;
+}
 
 #work .sec_work.dType_b .mo_imgs {
 	overflow: hidden;
