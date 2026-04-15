@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="theme-color" content="" />
+  <meta name="apple-mobile-web-app-capable" content="" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="" />
+  <meta name="title" content="" />
+  <meta name="description" content="" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="" />
+  <!-- BEGIN FACEBOOK Meta -->
+  <meta property="og:title" content="" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="" />
+  <meta property="og:url" content="" />
+  <meta property="og:description" content="" />
+  <!-- END FACEBOOK Meta -->
+
+  <!-- BEGIN TWITTER Meta -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="" />
+  <meta name="twitter:description" content="" />
+  <meta name="twitter:image" content="" />
+  <!-- END TWITTER Meta -->
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="./assets/images/favicon.ico" />
+  <link rel="apple-touch-icon" href="./assets/images/favicon.ico" />
+
+  <title>LeeSeungyeol - PORTFOLIO</title>
+
+  <!-- css  -->
+  <link rel="stylesheet" href="./assets/css/base.css" />
+  <link rel="stylesheet" href="./assets/css/common.css" />
+  <link rel="stylesheet" href="./assets/css/sub.css" />
+
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrambleTextPlugin.min.js"></script>
+
+  <script src="./assets/js/common.js" type="module"></script>
+  <script src="./assets/js/prj.js" type="module"></script>
+</head>
+
+<body>
+<div id="intro">
+  <div class="item left">
+    <svg width="50" height="228" viewBox="0 0 50 228" xmlns="http://www.w3.org/2000/svg" aria-label="shape left">
+      <path id="path1" class="trace" d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"/>
+    </svg>
+  </div>
+  <div class="item center">
+    <img src="./assets/images/visuals/visual.png" alt="" class="item_img">
+  </div>
+  <!-- Right -->
+  <div class="item right">
+    <svg width="50" height="228" viewBox="0 0 50 228" xmlns="http://www.w3.org/2000/svg" aria-label="shape right">
+      <path id="path2" class="trace" d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"/>
+    </svg>
+  </div>
+</div>
+
+<div class="noise-canvas" aria-hidden="true">
+  <canvas id="grain"></canvas>
+</div>
+<div class="cursor-outline"></div>
+<div class="cursor-dot"></div>
+
+<div id="smooth-wrapper">
+  <header>
+    <div class="inner">
+      <h1>
+        <a href="./index.html" class="target">
+          <strong>
+            LEE S<i>E</i>UNG<i>Y</i>EOL <br>
+            P<i>U</i>BLIS<i>H</i>ER
+          </strong>
+          <span>.PORTFOLIO</span>
+          <p>SY</p>
+        </a>
+      </h1>
+      <nav class="gnb">
+        <ul>
+          <li><a href="./about.html" data-nav="Who I Am" class="target"><span>Who I Am</span></a></li>
+          <li><a href="./works.html" data-nav="My Works" class="target"><span>My Works</span></a></li>
+          <li><a href="./contact.html" data-nav="Contact Me" class="target"><span>Contact Me</span></a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="coordinate_display">
+    ( <span class="coordinate_display_x">X: 0px</span>,
+    <span class="coordinate_display_y">Y: 0px</span> )
+  </div>
+  <div id="smooth-content">
+    <div
+            class="page transition-fade"
+            data-swup="container"
+            data-namespace="about"
+    >
+      <main id="about">
+        <section class="sec_visual">
+          <div class="inner">
+            <em>(</em>
+            <em>)</em>
+            <div class="about_visual visual">
+              <img src="./assets/images/visuals/hobby1.png" alt="" class="on">
+              <img src="./assets/images/visuals/hobby2.png" alt="">
+              <img src="./assets/images/visuals/hobby3.png" alt="">
+              <img src="./assets/images/visuals/hobby4.png" alt="">
+              <img src="./assets/images/visuals/hobby5.png" alt="">
+
+              <div class="marquee marquee_back">
+                <div class="marquee_track">
+                  <div class="content">
+                    <span>Leben wie ein Märchen</span>
+                    <span>Leben wie ein Märchen</span>
+                    <span>Leben wie ein Märchen</span>
+                    <span>Leben wie ein Märchen</span>
+                  </div>
+                  <div class="content">
+                    <span>Leben wie ein Märchen</span>
+                    <span>Leben wie ein Märchen</span>
+                    <span>Leben wie ein Märchen</span>
+                    <span>Leben wie ein Märchen</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <h2>
+              I try to find beauty in everything I encounter in life. <br>
+              Sometimes, the smallest moments become the greatest stories to me. <br>
+              So I keep learning, imagining, and creating, adding to that story day by day. <br>
+              Now, I live as someone who turns dreams within me into reality
+            </h2>
+          </div>
+        </section>
+        <section class="sec_introduce">
+          <div class="inner">
+            <h2 class="fade anim">
+              INTR<em>O</em>DU<em>C</em>E
+            </h2>
+            <div class="desc fade anim">
+              <p><strong>Lee Seungyeol</strong> <span>( Publisher )</span></p>
+              <p><strong>2001 . 03 . 30</strong> <span>( 25 years old )</span></p>
+              <p><strong>Seoul, Dobong-gu, South Korea</strong> <span>( ssangmun Station, Line 4 )</span></p>
+            </div>
+          </div>
+        </section>
+        <section class="sec_message">
+          <div class="inner">
+            <p class="fade anim">
+              I pursue publishing that balances visual clarity and structural depth. My work focuses on clean markup accessible UI and responsive interactions
+              <br><br>
+              To offer users a richer experience I explore <br>
+              GSAP, ScrollMagic and Locomotive.js
+            </p>
+            <div class="img_wrap anim">
+              <img src="./assets/images/visuals/profile.png" alt="">
+            </div>
+            <p class="fade anim">
+              시각적 명확성과 구조적인 깊이의 균형을 지향하는 퍼블리싱을 추구합니다. 깔끔한 마크업, 접근성 높은 UI, 반응형 인터랙션에 집중합니다
+              <br><br>
+              디자인은 도구가 전부는 아니지만 - <br>
+              Figma SCSS JavaScript를 활용해 확장 가능한 시스템을 구축합니다
+              <br><br>
+              다양한 경험과 시각적 즐거움을 위해 GSAP, ScrollMagic, Locomotive.js 등
+              인터랙션을 꾸준히 탐구합니다
+            </p>
+            <h2 class="fade anim">P<em>O</em>WER<em>E</em>D B<em>Y</em> CLA<em>R</em>ITY</h2>
+          </div>
+        </section>
+        <section class="sec_career">
+          <div class="inner">
+            <div class="tit fade anim">
+              <h2><em>C</em>AREER</h2>
+              <p>( 4 )</p>
+            </div>
+            <ul class="desc anim">
+              <li class="anim">
+                <p>2023. 03 ~ ing</p>
+                <h3>W</h3>
+                <span>WeverCNS</span>
+              </li>
+              <li class="anim">
+                <p>2022. 06 ~ 2023. 02</p>
+                <h3>B</h3>
+                <span>Bstones</span>
+              </li>
+              <li class="anim">
+                <p>2020. 10 ~ 2021. 08</p>
+                <h3>D</h3>
+                <span>Dfry</span>
+              </li>
+              <li class="anim">
+                <p>2019. 11 ~ 2020. 02</p>
+                <h3>M</h3>
+                <span>MakeStar</span>
+              </li>
+            </ul>
+            <h4 class="fade anim">
+              <em>(</em> C<em>O</em>NTA<em>C</em>T <em>)</em>
+            </h4>
+            <div class="contact_message fade anim">
+              <a href="#">
+                <h5>CONNECT</h5>
+                <div>
+                  <p>
+                    This time, it’s not just about working. <br><br>
+                    I want to build a web experience with you that makes someone’s world a little more beautiful. <br><br>
+                    And I want to finish that story together.
+                  </p>
+                  <img src="./assets/images/visuals/about_deco.png" alt="">
+                </div>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <div class="banner anim">
+          <p>
+            <span>EACH</span>
+            <span>LINE</span>
+            <span>OF</span>
+            <span>CODE</span>
+            <span>/</span>
+            <span>BUILDS</span>
+            <span>STRUCTURE</span>
+            <span>/</span>
+            <span>AND</span>
+            <span>SHAPES</span>
+            <span>EXPERIENCE.</span>
+          </p>
+          <p>
+            <span>EVERY</span>
+            <span>FUNCTION</span>
+            <span>/</span>
+            <span>EVERY</span>
+            <span>ANIMATION</span>
+            <span>/</span>
+            <span>EXISTS</span>
+            <span>FOR</span>
+            <span>CLARITY.</span>
+          </p>
+        </div>
+
+        <section class="sec_skills">
+          <div class="inner">
+            <h2>S<em>K</em>ILLS</h2>
+            <ul>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>01</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>HTML5</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      시맨틱 태그와 data- 속성을 활용해 구조적이고 확장 가능한 마크업을 작성할 수 있습니다. <br>
+                      접근성과 표준성을 고려한 페이지 구조 설계가 가능합니다. <br><br>
+                      Able to write semantic and structured markup using data- attributes. <br>
+                      Builds accessible, maintainable, and scalable HTML architecture.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>02</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>CSS3</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      유틸리티 클래스와 커스텀 속성을 기반으로 빠르고 일관된 스타일 시스템을 구축합니다. <br>
+                      Flex와 Grid를 활용한 반응형/적응형 레이아웃을 구현할 수 있습니다. <br>
+                      트랜지션과 트랜스폼을 이용해 섬세한 인터랙션 표현도 가능합니다. <br><br>
+                      Creates fast and reusable styling systems based on utility classes and key properties. <br>
+                      Uses Flex/Grid layouts to implement adaptive and responsive designs.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>03</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>Javascript</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      ES6 문법 기반으로 DOM 제어와 이벤트 처리, 간단한 모듈 개발이 가능합니다. <br>
+                      Ajax를 통한 폼 전송, 입력값 유효성 검사 등 사용자 인터랙션 로직을 구현할 수 있습니다. <br>
+                      data-속성 기반으로 상태 제어를 하는 구조적 스크립트 작성에 익숙합니다. <br>
+                      <br>
+                      Develops dynamic interactions using ES6 syntax and DOM manipulation. <br>
+                      Handles Ajax form submissions and validation with efficiency. <br>
+                      Uses data- attributes for structured, reusable component scripting.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>04</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>jQuery</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      이벤트 위임과 DOM 조작으로 UI의 반복적인 동작을 효율적으로 처리합니다. <br>
+                      data- 속성을 활용해 다양한 컴포넌트 제어 로직을 단순화합니다. <br>
+                      간단한 애니메이션, 모달, 탭, 아코디언 등 공통 UI 모듈 제작이 가능합니다. <br>
+                      <br>
+                      Implements efficient UI controls through event delegation and DOM handling. <br>
+                      Controls modular interactions such as tabs, modals, and accordions with simplicity.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>05</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>SCSS</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      변수, 믹스인, 함수, 중첩을 활용해 구조적이고 체계적인 스타일 설계를 합니다. <br>
+                      유틸리티 클래스 중심의 스타일 시스템으로 빠른 퍼블리싱을 지원합니다. <br>
+                      <br>
+                      Builds structured and scalable style architecture using variables, mixins, and nesting. <br>
+                      Supports utility-based systems for fast and consistent styling across pages.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>06</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>PUG</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      템플릿 상속, include, mixin 등을 이용해 HTML 구조를 모듈화합니다. <br>
+                      변수와 반복문을 활용해 동적인 페이지 구조를 효율적으로 구성합니다. <br>
+                      <br>
+                      Uses inheritance, includes, and mixins to create modular HTML templates. <br>
+                      Builds structured layouts for maintainable and reusable web pages.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>07</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>GIT</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      기본적인 브랜치 생성과 커밋, 버전 관리 및 협업 환경 설정이 가능합니다. <br>
+                      작업 히스토리를 통해 변경점을 관리하고 안정적으로 코드 백업을 수행합니다. <br>
+                      단독 프로젝트와 협업 환경 모두에서 실무적으로 사용 경험이 있습니다. <br>
+                      <br>
+                      Handles project version control for stable collaboration. <br>
+                      Manages commits, merges, and updates in practical team environments.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>08</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>GSAP</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      ScrollTrigger, MotionPathPlugin 등을 활용해 고급 인터랙션을 구현합니다. <br>
+                      SVG 요소나 DOM 객체의 모션 제어, 시차 스크롤 등의 애니메이션을 구성할 수 있습니다. <br>
+                      <br>
+                      Implements advanced animations using ScrollTrigger and MotionPathPlugin. <br>
+                      Creates smooth and interactive scroll-based and SVG path animations.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>09</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>Locomotive-Scroll</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      부드러운 스크롤 감속 효과와 패럴랙스 연출을 구현할 수 있습니다. <br>
+                      GSAP ScrollTrigger와 연동해 자연스러운 인터랙션을 만듭니다. <br>
+                      <br>
+                      Builds smooth scrolling effects and parallax animations. <br>
+                      Integrates seamlessly with GSAP ScrollTrigger for immersive experiences.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>10</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>Swiper</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      반응형 슬라이드 구현, 오토플레이, 네비게이션 커스터마이징이 가능합니다. <br>
+                      Breakpoints, Pagination, Loop 등 다양한 옵션 조합으로 상황에 맞게 활용합니다. <br>
+                      AJAX나 템플릿 데이터를 통해 슬라이드 콘텐츠를 동적으로 구성할 수도 있습니다. <br>
+                      <br>
+                      Creates responsive sliders with autoplay, navigation, and pagination options. <br>
+                      Supports AJAX-loaded dynamic slides for flexible content updates.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>11</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>FIGMA</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      디자인 시안을 기반으로 정확한 구현이 가능하며, 리소스 추출 및 컴포넌트 확인에 능숙합니다. <br>
+                      간단한 레이아웃 수정이나 스타일 가이드 확인 작업도 직접 수행할 수 있습니다. <br>
+                      <br>
+                      Able to check design layouts and extract assets for front-end development. <br>
+                      Reviews components and structure for accurate implementation.
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="skill">
+                  <div class="hd">
+                    <span>12</span>
+                    <p><em>(</em> SKILLS <em>)</em></p>
+                    <span>XD, Photoshop</span>
+                  </div>
+                  <div class="bd">
+                    <p>
+                      디자인 시안을 분석하고 퍼블리싱에 필요한 리소스를 추출할 수 있습니다. <br>
+                      시안의 레이아웃, 간격, 폰트, 컬러를 기준으로 실제 페이지에 반영할 수 있습니다. <br>
+                      <br>
+                      Able to analyze and implement designs efficiently through layout analysis. <br>
+                      References colors, grids, and text for precise front-end reproduction.
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="sec_contact">
+          <h2 class="anim">
+            <a href="./contact.html" class="target">
+              <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
+              <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
+              <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
+              <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
+              <p><span>CONTACT M<em>E -</em> CONTACT M<em>E</em></span></p>
+            </a>
+          </h2>
+          <div class="marquee marquee_back fade anim">
+            <div class="marquee_track">
+              <div class="content">
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+              </div>
+              <div class="content">
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+                <span>START A STORY – SHARE A DREAM – WRITE TO MARU –</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="line">
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+          <span></span>
+        </div>
+        <div class="inner">
+          <div class="links">
+            <div>
+              <div>
+                <strong>LINK :</strong>
+                <a href="#" class="target">Github</a>
+                <a href="#" class="target">Facebook</a>
+                <a href="#" class="target">Instagram</a>
+              </div>
+            </div>
+            <div>
+              <strong>CREDITS :</strong>
+              <p>Site by Lee-Seungyeol</p>
+              <strong>CONTACT :</strong>
+              <p><span id="emailTxt">iseung10e@gmail.com</span> <button type="button" class="copy_btn" data-target="emailTxt"></button></p>
+              <p><span id="phoneNum">010-2269-0763</span> <button type="button" class="copy_btn" data-target="phoneNum"></button></p>
+            </div>
+            <div>
+              <strong>Resume :</strong>
+              <a href="#" class="resume" download>Download Resume _ PDF, 3MB</a>
+            </div>
+          </div>
+          <div class="desc">
+            <div>
+              <button type="button" class="scr_btn target" ></button>
+              <p>Seungyeol Portfolio - Thank you for looking at my portfolio</p>
+              <p>@ 2025 / All rights reserved</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<div id="swup-overlay" aria-hidden="true"></div>
+</body>
+
+</html>
