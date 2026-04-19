@@ -5,10 +5,19 @@ import { TransitionLink, TransitionNavLink } from '../common/TransitionLink'
 import { scrollLegacyToTop, useLegacyInteractions } from '../../hooks/useLegacyInteractions'
 import { SiteFooter } from './SiteFooter'
 
-const navItems = [
-  { to: '/about', label: 'Who I Am' },
-  { to: '/works', label: 'My Works' },
-  { to: '/contact', label: 'Contact Me' },
+type NavItem =
+  | { kind: 'internal'; to: string; label: string }
+  | { kind: 'external'; href: string; label: string }
+
+const navItems: NavItem[] = [
+  { kind: 'internal', to: '/about', label: 'Who I Am' },
+  { kind: 'internal', to: '/works', label: 'My Works' },
+  { kind: 'internal', to: '/contact', label: 'Contact Me' },
+  {
+    kind: 'external',
+    href: 'https://maru-dev4905.github.io/Weave/docs/css',
+    label: 'Weave',
+  },
 ]
 
 function getNamespace(pathname: string) {
@@ -103,12 +112,28 @@ export function AppLayout() {
               <ul>
                 {navItems.map((item) => (
                   <li
-                    key={item.to}
-                    className={location.pathname.startsWith(item.to) ? 'on' : undefined}
+                    key={item.kind === 'internal' ? item.to : item.href}
+                    className={
+                      item.kind === 'internal' && location.pathname.startsWith(item.to)
+                        ? 'on'
+                        : undefined
+                    }
                   >
-                    <TransitionNavLink to={item.to} data-nav={item.label} className="target">
-                      <span>{item.label}</span>
-                    </TransitionNavLink>
+                    {item.kind === 'internal' ? (
+                      <TransitionNavLink to={item.to} data-nav={item.label} className="target">
+                        <span>{item.label}</span>
+                      </TransitionNavLink>
+                    ) : (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        data-nav={item.label}
+                        className="target"
+                      >
+                        <span>{item.label}</span>
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

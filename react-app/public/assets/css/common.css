@@ -113,7 +113,6 @@ html.is-changing #swup-overlay {
 	backdrop-filter: blur(50px);
 }
 
-/* 원하면 header도 같이 페이드 */
 html.is-changing header {
 	transition: opacity 0.25s ease;
 	opacity: 0.2;
@@ -219,7 +218,7 @@ header nav ul {
 
 header nav ul a {
 	padding: 0 2.5rem;
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	font-weight: 400;
 	color: var(--white1);
 	transition: color 0.5s ease-in-out;
@@ -240,13 +239,13 @@ header nav li a {
 	overflow: hidden;
 	position: relative;
 	height: 100%;
-	padding: 0 3.125rem;
+	padding: 0 2.125rem;
 	align-items: center;
 	flex-direction: column;
 }
 
 header nav li a::after {
-	font-size: 1.5rem;
+	font-size: 1.25rem;
 	font-weight: 400;
 	color: var(--white1);
 	content: attr(data-nav);
@@ -270,7 +269,7 @@ header nav li.on::before {
 	display: block;
 	position: absolute;
 	top: 50%;
-	left: 1.25rem;
+	left: 0rem;
 	width: 1.5rem;
 	height: 1.5rem;
 	background: url("../images/icons/ico_nav_on.svg") no-repeat center / cover;
