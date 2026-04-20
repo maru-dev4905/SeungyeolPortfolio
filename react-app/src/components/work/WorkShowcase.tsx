@@ -6,6 +6,12 @@ import { useWorksPageInteractions } from '../../hooks/useWorksPageInteractions'
 import { getProjectVisualPath, toProjectKey } from '../../lib/portfolio'
 
 type GroupName = keyof typeof projectGroups | 'All'
+type VisibleItem = {
+  groupName: string
+  name: string
+  txt: string
+  date: string
+}
 
 function getYearKey(dateText = '') {
   const value = String(dateText).trim()
@@ -16,6 +22,24 @@ function getYearKey(dateText = '') {
   }
 
   return Number.parseInt(value, 10) || 0
+}
+
+function dedupeVisibleItems(items: VisibleItem[]) {
+  const uniqueItems = new Map<string, VisibleItem>()
+
+  items.forEach((item) => {
+    const key = `${item.groupName}::${item.name}::${item.txt}::${item.date}`
+
+    if (!uniqueItems.has(key)) {
+      uniqueItems.set(key, item)
+    }
+  })
+
+  return Array.from(uniqueItems.values())
+}
+
+type HeaderSuppressionWindow = Window & {
+  __suppressHeaderShowCycleUntil?: number
 }
 
 export function WorkShowcase() {
@@ -29,22 +53,24 @@ export function WorkShowcase() {
 
   const visibleItems = useMemo(() => {
     if (selectedGroup === 'All') {
-      return Object.entries(projectGroups)
+      return dedupeVisibleItems(
+        Object.entries(projectGroups)
         .flatMap(([groupName, items]) =>
           items.map((item) => ({
             ...item,
             groupName,
           })),
         )
-        .sort((a, b) => getYearKey(b.date) - getYearKey(a.date))
+        .sort((a, b) => getYearKey(b.date) - getYearKey(a.date)),
+      )
     }
 
-    return (projectGroups[selectedGroup] ?? [])
+    return dedupeVisibleItems((projectGroups[selectedGroup] ?? [])
       .map((item) => ({
         ...item,
         groupName: selectedGroup,
       }))
-      .sort((a, b) => getYearKey(b.date) - getYearKey(a.date))
+      .sort((a, b) => getYearKey(b.date) - getYearKey(a.date)))
   }, [selectedGroup])
 
   return (
@@ -89,7 +115,10 @@ export function WorkShowcase() {
                     key={groupName}
                     type="button"
                     className={groupName === selectedGroup ? 'target on' : 'target'}
-                    onClick={() => setSelectedGroup(groupName)}
+                    onClick={() => {
+                      ;(window as HeaderSuppressionWindow).__suppressHeaderShowCycleUntil = Date.now() + 600
+                      setSelectedGroup(groupName)
+                    }}
                   >
                     {groupName === 'All' ? 'All.' : groupName}
                   </button>

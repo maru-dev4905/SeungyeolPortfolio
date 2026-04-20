@@ -55,6 +55,7 @@ type GsapWindow = Window &
     }
     ScrambleTextPlugin?: unknown
     _smooth?: ScrollSmootherInstance | null
+    __suppressHeaderShowCycleUntil?: number
   }
 
 const INTRO_KEY = 'intro_enabled'
@@ -262,9 +263,11 @@ export function useLegacyInteractions(namespace: PageNamespace) {
     const cursorOutline = document.querySelector('.cursor-outline') as HTMLDivElement | null
     const cursorDot = document.querySelector('.cursor-dot') as HTMLDivElement | null
     const headerTitle = document.querySelector('header h1') as HTMLElement | null
+    const headerNav = document.querySelector('header nav') as HTMLElement | null
     const footer = document.querySelector('footer')
     const scrollButton = document.querySelector('.scr_down_btn')
     const mainVisual = document.querySelector('.sec_visual')
+    let headerShowTimer: ReturnType<typeof window.setTimeout> | null = null
 
     const syncIntroVisibility = () => {
       if (!intro || !gsap?.set) {
@@ -279,8 +282,8 @@ export function useLegacyInteractions(namespace: PageNamespace) {
     }
 
     const openHeaderInstant = () => {
-      gsap?.set?.('header h1', { height: 120 })
-      gsap?.set?.('header nav ul', { height: 50 })
+      headerTitle?.classList.add('show')
+      headerNav?.classList.add('show')
     }
 
     const setupHeaderScroll = () => {
@@ -291,39 +294,56 @@ export function useLegacyInteractions(namespace: PageNamespace) {
       }
 
       gsap.set?.('header h1', {
-        clearProps: 'height,color,backgroundColor,backdropFilter',
+        clearProps: 'color,backgroundColor,backdropFilter',
       })
       gsap.set?.('header nav ul', {
-        clearProps: 'height,backgroundColor,opacity',
+        clearProps: 'backgroundColor,opacity',
       })
       gsap.set?.('header h1 p, header h1 span', { clearProps: 'display' })
 
+      headerTitle.classList.add('show')
+      headerNav?.classList.add('show')
       const timeline = gsap.timeline({ paused: true })
+      let didRunTopRangeTransition = false
+      let wasWithinTopRange = true
+      let lastScroll = 0
+
+      const runHeaderShowCycle = () => {
+        if ((window as GsapWindow).__suppressHeaderShowCycleUntil && Date.now() < ((window as GsapWindow).__suppressHeaderShowCycleUntil ?? 0)) {
+          return
+        }
+
+        headerTitle.classList.remove('show')
+        headerNav?.classList.remove('show')
+
+        if (headerShowTimer) {
+          window.clearTimeout(headerShowTimer)
+          headerShowTimer = null
+        }
+
+        headerShowTimer = window.setTimeout(() => {
+          headerTitle.classList.add('show')
+          headerNav?.classList.add('show')
+          headerShowTimer = null
+        }, 1000)
+      }
 
       timeline
-        .set('header h1', { height: 120, color: '#fff', backgroundColor: '#000' })
-        .to('header h1', {
-          height: 0,
-          color: '#fff',
-          backgroundColor: '#000',
-          duration: 0.25,
-          ease: 'power2.out',
-        })
+        .set('header h1', { color: '#fff', backgroundColor: '#000' })
+        .to('header h1', { backgroundColor: '#000', duration: 0.25, ease: 'power2.out' })
         .to(
           'header nav ul',
           {
-            height: 0,
             backgroundColor: '#000',
             duration: 0.25,
             ease: 'power2.out',
           },
-          '>',
+          '<',
         )
         .set('header h1', { backgroundColor: 'rgba(244,244,244,0.9)' }, '>')
         .set('header h1 p, header h1 span', { display: 'none' }, '>')
         .set('header nav ul', { backgroundColor: 'rgba(0,0,0,0)' }, '>')
         .to('header h1', {
-          height: 120,
           color: '#000',
           backdropFilter: 'blur(5px)',
           duration: 0.35,
@@ -333,22 +353,53 @@ export function useLegacyInteractions(namespace: PageNamespace) {
           'header nav ul',
           {
             backgroundColor: 'rgba(244,244,244,1)',
-            height: 50,
             opacity: 0.8,
             duration: 0.35,
             ease: 'power2.out',
           },
-          '>',
+          '<',
         )
-
-      timeline.progress?.(0)?.pause?.()
 
       const trigger = createScrollTrigger({
         trigger: 'body',
         start: () => `${headerTitle.offsetHeight} top`,
         end: 'max',
-        onEnter: () => timeline.play?.(),
-        onLeaveBack: () => timeline.reverse?.(),
+        onEnter: () => {
+          if ((window as GsapWindow).__suppressHeaderShowCycleUntil && Date.now() < ((window as GsapWindow).__suppressHeaderShowCycleUntil ?? 0)) {
+            return
+          }
+
+          runHeaderShowCycle()
+          timeline.progress?.(0)
+          timeline.play?.()
+          didRunTopRangeTransition = true
+        },
+        onLeaveBack: () => {
+          if ((window as GsapWindow).__suppressHeaderShowCycleUntil && Date.now() < ((window as GsapWindow).__suppressHeaderShowCycleUntil ?? 0)) {
+            return
+          }
+
+          timeline.reverse?.()
+          runHeaderShowCycle()
+          didRunTopRangeTransition = true
+        },
+        onUpdate: (self: { scroll: () => number }) => {
+          const currentScroll = self.scroll()
+          const isWithinTopRange = currentScroll <= headerTitle.offsetHeight
+          const didScroll = Math.abs(currentScroll - lastScroll) > 1
+
+          if (didScroll && isWithinTopRange && !wasWithinTopRange && !didRunTopRangeTransition) {
+            runHeaderShowCycle()
+            didRunTopRangeTransition = true
+          }
+
+          if (!isWithinTopRange) {
+            didRunTopRangeTransition = false
+          }
+
+          wasWithinTopRange = isWithinTopRange
+          lastScroll = currentScroll
+        },
         scroller: smoothScroller?.wrapper?.(),
       })
 
@@ -495,11 +546,9 @@ export function useLegacyInteractions(namespace: PageNamespace) {
 
       if (namespace === 'main') {
         openHeaderInstant()
-      } else if (gsap?.timeline) {
-        gsap
-          .timeline({})
-          .to('header h1', { height: 120, duration: 1, ease: 'power2.out' }, '>')
-          .to('header nav ul', { height: 50, duration: 1, ease: 'power2.out' }, '<')
+      } else {
+        headerTitle?.classList.add('show')
+        headerNav?.classList.add('show')
       }
 
       ScrollTrigger?.refresh?.(true)
@@ -543,8 +592,18 @@ export function useLegacyInteractions(namespace: PageNamespace) {
           },
           '>',
         )
-        .to('header h1', { height: 120, duration: 1, ease: 'power2.out' }, '>')
-        .to('header nav ul', { height: 50, duration: 1, ease: 'power2.out' }, '<')
+        .to(
+          {},
+          {
+            duration: 1,
+            ease: 'power2.out',
+            onStart: () => {
+              headerTitle?.classList.add('show')
+              headerNav?.classList.add('show')
+            },
+          },
+          '>',
+        )
 
       cleanups.push(() => timeline.kill?.())
     }
@@ -573,6 +632,9 @@ export function useLegacyInteractions(namespace: PageNamespace) {
     })
 
     return () => {
+      if (headerShowTimer) {
+        window.clearTimeout(headerShowTimer)
+      }
       cleanups.forEach((cleanup) => cleanup())
     }
   }, [namespace])

@@ -380,11 +380,6 @@ export const projectGroups: ProjectGroups = {
       date: "2021"
     },
     {
-      name: "NC DInos Kiosk Event",
-      txt: "Publishing",
-      date: "2021"
-    },
-    {
       name: "삼성 #YouMake 오픈 알림 신청",
       txt: "Publishing",
       date: "2023"

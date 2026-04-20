@@ -27,6 +27,7 @@ const cmn = {
   _headerST: null,
   _headerPinST: null,
   _headerTL: null,
+  _headerShowTimer: null,
 
   // ---------------------------
   // ScrollSmoother 한 번만 만들기
@@ -70,30 +71,6 @@ const cmn = {
 
     const menus = this._qq('.gnb li');
 
-    // 메인 제외 헤더 오픈 애니메이션
-    if (!this._pageNamespace.includes('main')) {
-      gsap
-          .timeline({})
-          .to(
-              "header h1",
-              {
-                height: 120,
-                duration: 1,
-                ease: "power2.out"
-              },
-              ">"
-          )
-          .to(
-              "header nav ul",
-              {
-                height: 50,
-                duration: 1,
-                ease: "power2.out"
-              },
-              "<"
-          );
-    }
-
     menus.forEach((menu)=>menu.classList.remove('on'));
     if(this._pageNamespace.includes('works')){
       menus[1].classList.add('on');
@@ -133,9 +110,15 @@ const cmn = {
     this._headerPinST && this._headerPinST.kill(); this._headerPinST = null;
     this._headerTL && this._headerTL.kill(); this._headerTL = null;
 
-    gsap.set("header h1", { clearProps: "height,color,backgroundColor,backdropFilter" });
-    gsap.set("header nav ul", { clearProps: "height,backgroundColor,opacity" });
+    gsap.set("header h1", { clearProps: "color,backgroundColor,backdropFilter" });
+    gsap.set("header nav ul", { clearProps: "backgroundColor,opacity" });
     gsap.set("header h1 p, header h1 span", { clearProps: "display" });
+    this._q("header h1")?.classList.remove("show");
+    this._q("header nav")?.classList.remove("show");
+    if (this._headerShowTimer) {
+      clearTimeout(this._headerShowTimer);
+      this._headerShowTimer = null;
+    }
 
     if(this._pageNamespace.includes('main')) mainFunc.destroy && mainFunc.destroy();
   },
@@ -191,8 +174,8 @@ const cmn = {
   // 헤더 즉시 열림 함수
   // ---------------------------
   _openHeaderInstant() {
-    gsap.set("header h1", { height: 120 });
-    gsap.set("header nav ul", { height: 50 });
+    this._q("header h1")?.classList.add("show");
+    this._q("header nav")?.classList.add("show");
   },
 
   // ---------------------------
@@ -200,6 +183,8 @@ const cmn = {
   // ---------------------------
   _setupHeaderScroll() {
     const hd = this._q("header");
+    const headerTitle = this._q("header h1");
+    const headerNav = this._q("header nav");
     if (!hd) return;
 
     // 만들어진 헤더 트리거/타임라인 제거
@@ -207,26 +192,62 @@ const cmn = {
     this._headerPinST && this._headerPinST.kill();
     this._headerTL && this._headerTL.kill();
 
-    // 이전 페이지 남은 인라인 스타일 초기화
-    gsap.set("header h1", { clearProps: "height,color,backgroundColor,backdropFilter" });
-    gsap.set("header nav ul", { clearProps: "height,backgroundColor,opacity" });
-    gsap.set("header h1 p, header h1 span", { clearProps: "display" });
+    if (this._headerShowTimer) {
+      clearTimeout(this._headerShowTimer);
+      this._headerShowTimer = null;
+    }
 
     this._headerST && this._headerST.kill();
     this._headerST = null;
 
+    headerTitle?.classList.add("show");
+    headerNav?.classList.add("show");
+    let didRunTopRangeTransition = false;
+    let wasWithinTopRange = true;
+    let lastScroll = 0;
 
-    // 헤더 상태 변화 타임라인
+    const runHeaderShowCycle = () => {
+      headerTitle?.classList.remove("show");
+      headerNav?.classList.remove("show");
+      if (this._headerShowTimer) {
+        clearTimeout(this._headerShowTimer);
+        this._headerShowTimer = null;
+      }
+      this._headerShowTimer = setTimeout(() => {
+        headerTitle?.classList.add("show");
+        headerNav?.classList.add("show");
+        this._headerShowTimer = null;
+      }, 1000);
+    };
+
     const tl = gsap.timeline({ paused: true });
 
-    tl.set("header h1", { height: 120, color:"#fff", backgroundColor:"#000" })
-        .to("header h1", { height: 0, color:"#fff", backgroundColor:"#000", duration:0.25, ease:"power2.out" })
-        .to("header nav ul", { height: 0, backgroundColor:"#000", duration:0.25, ease:"power2.out" }, ">")
-        .set("header h1", { backgroundColor:"rgba(244,244,244,0.9)" }, ">")
-        .set("header h1 p, header h1 span", { display:"none" }, ">")
-        .set("header nav ul", { backgroundColor:"rgba(0,0,0,0)" }, ">")
-        .to("header h1", { height:120, color:"#000", backdropFilter:"blur(5px)", duration:0.35, ease:"power2.out" })
-        .to("header nav ul", { backgroundColor:"rgba(244,244,244,1)", height:50, opacity:0.8, duration:0.35, ease:"power2.out" }, ">");
+    tl.set("header h1", { color:"#fff", backgroundColor:"#000" })
+      .to("header h1", {
+        backgroundColor:"#000",
+        duration:0.25,
+        ease:"power2.out"
+      })
+      .to("header nav ul", {
+        backgroundColor:"#000",
+        duration:0.25,
+        ease:"power2.out"
+      }, "<")
+      .set("header h1", { backgroundColor:"rgba(244,244,244,0.9)" }, ">")
+      .set("header h1 p, header h1 span", { display:"none" }, ">")
+      .set("header nav ul", { backgroundColor:"rgba(0,0,0,0)" }, ">")
+      .to("header h1", {
+        color:"#000",
+        backdropFilter:"blur(5px)",
+        duration:0.35,
+        ease:"power2.out"
+      })
+      .to("header nav ul", {
+        backgroundColor:"rgba(244,244,244,1)",
+        opacity:0.8,
+        duration:0.35,
+        ease:"power2.out"
+      }, "<");
 
     this._headerTL = tl;
     tl.progress(0).pause();
@@ -235,8 +256,33 @@ const cmn = {
       trigger: "body",
       start: () => `${hd.offsetHeight} top`,
       end: "max",
-      onEnter: () => tl.play(),
-      onLeaveBack: () => tl.reverse(),
+      onEnter: () => {
+        runHeaderShowCycle();
+        tl.play(0);
+        didRunTopRangeTransition = true;
+      },
+      onLeaveBack: () => {
+        tl.reverse();
+        runHeaderShowCycle();
+        didRunTopRangeTransition = true;
+      },
+      onUpdate: (self) => {
+        const currentScroll = self.scroll();
+        const isWithinTopRange = currentScroll <= hd.offsetHeight;
+        const didScroll = Math.abs(currentScroll - lastScroll) > 1;
+
+        if (didScroll && isWithinTopRange && !wasWithinTopRange && !didRunTopRangeTransition) {
+          runHeaderShowCycle();
+          didRunTopRangeTransition = true;
+        }
+
+        if (!isWithinTopRange) {
+          didRunTopRangeTransition = false;
+        }
+
+        wasWithinTopRange = isWithinTopRange;
+        lastScroll = currentScroll;
+      },
       // smoother 쓰면 scroller 지정
       scroller: this._smooth ? this._smooth.wrapper() : undefined,
     });
@@ -301,8 +347,20 @@ const cmn = {
             done && done();
           }
         }, ">")
-        .to("header h1", { height: 120, duration: 1, ease: "power2.out" }, ">")
-        .to("header nav ul", { height: 50, duration: 1, ease: "power2.out" }, "<");
+        .to("header h1", {
+          duration: 1,
+          ease: "power2.out",
+          onStart: () => {
+            this._q("header h1")?.classList.add("show");
+          }
+        }, ">")
+        .to("header nav", {
+          duration: 1,
+          ease: "power2.out",
+          onStart: () => {
+            this._q("header nav")?.classList.add("show");
+          }
+        }, "<");
   },
 
   // ---------------------------
