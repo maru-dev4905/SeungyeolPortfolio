@@ -114,7 +114,6 @@ html.is-changing #swup-overlay {
   backdrop-filter: blur(50px);
 }
 
-/* 원하면 header도 같이 페이드 */
 html.is-changing header {
   transition: opacity 0.25s ease;
   opacity: 0.2;
