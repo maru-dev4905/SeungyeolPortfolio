@@ -1,28 +1,28 @@
-import { LegacyBanner } from '../components/common/LegacyBanner'
-import { LegacyContactCta } from '../components/common/LegacyContactCta'
-import { TransitionLink } from '../components/common/TransitionLink'
-import { featuredProjects } from '../data/portfolio.data'
-import { useHomePageInteractions } from '../hooks/useHomePageInteractions'
-import { useLegacyPage } from '../hooks/useLegacyPage'
-import { getProjectVisualPath, toProjectKey } from '../lib/portfolio'
+import { LegacyBanner } from "../components/common/LegacyBanner";
+import { LegacyContactCta } from "../components/common/LegacyContactCta";
+import { TransitionLink } from "../components/common/TransitionLink";
+import { featuredProjects } from "../data/portfolio.data";
+import { useHomePageInteractions } from "../hooks/useHomePageInteractions";
+import { useLegacyPage } from "../hooks/useLegacyPage";
+import { getProjectVisualPath, toProjectKey } from "../lib/portfolio";
 
 const homeSkills = [
-  'HTML5',
-  'CSS3',
-  'Javascript',
-  'jQuery',
-  'GSAP',
-  'ScrollMagic',
-  'Swiper',
-  'Locomotive-scroll',
-  'PUG',
-  'GULP',
-  'Accessibility',
-]
+  "HTML5",
+  "CSS3",
+  "Javascript",
+  "jQuery",
+  "GSAP",
+  "ScrollMagic",
+  "Swiper",
+  "Locomotive-scroll",
+  "PUG",
+  "GULP",
+  "Accessibility",
+];
 
 export function HomePage() {
-  useLegacyPage('LeeSeungyeol - PORTFOLIO', 'main')
-  useHomePageInteractions()
+  useLegacyPage("LeeSeungyeol - PORTFOLIO", "main");
+  useHomePageInteractions();
 
   return (
     <main>
@@ -48,10 +48,10 @@ export function HomePage() {
         <div className="inner">
           <div className="desc">
             <p>
-              In this portfolio, I expressed structure and flow through lines - as a
-              publisher. <br />
-              Each line serves as a tool that connects information, design, and user
-              navigation. <br />
+              In this portfolio, I expressed structure and flow through lines -
+              as a publisher. <br />
+              Each line serves as a tool that connects information, design, and
+              user navigation. <br />
               These lines are my language, and a core element of my work. <br />
               The lines that run through this portfolio <br />
               represent fragments of the web I&apos;ve built and connected.
@@ -129,7 +129,9 @@ export function HomePage() {
               <source src="/assets/videos/main_v.mp4" />
             </video>
           </div>
-          <h3 className="fade anim">Turning skills into meaningful experiences</h3>
+          <h3 className="fade anim">
+            Turning skills into meaningful experiences
+          </h3>
 
           <div className="line anim"></div>
           <ul className="desc">
@@ -156,8 +158,34 @@ export function HomePage() {
       </section>
 
       <LegacyBanner
-        firstLine={['EACH', 'PROJECT', '/', 'BEGINS', 'WITH', 'AN', 'IDEA', '/', 'AND', 'GROWS', 'THROUGH', 'DETAIL.']}
-        secondLine={['EVERY', 'PIXEL', '/', 'EVERY', 'MOTION', '/', 'EVERY', 'LINE', '/', 'TELLS', 'A', 'STORY.']}
+        firstLine={[
+          "EACH",
+          "PROJECT",
+          "/",
+          "BEGINS",
+          "WITH",
+          "AN",
+          "IDEA",
+          "/",
+          "AND",
+          "GROWS",
+          "THROUGH",
+          "DETAIL.",
+        ]}
+        secondLine={[
+          "EVERY",
+          "PIXEL",
+          "/",
+          "EVERY",
+          "MOTION",
+          "/",
+          "EVERY",
+          "LINE",
+          "/",
+          "TELLS",
+          "A",
+          "STORY.",
+        ]}
       />
 
       <section className="work_list">
@@ -166,9 +194,6 @@ export function HomePage() {
           <span className="anim">21</span>
           <span className="anim">20</span>
           <span className="anim">25</span>
-          <p className="pin_txt on">
-            W<em>O</em>RK ARC<em>H</em>IVE
-          </p>
           <ul>
             {featuredProjects.slice(0, 5).map((project) => (
               <li
@@ -176,11 +201,21 @@ export function HomePage() {
                 className={`colST${project.colPC} on_${project.anim} anim`}
                 style={{ background: project.color }}
               >
-                <TransitionLink to={`/works/${toProjectKey(project.projectEN)}`} className="target">
-                  <img src={getProjectVisualPath(project.projectEN)} alt={project.projectEN} />
+                <TransitionLink
+                  to={`/works/${toProjectKey(project.projectEN)}`}
+                  className="target"
+                >
+                  <img
+                    src={getProjectVisualPath(project.projectEN)}
+                    alt={project.projectEN}
+                  />
                   <span className="awards">
-                    {project.awards.includes('wa') ? <span className="webaward"></span> : null}
-                    {project.awards.includes('gd') ? <span className="gdweb"></span> : null}
+                    {project.awards.includes("wa") ? (
+                      <span className="webaward"></span>
+                    ) : null}
+                    {project.awards.includes("gd") ? (
+                      <span className="gdweb"></span>
+                    ) : null}
                   </span>
                 </TransitionLink>
               </li>
@@ -191,5 +226,5 @@ export function HomePage() {
 
       <LegacyContactCta />
     </main>
-  )
+  );
 }

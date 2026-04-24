@@ -1,55 +1,58 @@
-import { useEffect } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
-import { TransitionLink, TransitionNavLink } from '../common/TransitionLink'
-import { scrollLegacyToTop, useLegacyInteractions } from '../../hooks/useLegacyInteractions'
-import { SiteFooter } from './SiteFooter'
+import { TransitionLink, TransitionNavLink } from "../common/TransitionLink";
+import {
+  scrollLegacyToTop,
+  useLegacyInteractions,
+} from "../../hooks/useLegacyInteractions";
+import { SiteFooter } from "./SiteFooter";
 
 type NavItem =
-  | { kind: 'internal'; to: string; label: string }
-  | { kind: 'external'; href: string; label: string }
+  | { kind: "internal"; to: string; label: string }
+  | { kind: "external"; href: string; label: string };
 
 const navItems: NavItem[] = [
-  { kind: 'internal', to: '/about', label: 'Who I Am' },
-  { kind: 'internal', to: '/works', label: 'My Works' },
-  { kind: 'internal', to: '/contact', label: 'Contact Me' },
+  { kind: "internal", to: "/about", label: "Who I Am" },
+  { kind: "internal", to: "/works", label: "My Works" },
+  { kind: "internal", to: "/contact", label: "Contact Me" },
   {
-    kind: 'external',
-    href: 'https://maru-dev4905.github.io/Weave/docs/css',
-    label: 'Weave',
+    kind: "external",
+    href: "https://maru-dev4905.github.io/Weave/docs/css",
+    label: "Weave",
   },
-]
+];
 
 function getNamespace(pathname: string) {
-  if (pathname === '/') {
-    return 'main' as const
+  if (pathname === "/") {
+    return "main" as const;
   }
 
-  if (pathname.startsWith('/works/')) {
-    return 'work' as const
+  if (pathname.startsWith("/works/")) {
+    return "work" as const;
   }
 
-  if (pathname.startsWith('/works')) {
-    return 'works' as const
+  if (pathname.startsWith("/works")) {
+    return "works" as const;
   }
 
-  if (pathname.startsWith('/about')) {
-    return 'about' as const
+  if (pathname.startsWith("/about")) {
+    return "about" as const;
   }
 
-  return 'contact' as const
+  return "contact" as const;
 }
 
 export function AppLayout() {
-  const location = useLocation()
-  const namespace = getNamespace(location.pathname)
+  const location = useLocation();
+  const namespace = getNamespace(location.pathname);
 
-  useLegacyInteractions(namespace)
+  useLegacyInteractions(namespace);
 
   useEffect(() => {
-    document.documentElement.classList.remove('is-changing')
-    scrollLegacyToTop()
-  }, [location.pathname, location.search, location.hash])
+    document.documentElement.classList.remove("is-changing");
+    scrollLegacyToTop();
+  }, [location.pathname, location.search, location.hash]);
 
   return (
     <div className="react-page">
@@ -70,7 +73,11 @@ export function AppLayout() {
           </svg>
         </div>
         <div className="item center">
-          <img src="/assets/images/visuals/visual.png" alt="" className="item_img" />
+          <img
+            src="/assets/images/visuals/visual.png"
+            alt=""
+            className="item_img"
+          />
         </div>
         <div className="item right">
           <svg
@@ -101,8 +108,7 @@ export function AppLayout() {
             <h1>
               <TransitionLink to="/" className="target">
                 <strong>
-                  LEE S<i>E</i>UNG<i>Y</i>EOL <br />
-                  P<i>U</i>BLIS<i>H</i>ER
+                  LEE S<i>E</i>UNG<i>Y</i>EOL <br />P<i>U</i>BLIS<i>H</i>ER
                 </strong>
                 <span>.PORTFOLIO</span>
                 <p>SY</p>
@@ -112,15 +118,20 @@ export function AppLayout() {
               <ul>
                 {navItems.map((item) => (
                   <li
-                    key={item.kind === 'internal' ? item.to : item.href}
+                    key={item.kind === "internal" ? item.to : item.href}
                     className={
-                      item.kind === 'internal' && location.pathname.startsWith(item.to)
-                        ? 'on'
+                      item.kind === "internal" &&
+                      location.pathname.startsWith(item.to)
+                        ? "on"
                         : undefined
                     }
                   >
-                    {item.kind === 'internal' ? (
-                      <TransitionNavLink to={item.to} data-nav={item.label} className="target">
+                    {item.kind === "internal" ? (
+                      <TransitionNavLink
+                        to={item.to}
+                        data-nav={item.label}
+                        className="target"
+                      >
                         <span>{item.label}</span>
                       </TransitionNavLink>
                     ) : (
@@ -138,11 +149,12 @@ export function AppLayout() {
                 ))}
               </ul>
             </nav>
+            <button className="menu_btn"></button>
           </div>
         </header>
 
         <div className="coordinate_display">
-          ( <span className="coordinate_display_x">X: 0px</span>,{' '}
+          ( <span className="coordinate_display_x">X: 0px</span>,{" "}
           <span className="coordinate_display_y">Y: 0px</span> )
         </div>
 
@@ -160,5 +172,5 @@ export function AppLayout() {
 
       <div id="swup-overlay" aria-hidden="true"></div>
     </div>
-  )
+  );
 }
