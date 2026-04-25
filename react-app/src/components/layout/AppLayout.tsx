@@ -149,7 +149,7 @@ export function AppLayout() {
                 ))}
               </ul>
             </nav>
-            <button className="menu_btn"></button>
+            <button className="menu_btn" type="button"></button>
           </div>
         </header>
 

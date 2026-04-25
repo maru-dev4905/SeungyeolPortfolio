@@ -27,7 +27,39 @@ const cmn = {
   _headerST: null,
   _headerPinST: null,
   _headerTL: null,
+  _menuBtnHandler: null,
+
+  _canControlHeaderShowClass() {
+    return window.innerWidth > 1280;
+  },
   _headerShowTimer: null,
+
+  _setupHeaderMenuToggle() {
+    const menuBtn = this._q("header .menu_btn");
+    const headerTitle = this._q("header h1");
+    const headerNav = this._q("header nav");
+    if (!menuBtn || !headerTitle || !headerNav) return;
+
+    if (this._menuBtnHandler) {
+      menuBtn.removeEventListener("click", this._menuBtnHandler);
+      this._menuBtnHandler = null;
+    }
+
+    this._menuBtnHandler = () => {
+      if (this._canControlHeaderShowClass()) return;
+      headerNav.classList.toggle("show");
+    };
+
+    menuBtn.addEventListener("click", this._menuBtnHandler);
+
+    if (this._canControlHeaderShowClass()) {
+      headerTitle.classList.add("show");
+      headerNav.classList.add("show");
+    } else {
+      headerTitle.classList.add("show");
+      headerNav.classList.remove("show");
+    }
+  },
 
   // ---------------------------
   // ScrollSmoother 한 번만 만들기
@@ -67,6 +99,7 @@ const cmn = {
     this.anim.init();
     this.scrTopAnim.init();
     this._setupHeaderScroll();
+    this._setupHeaderMenuToggle();
     this._setupFooterAnim();
 
     const menus = this._qq('.gnb li');
@@ -115,6 +148,11 @@ const cmn = {
     gsap.set("header h1 p, header h1 span", { clearProps: "display" });
     this._q("header h1")?.classList.remove("show");
     this._q("header nav")?.classList.remove("show");
+    const menuBtn = this._q("header .menu_btn");
+    if (menuBtn && this._menuBtnHandler) {
+      menuBtn.removeEventListener("click", this._menuBtnHandler);
+      this._menuBtnHandler = null;
+    }
     if (this._headerShowTimer) {
       clearTimeout(this._headerShowTimer);
       this._headerShowTimer = null;
@@ -175,7 +213,11 @@ const cmn = {
   // ---------------------------
   _openHeaderInstant() {
     this._q("header h1")?.classList.add("show");
-    this._q("header nav")?.classList.add("show");
+    if (this._canControlHeaderShowClass()) {
+      this._q("header nav")?.classList.add("show");
+    } else {
+      this._q("header nav")?.classList.remove("show");
+    }
   },
 
   // ---------------------------
@@ -200,22 +242,31 @@ const cmn = {
     this._headerST && this._headerST.kill();
     this._headerST = null;
 
-    headerTitle?.classList.add("show");
-    headerNav?.classList.add("show");
+    if (this._canControlHeaderShowClass()) {
+      headerTitle?.classList.add("show");
+      headerNav?.classList.add("show");
+    } else {
+      headerTitle?.classList.add("show");
+      headerNav?.classList.remove("show");
+    }
     let didRunTopRangeTransition = false;
     let wasWithinTopRange = true;
     let lastScroll = 0;
 
     const runHeaderShowCycle = () => {
       headerTitle?.classList.remove("show");
-      headerNav?.classList.remove("show");
+      if (this._canControlHeaderShowClass()) {
+        headerNav?.classList.remove("show");
+      }
       if (this._headerShowTimer) {
         clearTimeout(this._headerShowTimer);
         this._headerShowTimer = null;
       }
       this._headerShowTimer = setTimeout(() => {
         headerTitle?.classList.add("show");
-        headerNav?.classList.add("show");
+        if (this._canControlHeaderShowClass()) {
+          headerNav?.classList.add("show");
+        }
         this._headerShowTimer = null;
       }, 1000);
     };
@@ -351,6 +402,7 @@ const cmn = {
           duration: 1,
           ease: "power2.out",
           onStart: () => {
+            if (!this._canControlHeaderShowClass()) return;
             this._q("header h1")?.classList.add("show");
           }
         }, ">")
@@ -358,6 +410,7 @@ const cmn = {
           duration: 1,
           ease: "power2.out",
           onStart: () => {
+            if (!this._canControlHeaderShowClass()) return;
             this._q("header nav")?.classList.add("show");
           }
         }, "<");

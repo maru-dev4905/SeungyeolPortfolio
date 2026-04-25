@@ -264,6 +264,7 @@ export function useLegacyInteractions(namespace: PageNamespace) {
     const cursorDot = document.querySelector('.cursor-dot') as HTMLDivElement | null
     const headerTitle = document.querySelector('header h1') as HTMLElement | null
     const headerNav = document.querySelector('header nav') as HTMLElement | null
+    const menuButton = document.querySelector('header .menu_btn') as HTMLButtonElement | null
     const footer = document.querySelector('footer')
     const scrollButton = document.querySelector('.scr_down_btn')
     const mainVisual = document.querySelector('.sec_visual')
@@ -283,7 +284,33 @@ export function useLegacyInteractions(namespace: PageNamespace) {
 
     const openHeaderInstant = () => {
       headerTitle?.classList.add('show')
+      if (window.innerWidth <= 1280) {
+        headerNav?.classList.remove('show')
+        return
+      }
       headerNav?.classList.add('show')
+    }
+
+    const setupHeaderMenuToggle = () => {
+      if (!menuButton || !headerTitle || !headerNav) {
+        return
+      }
+
+      const handleMenuToggle = () => {
+        if (window.innerWidth > 1280) {
+          return
+        }
+        headerNav.classList.toggle('show')
+      }
+
+      menuButton.addEventListener('click', handleMenuToggle)
+
+      if (window.innerWidth <= 1280) {
+        headerTitle.classList.add('show')
+        headerNav.classList.remove('show')
+      }
+
+      cleanups.push(() => menuButton.removeEventListener('click', handleMenuToggle))
     }
 
     const setupHeaderScroll = () => {
@@ -314,7 +341,9 @@ export function useLegacyInteractions(namespace: PageNamespace) {
         }
 
         headerTitle.classList.remove('show')
-        headerNav?.classList.remove('show')
+        if (window.innerWidth > 1280) {
+          headerNav?.classList.remove('show')
+        }
 
         if (headerShowTimer) {
           window.clearTimeout(headerShowTimer)
@@ -323,7 +352,9 @@ export function useLegacyInteractions(namespace: PageNamespace) {
 
         headerShowTimer = window.setTimeout(() => {
           headerTitle.classList.add('show')
-          headerNav?.classList.add('show')
+          if (window.innerWidth > 1280) {
+            headerNav?.classList.add('show')
+          }
           headerShowTimer = null
         }, 1000)
       }
@@ -540,6 +571,7 @@ export function useLegacyInteractions(namespace: PageNamespace) {
       smoothScroller?.paused?.(false)
       setupAnimationToggles()
       setupHeaderScroll()
+      setupHeaderMenuToggle()
       setupFooterAnimation()
       setupCursor()
       setupScrollDown()
@@ -547,8 +579,13 @@ export function useLegacyInteractions(namespace: PageNamespace) {
       if (namespace === 'main') {
         openHeaderInstant()
       } else {
-        headerTitle?.classList.add('show')
-        headerNav?.classList.add('show')
+        if (window.innerWidth > 1280) {
+          headerTitle?.classList.add('show')
+          headerNav?.classList.add('show')
+        } else {
+          headerTitle?.classList.add('show')
+          headerNav?.classList.remove('show')
+        }
       }
 
       ScrollTrigger?.refresh?.(true)
@@ -598,8 +635,13 @@ export function useLegacyInteractions(namespace: PageNamespace) {
             duration: 1,
             ease: 'power2.out',
             onStart: () => {
-              headerTitle?.classList.add('show')
-              headerNav?.classList.add('show')
+              if (window.innerWidth > 1280) {
+                headerTitle?.classList.add('show')
+                headerNav?.classList.add('show')
+              } else {
+                headerTitle?.classList.add('show')
+                headerNav?.classList.remove('show')
+              }
             },
           },
           '>',
