@@ -176,7 +176,7 @@ export const featuredProjects: FeaturedProject[] =[
     rowPC: 6,
     colMO: null,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED-1'],
-    pointTxt: ['CAMPAIGN','Participation Features & Content Delivery', '스크롤 기반 전개에 맞춰 핵심 메시지가 단계적으로 전달되도록 구성하고, 사용자가 직접 참여할 수 있는 기능을 함께 구축하였습니다.  포스트 제작(이미지 배치/방향 조정, 편지쓰기, 결과 공유) 기능과 랜덤 이미지 찾기 이벤트 등 참여형 요소를 구현하여, 캠페인 목적에 맞는 사용 흐름을 완성하였습니다.']
+    pointTxt: ['CAMPAIGN','Participation Features & Content Delivery', '스크롤 기반 전개에 맞춰 핵심 메시지가 단계적으로 전달되도록 구성하고, 사용자가 직접 참여할 수 있는 기능을 함께 구축하였습니다. 포스트 제작(이미지 배치/방향 조정, 편지쓰기, 결과 공유) 기능과 랜덤 이미지 찾기 이벤트 등 참여형 요소를 구현하여, 캠페인 목적에 맞는 사용 흐름을 완성하였습니다.']
   },
   // {
   //   nameEN: "healthmax",
@@ -455,6 +455,11 @@ export const projectGroups: ProjectGroups = {
       name:"KIC 한국투자공사",
       txt: "Publishing",
       date: "2025",
+    },
+    {
+      name:"대통령실",
+      txt: "Publishing",
+      date: "2026",
     }
   ],
   "Services & Systems": [
@@ -492,6 +497,11 @@ export const projectGroups: ProjectGroups = {
       name:"헬스맥스",
       txt: "Publishing",
       date:"2021",
+    },
+    {
+      name:"마음타운",
+      txt: "Publishing",
+      date:"2026",
     }
   ]
 }

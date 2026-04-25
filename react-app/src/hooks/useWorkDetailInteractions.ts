@@ -118,8 +118,18 @@ export function useWorkDetailInteractions(
     )
     const cleanupAnimations = registerLegacyAnimToggles()
 
+    const getVisualMaxWidth = () => {
+      if (window.innerWidth <= 768) {
+        return '70%'
+      }
+      if (window.innerWidth <= 1024) {
+        return '500px'
+      }
+      return '94.625rem'
+    }
+
     gsap?.set?.('.sec_visual .img_box', {
-      maxWidth: '94.625rem',
+      maxWidth: getVisualMaxWidth(),
       borderRadius: '2.5rem',
     })
 

@@ -447,7 +447,7 @@ footer .desc button::after {
   height: 100%;
   background-color: #fff;
   content: "";
-  mask: url("../images/icons/ico_top_arrow.svg") no-repeat center / 24px;
+  mask: url("../images/icons/ico_top_arrow.svg") no-repeat center / 1.5rem;
 }
 
 footer .desc p {
@@ -1035,6 +1035,10 @@ footer.on .links > div {
 }
 
 @media all and (max-width: 1280px) {
+  html,
+  body{
+    font-size: 10px;
+  }
   header .menu_btn {
     display: flex;
   }
@@ -1084,5 +1088,32 @@ footer.on .links > div {
   header nav li a:hover span {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@media all and (max-width: 1024px){
+  .inner{
+    width: calc(100% - 40px);
+  }
+  .marquee{
+    margin-top: 140px;
+  }
+  .work_list .inner > span{
+    font-size: 40px;
+  }
+  .work_list .inner > span:nth-child(3):before{
+    height: 4px;
+  }
+  .work_list li .awards{
+    gap:8px;
+    top: 10px;
+    right:10px;
+  }
+  .work_list li .awards span{
+    width: 20px;
+    height: 20px;
+  }
+  .work_list li a img{
+    width: calc((100vw - 40px) / 4);
   }
 }
