@@ -17,7 +17,8 @@ export const featuredProjects: FeaturedProject[] =[
     anim: "left",
     colPC: 1,
     rowPC: 1,
-    colMO: null,
+    colMO: 1,
+    rowMO: 1,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED9','colST1 colED7','colST7 colED-1'],
     pointTxt: ['MOTION','Scroll Interaction', '삼화제지 프로젝트에서는 메인 페이지를 포함한 전 페이지 퍼블리싱을 전담하였습니다.<br> 제품 중심의 비주얼 사이트 특성에 맞춰, 사용자가 스크롤 흐름 속에서 자연스럽게 <br>정보를 탐색할 수 있도록 스크롤 기반 인터랙션과 전환 애니메이션을 구현하였습니다.<br><br>서브 페이지에서 상품 게이트로 이동하는 전환 구간, 그리고 각 서브 페이지의 비주얼 영역에는 사용 흐름을 방해하지 않으면서도 몰입을 높이는 모션을 적용하여 콘텐츠의 집중도를 강화하였습니다. <br>또한 적응형(Adaptive) 환경에서도 제품 상세 레이아웃이 무너져 가독성이 떨어지지 않도록 Grid/Flex 기반으로 레이아웃을 안정화하고, 브라우저 폭 변화에 따른 콘텐츠 우선순위가 유지되도록 조정하였습니다.']
   },
@@ -37,7 +38,8 @@ export const featuredProjects: FeaturedProject[] =[
     anim: "bottom",
     colPC: 3,
     rowPC: 1,
-    colMO: null,
+    colMO: 3,
+    rowMO: 1,
     imgCol: 7,
   },
   {
@@ -56,7 +58,8 @@ export const featuredProjects: FeaturedProject[] =[
     anim: "right",
     colPC: 2,
     rowPC: 2,
-    colMO: null,
+    colMO: 2,
+    rowMO: 2,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED9','colST1 colED7','colST7 colED-1'],
     pointTxt: ['INTERACTION','Scroll-based Motion System', '본 프로젝트는 “보여주기 위한 모션”이 아니라, 읽히는 흐름을 돕는 인터랙션에 집중했습니다.<br> GSAP ScrollSmoother를 적용하여 스크롤 경험을 매끄럽게 정리하고, 구간별로 ScrollTrigger / ScrollMagic을 활용해 텍스트 노출, 섹션 전환 타이밍, 시선 유도 효과를 일관된 리듬으로 구성하였습니다.<br> 또한 지도 영역은 디자인 콘셉트에 맞춰 Google Map을 모던 스타일로 커스텀하여, 정보 요소가 사이트 톤을 해치지 않도록 통일감을 유지했습니다.<br> 전체적으로는 브랜드/콘텐츠 전달을 우선으로 두고, 인터랙션은 “절제된 완성도”로 마감했습니다.']
   },
@@ -76,7 +79,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#F85B72",
     colPC: 4,
     rowPC: 2,
-    colMO: null,
+    colMO: 1,
+    rowMO: 3,
     imgCol: 9,
   },
   {
@@ -95,7 +99,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#212121",
     colPC: 1,
     rowPC: 3,
-    colMO: null,
+    colMO: 3,
+    rowMO: 3,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED9','colST1 colED7','colST7 colED-1'],
     pointTxt: ['MAINTENANCE','Ongoing Update Handling', '가격/정책 변경으로 수정이 반복되는 페이지 특성상, 컴포넌트 단위로 구조를 정리하여 변경 반영 속도와 안정성을 확보하였습니다.<br>유지보수 과정에서도 레이아웃 깨짐, 텍스트 길이 변동, 데이터 교체 등 실무 변수를 고려하여 화면 품질이 흔들리지 않도록 관리하였습니다.']
   },
@@ -115,7 +120,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#16345F",
     colPC: 3,
     rowPC: 4,
-    colMO: null,
+    colMO: 2,
+    rowMO: 4,
     imgCol: 5,
   },
   {
@@ -134,7 +140,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#9EFF40",
     colPC: 4,
     rowPC: 5,
-    colMO: null,
+    colMO: 1,
+    rowMO: 5,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED-1'],
     pointTxt: ['STORY','Narrative-driven Scroll Flow', '강한 비주얼(타이포/이미지/디바이스 목업)이 많은 페이지 특성상, “효과”보다 내용 전달의 흐름이 무너지지 않도록 구성했습니다.<br> 섹션별 정보 밀도에 맞춰 여백·정렬·전환 타이밍을 정리하고, 핵심 문구가 먼저 전달된 뒤 보조 콘텐츠가 따라오도록 전개를 설계했습니다.<br> 또한 큰 타이포와 고대비 구성에서도 모바일/태블릿 환경에서 가독성이 깨지지 않도록 반응형 기준을 적용해 레이아웃을 일관되게 유지했습니다.']
   },
@@ -154,7 +161,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#01D48D",
     colPC: 1,
     rowPC: 6,
-    colMO: null,
+    colMO: 3,
+    rowMO: 5,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED-1'],
     pointTxt: ['DATA','Object-based Work Filtering', 'Work 섹션의 콘텐츠를 객체 형태로 구조화하여, 항목 추가/수정 시 화면 구조를 흔들지 않고 데이터만 관리할 수 있도록 구성하였습니다.<br> 사용자 클릭 이벤트에 따라 필요한 데이터만 추출·렌더링하도록 처리하여, 유지보수성과 확장성을 고려한 구현 방식을 적용하였습니다.']
   },
@@ -174,7 +182,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#00AE44",
     colPC: 4,
     rowPC: 6,
-    colMO: null,
+    colMO: 2,
+    rowMO: 6,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED-1'],
     pointTxt: ['CAMPAIGN','Participation Features & Content Delivery', '스크롤 기반 전개에 맞춰 핵심 메시지가 단계적으로 전달되도록 구성하고, 사용자가 직접 참여할 수 있는 기능을 함께 구축하였습니다. 포스트 제작(이미지 배치/방향 조정, 편지쓰기, 결과 공유) 기능과 랜덤 이미지 찾기 이벤트 등 참여형 요소를 구현하여, 캠페인 목적에 맞는 사용 흐름을 완성하였습니다.']
   },
@@ -224,7 +233,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#E83C38",
     colPC: 3,
     rowPC: 9,
-    colMO: null,
+    colMO: 1,
+    rowMO: 7,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED-1'],
     pointTxt: ['MOTION','Scroll Interaction System', '스크롤 진행에 따라 콘텐츠가 단계적으로 노출되도록 인터랙션 흐름을 설계하고, 섹션별 리듬이 끊기지 않도록 전환 타이밍을 조정하였습니다.<br> 과도한 연출은 지양하고, 시선 유도와 정보 전달을 보조하는 범위에서 모션을 절제된 톤으로 적용하였습니다.']
   },
@@ -244,7 +254,8 @@ export const featuredProjects: FeaturedProject[] =[
     color: "#FFC809",
     colPC: 4,
     rowPC: 9,
-    colMO: null,
+    colMO: 3,
+    rowMO: 7,
     imgCol: ['colST1 colED-1','colST1 colED7','colST7 colED-1','colST5 colED-1','colST1 colED-1'],
     pointTxt: ['UI','Playful Details for Readability', '콘텐츠 전달을 우선으로 두고, 시각적 포인트는 텍스트 집중을 방해하지 않도록 규모와 타이밍을 조정하였습니다.<br> 단조로울 수 있는 구간에는 가벼운 UI 디테일을 더해 사용 흐름이 끊기지 않도록 구성하였습니다.']
   },

@@ -76,6 +76,14 @@ export function useHomePageInteractions() {
     }
 
     gsap?.set?.('.skills_wrap', { clearProps: 'borderRadius,width,maxWidth' })
+
+    if (window.innerWidth <= 768) {
+      gsap?.set?.('.skills_wrap', {
+        maxWidth: '80%',
+        borderRadius: '20px',
+      })
+    }
+
     const skillsTween = gsap?.to?.('.skills_wrap', {
       borderRadius: 0,
       width: '100%',

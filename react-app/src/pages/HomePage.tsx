@@ -12,12 +12,11 @@ const homeSkills = [
   "Javascript",
   "jQuery",
   "GSAP",
-  "ScrollMagic",
   "Swiper",
-  "Locomotive-scroll",
   "PUG",
   "GULP",
-  "Accessibility",
+  "A11Y",
+  "FIGMA",
 ];
 
 export function HomePage() {
@@ -198,7 +197,7 @@ export function HomePage() {
             {featuredProjects.slice(0, 5).map((project) => (
               <li
                 key={project.projectEN}
-                className={`colST${project.colPC} on_${project.anim} anim`}
+                className={`colST${project.colPC} on_${project.anim} md_colST${project.colMO} anim`}
                 style={{ background: project.color }}
               >
                 <TransitionLink

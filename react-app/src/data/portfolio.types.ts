@@ -16,7 +16,8 @@ export interface FeaturedProject {
   anim: string
   colPC: number
   rowPC: number
-  colMO: number | null
+  colMO: number
+  rowMO: number
   imgCol: number | string[]
   pointTxt?: string[]
 }
