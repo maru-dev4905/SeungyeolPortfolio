@@ -88,7 +88,7 @@ export function WorkShowcase() {
             {featuredProjects.map((project) => (
               <li
                 key={project.projectEN}
-                className={`colST${project.colPC} on_${project.anim} anim`}
+                className={`colST${project.colPC} on_${project.anim} md_colST${project.colMO} anim`}
                 style={{ background: project.color }}
               >
                 <TransitionLink to={`/works/${toProjectKey(project.projectEN)}`} className="target">
