@@ -1,39 +1,53 @@
-import { Fragment } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { Fragment } from "react";
+import { useLocation, useParams } from "react-router-dom";
 
-import { LegacyBanner } from '../components/common/LegacyBanner'
-import { TransitionLink } from '../components/common/TransitionLink'
-import { useWorkDetailInteractions } from '../hooks/useWorkDetailInteractions'
-import { getProjectBySlug, getProjectNeighbors, getProjectVisualPath, toProjectKey } from '../lib/portfolio'
-import { useLegacyPage } from '../hooks/useLegacyPage'
+import { LegacyBanner } from "../components/common/LegacyBanner";
+import { TransitionLink } from "../components/common/TransitionLink";
+import { useWorkDetailInteractions } from "../hooks/useWorkDetailInteractions";
+import {
+  getProjectBySlug,
+  getProjectNeighbors,
+  getProjectVisualPath,
+  toProjectKey,
+} from "../lib/portfolio";
+import { useLegacyPage } from "../hooks/useLegacyPage";
 
 export function WorkDetailPage() {
-  const location = useLocation()
-  const { projectSlug } = useParams()
-  const legacyProjectSlug = toProjectKey(new URLSearchParams(location.search).get('w') ?? '')
-  const resolvedProjectSlug = projectSlug ?? legacyProjectSlug
-  const project = getProjectBySlug(resolvedProjectSlug)
-  const { currentIndex, nextProject, previousProject } = getProjectNeighbors(resolvedProjectSlug)
-  const previousProjectName = previousProject?.projectEN ?? ''
-  const nextProjectName = nextProject?.projectEN ?? ''
-  const projectKey = toProjectKey(project?.projectEN ?? '')
+  const location = useLocation();
+  const { projectSlug } = useParams();
+  const legacyProjectSlug = toProjectKey(
+    new URLSearchParams(location.search).get("w") ?? "",
+  );
+  const resolvedProjectSlug = projectSlug ?? legacyProjectSlug;
+  const project = getProjectBySlug(resolvedProjectSlug);
+  const { currentIndex, nextProject, previousProject } =
+    getProjectNeighbors(resolvedProjectSlug);
+  const previousProjectName = previousProject?.projectEN ?? "";
+  const nextProjectName = nextProject?.projectEN ?? "";
+  const projectKey = toProjectKey(project?.projectEN ?? "");
   const initialPagingLabel =
     previousProjectName && !nextProjectName
       ? previousProjectName
       : !previousProjectName && nextProjectName
         ? nextProjectName
-        : ''
+        : "";
 
   useLegacyPage(
-    project ? `LeeSeungyeol - ${project.projectEN}` : 'LeeSeungyeol - WORK DETAIL',
-    'sub',
-  )
-  useWorkDetailInteractions(previousProject?.projectEN, nextProject?.projectEN)
+    project
+      ? `LeeSeungyeol - ${project.projectEN}`
+      : "LeeSeungyeol - WORK DETAIL",
+    "sub",
+  );
+  useWorkDetailInteractions(previousProject?.projectEN, nextProject?.projectEN);
 
   const detailImageClassList =
-    !project || project.dType || !Array.isArray(project.imgCol) ? [] : project.imgCol
+    !project || project.dType || !Array.isArray(project.imgCol)
+      ? []
+      : project.imgCol;
   const detailImageCount =
-    !project || !project.dType || typeof project.imgCol !== 'number' ? 0 : project.imgCol
+    !project || !project.dType || typeof project.imgCol !== "number"
+      ? 0
+      : project.imgCol;
 
   if (!project) {
     return (
@@ -48,7 +62,7 @@ export function WorkDetailPage() {
           </div>
         </section>
       </main>
-    )
+    );
   }
 
   return (
@@ -57,7 +71,7 @@ export function WorkDetailPage() {
         <div className="inner">
           <p>
             <em>(</em>
-            {String(currentIndex + 1).padStart(2, '0')}
+            {String(currentIndex + 1).padStart(2, "0")}
             <em>)</em>
           </p>
           <h2>{project.projectEN}</h2>
@@ -65,7 +79,10 @@ export function WorkDetailPage() {
         </div>
         <div className="img_box_wrap">
           <div className="img_box">
-            <img src={getProjectVisualPath(project.projectEN)} alt={project.projectEN} />
+            <img
+              src={getProjectVisualPath(project.projectEN)}
+              alt={project.projectEN}
+            />
           </div>
         </div>
       </section>
@@ -119,7 +136,7 @@ export function WorkDetailPage() {
                     {project.awards.filter(Boolean).map((award) => (
                       <dd key={award}>
                         <img
-                          src={`/assets/images/icons/ico_${award === 'wa' ? 'webaward' : 'gdweb'}.svg`}
+                          src={`/assets/images/icons/ico_${award === "wa" ? "webaward" : "gdweb"}.svg`}
                           alt={award}
                         />
                       </dd>
@@ -139,7 +156,7 @@ export function WorkDetailPage() {
         </div>
       </section>
 
-      <section className={`sec_work ${project.dType ? 'dType_b' : 'dType_a'}`}>
+      <section className={`sec_work ${project.dType ? "dType_b" : "dType_a"}`}>
         <div className="inner">
           {project.dType ? (
             <div className="grid">
@@ -149,7 +166,7 @@ export function WorkDetailPage() {
                   key={`${project.projectEN}-grid-${index + 1}`}
                   src={`/assets/images/works/${projectKey}/img0${index + 1}.png`}
                   alt={`${project.projectEN} detail ${index + 1}`}
-                  className="grid-item fade anim"
+                  className="grid-item fade anim md_colST1 md_colED-1"
                 />
               ))}
             </div>
@@ -167,7 +184,11 @@ export function WorkDetailPage() {
                           <span>{project.pointTxt[1]}</span>
                         </div>
                         <div className="bd">
-                          <p dangerouslySetInnerHTML={{ __html: project.pointTxt[2] }}></p>
+                          <p
+                            dangerouslySetInnerHTML={{
+                              __html: project.pointTxt[2],
+                            }}
+                          ></p>
                         </div>
                       </div>
                     </div>
@@ -175,7 +196,7 @@ export function WorkDetailPage() {
                   <img
                     src={`/assets/images/works/${projectKey}/img0${index + 1}.png`}
                     alt={`${project.projectEN} detail ${index + 1}`}
-                    className={`${classNames} fade anim`}
+                    className={`${classNames} fade anim md_colST1 md_colED-1`}
                   />
                 </Fragment>
               ))}
@@ -184,13 +205,36 @@ export function WorkDetailPage() {
         </div>
         <div className="mo_imgs">
           {project.dType ? (
-            <img src={`/assets/images/works/${projectKey}/mo_imgs.png`} alt={`${project.projectEN} mobile view`} />
+            <img
+              src={`/assets/images/works/${projectKey}/mo_imgs.png`}
+              alt={`${project.projectEN} mobile view`}
+            />
           ) : null}
         </div>
 
         <LegacyBanner
-          firstLine={['NEXT', 'WORK', '/', 'KEEP', 'SCROLLING', '/', 'KEEP', 'CONNECTING.']}
-          secondLine={['STRUCTURE', 'FIRST', '/', 'MOTION', 'WITH', 'PURPOSE', '/', 'ACCESSIBLE', 'BY', 'DEFAULT.']}
+          firstLine={[
+            "NEXT",
+            "WORK",
+            "/",
+            "KEEP",
+            "SCROLLING",
+            "/",
+            "KEEP",
+            "CONNECTING.",
+          ]}
+          secondLine={[
+            "STRUCTURE",
+            "FIRST",
+            "/",
+            "MOTION",
+            "WITH",
+            "PURPOSE",
+            "/",
+            "ACCESSIBLE",
+            "BY",
+            "DEFAULT.",
+          ]}
         />
 
         <div className="paging">
@@ -212,7 +256,10 @@ export function WorkDetailPage() {
             </a>
           )}
           {nextProject ? (
-            <TransitionLink to={`/works/${toProjectKey(nextProject.projectEN)}`} className="target">
+            <TransitionLink
+              to={`/works/${toProjectKey(nextProject.projectEN)}`}
+              className="target"
+            >
               <em>]</em>
             </TransitionLink>
           ) : (
@@ -227,14 +274,22 @@ export function WorkDetailPage() {
           )}
           <div className="img_box">
             <img
-              src={previousProject ? getProjectVisualPath(previousProject.projectEN) : getProjectVisualPath(project.projectEN)}
+              src={
+                previousProject
+                  ? getProjectVisualPath(previousProject.projectEN)
+                  : getProjectVisualPath(project.projectEN)
+              }
               alt=""
-              className={previousProject ? 'prev' : 'prev disabled'}
+              className={previousProject ? "prev" : "prev disabled"}
             />
             <img
-              src={nextProject ? getProjectVisualPath(nextProject.projectEN) : getProjectVisualPath(project.projectEN)}
+              src={
+                nextProject
+                  ? getProjectVisualPath(nextProject.projectEN)
+                  : getProjectVisualPath(project.projectEN)
+              }
               alt=""
-              className={nextProject ? 'next' : 'next disabled'}
+              className={nextProject ? "next" : "next disabled"}
             />
           </div>
           <h2>
@@ -243,5 +298,5 @@ export function WorkDetailPage() {
         </div>
       </section>
     </main>
-  )
+  );
 }
