@@ -1664,7 +1664,16 @@
   }
   #work .sec_work.dType_a .inner {
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: 12px 20px;
+    grid-gap: 20px;
+  }
+  #work .sec_work.dType_a .point .hd{
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 10px;
+    font-size: 14px;
+  }
+  #work .sec_work.dType_a .point .bd p{
+    font-size: 12px;
   }
   #work .sec_overview .skills,
   #work .sec_overview strong + p,
@@ -1679,8 +1688,65 @@
   #work .sec_overview ul li.show strong + * {
     opacity: 1;
   }
-
+  #work .sec_work.dType_b .grid{
+    column-count: 2;
+    column-gap: 20px;
+  }
+  #work .sec_work.dType_a .point_txt{
+    padding: 40px 0;
+  }
+  #work .banner{
+    margin-top: 40px;
+  }
+  #work .paging{
+    margin-bottom: 80px;
+    padding-top: 40px;
+  }
+  #work .paging h2{
+    font-size:20px;
+  }
+  #work .paging a{
+    font-size: 80px;
+  }
+  #work .paging a:first-of-type{
+    padding-left: 20px;
+  }
+  #work .paging a:last-of-type{
+    padding-right: 20px;
+  }
+  #work .paging .img_box{
+    width: 200px;
+    border-radius: 10px;
+  }
+  
   #contact .sec_contact form {
     padding-bottom: 120px;
+  }
+  #contact .sec_contact form .col{
+    gap: 10px;
+  }
+  #contact .sec_contact form p{
+    font-size: 24px;
+  }
+  #contact .sec_contact form input[type="text"]{
+    padding: 4px;
+    font-size: 24px;
+  }
+  #contact .sec_contact form .select_wrap .select_btn{
+    height: 38px;
+    padding: 4px;
+    font-size: 24px;
+  }
+  #contact .sec_contact form button[type="submit"]{
+    margin-top: 60px;
+    width: 180px;
+    height: 60px;
+    font-size: 20px;
+  }
+  #contact .sec_contact form textarea{
+    width: 100%;
+    height: 100px;
+    padding: 4px;
+    font-size: 24px;
   }
 }
