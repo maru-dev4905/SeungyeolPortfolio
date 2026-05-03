@@ -540,61 +540,137 @@ footer.on .links > div {
   visibility: hidden;
   overflow: hidden;
   position: fixed;
-  top: 50%;
-  left: 50%;
+  inset: 0;
   z-index: 100000000;
   width: 100%;
   height: 100%;
-  background-color: #111;
+  margin: 0;
+  background-color: #141414;
   align-items: center;
   justify-content: center;
-  transition: all 0.5s ease-in-out;
-  transform: translate(-50%, -50%);
   opacity: 0;
 }
 
-#intro .item {
-  width: 5rem;
-  height: auto;
-  will-change: transform, opacity;
+#intro.intro-done {
+  pointer-events: none;
 }
 
-#intro .item.left svg {
-  transform: scaleX(-1);
-}
-
-#intro .item.center {
-  position: fixed;
-  z-index: 10;
-  width: 0;
-  height: 18.75rem;
-  transform: scaleX(0);
-  transform-origin: center;
-}
-
-#intro .item.center img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 300%;
-  /* aspect-ratio: 1/1; */
-  height: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-}
-
-#intro svg {
-  overflow: visible;
+#intro .mobile_wrap {
   width: 100%;
-  height: auto;
+  max-width: 700px;
+  margin-inline: auto;
 }
 
-#intro .trace {
-  fill: transparent;
-  stroke: #fff;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 2;
+#intro .intro-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 24px);
+  width: 100%;
+}
+
+#intro .intro-title {
+  margin: 0;
+  font-family: "Brown Sugar", serif;
+  font-size: 3.75rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: #fff;
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+}
+
+#intro .line-wrap {
+  position: relative;
+  width: min(100%, 280px);
+  max-width: 100%;
+  height: 24px;
+  margin-inline: auto;
+  box-sizing: border-box;
+  --dot-o-1: 1;
+  --dot-o-2: 0.7;
+  --dot-o-3: 0.32;
+  --dot-o-4: 0.08;
+}
+
+#intro .intro-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  margin-top: -0.5px;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+#intro .travel-dot {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+}
+
+#intro .travel-dot--1 {
+  z-index: 5;
+}
+#intro .travel-dot--2 {
+  z-index: 4;
+}
+#intro .travel-dot--3 {
+  z-index: 3;
+}
+#intro .travel-dot--4 {
+  z-index: 2;
+}
+
+#intro .end-cluster {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#intro .black-disc {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: #000;
+  transform: scale(0);
+  transform-origin: center center;
+  z-index: 0;
+}
+
+@media (max-width: 767px) {
+  #intro .mobile_wrap {
+    max-width: 500px;
+    width: calc(100% - 40px);
+  }
+
+  #intro .intro-title {
+    font-size: 32px;
+  }
+
+  #intro .line-wrap {
+    width: 100%;
+    max-width: none;
+  }
 }
 
 .coordinate_display {

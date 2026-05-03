@@ -3,7 +3,11 @@ import Swup from 'https://unpkg.com/swup@4?module';
 import SwupHeadPlugin from 'https://unpkg.com/@swup/head-plugin@2?module';
 
 import noiseBackgroundAnimation from "./modules/noiseAnim.js";
-import moveMouseAnimation from "./modules/moveToMouse.js";
+import moveMouseAnimation, {
+  releaseIntroCursorSuppression,
+  scheduleRevealCustomCursorAfterIntro,
+  suppressCustomCursorForIntro,
+} from "./modules/moveToMouse.js";
 import prjFunc from "./prj.js";
 import mainFunc from "./main.js";
 import {work_list, work} from "./work.js";
@@ -365,55 +369,202 @@ const cmn = {
   // Intro 애니메이션
   // ---------------------------
   introAnim(done) {
-    const paths = [this._q("#path1"), this._q("#path2")].filter(Boolean);
-    if (!paths.length) {
+    const intro = this._q("#intro");
+    if (!intro || !gsap?.timeline) {
+      releaseIntroCursorSuppression();
       done && done();
       return;
     }
 
-    paths.forEach((p) => {
-      const len = p.getTotalLength();
-      p.style.strokeDasharray = len;
-      p.style.strokeDashoffset = len;
-    });
+    const title = intro.querySelector(".intro-title");
+    const line = intro.querySelector(".intro-line");
+    const lineWrap = intro.querySelector(".line-wrap");
+    const blackDisc = intro.querySelector(".black-disc");
+    const dots = [
+      intro.querySelector(".travel-dot--1"),
+      intro.querySelector(".travel-dot--2"),
+      intro.querySelector(".travel-dot--3"),
+      intro.querySelector(".travel-dot--4"),
+    ];
+    if (!title || !line || !lineWrap || !blackDisc || dots.some((d) => !d)) {
+      releaseIntroCursorSuppression();
+      done && done();
+      return;
+    }
 
-    const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+    const d1 = dots[0];
+    const d2 = dots[1];
+    const d3 = dots[2];
+    const d4 = dots[3];
 
-    tl.to("#intro", { opacity: 1, visibility: "visible", duration: 0 })
-        .to(paths, { strokeDashoffset: 0, duration: 2, delay: 0.5 }, 0)
-        .to(paths, { fill: "#fff", attr: { fill: "#fff" }, duration: 0.35 }, ">")
-        .to(".item.left", { x: "-10vw", duration: 0.9, ease: "power3.inOut" }, ">")
-        .to(".item.right", { x: "10vw", duration: 0.9, ease: "power3.inOut" }, "<")
-        .to(".item.center", { width: 300, scaleX: 1, duration: 0.9, ease: "power3.inOut" }, "<")
-        .to(".item.center", { width: "100%", height: "100vh", duration: 1.5, ease: "power3.inOut" }, ">")
-        .to("#intro", {
-          opacity: 0,
-          visibility: "hidden",
-          duration: 0.2,
-          ease: "power3.inOut",
+    const pxTravel = () => Math.max(0, lineWrap.offsetWidth - 8);
+
+    gsap.set(dots, { autoAlpha: 0, left: 0 });
+    gsap.set(line, { scaleX: 0 });
+    gsap.set(blackDisc, { scale: 0 });
+    gsap.set(title, { opacity: 0, y: 28 });
+
+    const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+
+    const segMoveDur = 0.52;
+    const segPause = 0.078;
+    const segEase = "power2.inOut";
+    const echoDelay2 = 0.072;
+    const echoDelay3 = 0.148;
+    const echoDelay4 = 0.22;
+
+    const cs = getComputedStyle(lineWrap);
+    const dotOp = [
+      parseFloat(cs.getPropertyValue("--dot-o-1").trim()) || 1,
+      parseFloat(cs.getPropertyValue("--dot-o-2").trim()) || 0.7,
+      parseFloat(cs.getPropertyValue("--dot-o-3").trim()) || 0.32,
+      parseFloat(cs.getPropertyValue("--dot-o-4").trim()) || 0.08,
+    ];
+
+    tl.to(title, {
+      opacity: 1,
+      y: 0,
+      duration: 0.88,
+      ease: "power3.out",
+    })
+      .to(
+        line,
+        { scaleX: 1, duration: 0.68, ease: "power2.inOut" },
+        ">",
+      )
+      .to(
+        d1,
+        {
+          opacity: dotOp[0],
+          visibility: "visible",
+          duration: 0.36,
+          ease: "power2.out",
+        },
+        ">",
+      )
+      .to(
+        d2,
+        {
+          opacity: dotOp[1],
+          visibility: "visible",
+          duration: 0.36,
+          ease: "power2.out",
+        },
+        "<",
+      )
+      .to(
+        d3,
+        {
+          opacity: dotOp[2],
+          visibility: "visible",
+          duration: 0.36,
+          ease: "power2.out",
+        },
+        "<",
+      )
+      .to(
+        d4,
+        {
+          opacity: dotOp[3],
+          visibility: "visible",
+          duration: 0.36,
+          ease: "power2.out",
+        },
+        "<",
+      );
+
+    const L = pxTravel();
+    function pSeg(i) {
+      return (L * i) / 4;
+    }
+
+    for (var k = 1; k <= 4; k++) {
+      tl.to(d1, { left: pSeg(k), duration: segMoveDur, ease: segEase }, ">");
+      if (k >= 2) {
+        tl.to(
+          d2,
+          {
+            left: pSeg(k - 1),
+            duration: segMoveDur * 0.92,
+            delay: echoDelay2,
+            ease: segEase,
+          },
+          "<",
+        );
+      }
+      if (k >= 3) {
+        tl.to(
+          d3,
+          {
+            left: pSeg(k - 2),
+            duration: segMoveDur * 0.86,
+            delay: echoDelay3,
+            ease: segEase,
+          },
+          "<",
+        );
+      }
+      if (k >= 4) {
+        tl.to(
+          d4,
+          {
+            left: pSeg(k - 3),
+            duration: segMoveDur * 0.8,
+            delay: echoDelay4,
+            ease: segEase,
+          },
+          "<",
+        );
+      }
+      if (k < 4) {
+        tl.to({}, { duration: segPause });
+      }
+    }
+
+    const introOutDur = 1.05;
+    const introOutEase = "power3.inOut";
+
+    tl.to(blackDisc, { scale: 1, duration: 0.56, ease: "power3.out" }, ">")
+      .to(
+        intro,
+        {
+          autoAlpha: 0,
+          duration: introOutDur,
+          ease: introOutEase,
           onComplete: () => {
-            // 있으면 켜고, 없으면 그냥 패스
+            intro.classList.add("intro-done");
             this._q(".sec_visual")?.classList.add("on");
             this._q(".coordinate_display")?.classList.add("on");
+            scheduleRevealCustomCursorAfterIntro(500);
             done && done();
-          }
-        }, ">")
-        .to("header h1", {
+          },
+        },
+        "+=0.25",
+      )
+      .to(
+        "header h1",
+        {
           duration: 1,
           ease: "power2.out",
           onStart: () => {
             if (!this._canControlHeaderShowClass()) return;
             this._q("header h1")?.classList.add("show");
-          }
-        }, ">")
-        .to("header nav", {
+          },
+        },
+        ">",
+      )
+      .to(
+        "header nav",
+        {
           duration: 1,
           ease: "power2.out",
           onStart: () => {
             if (!this._canControlHeaderShowClass()) return;
             this._q("header nav")?.classList.add("show");
-          }
-        }, "<");
+          },
+        },
+        "<",
+      );
   },
 
   // ---------------------------
@@ -535,6 +686,11 @@ const cmn = {
     // 공통 UI & 전역 애니메이션
     prjFunc.init();
     noiseBackgroundAnimation();
+
+    const KEY = "intro_enabled";
+    if (!sessionStorage.getItem(KEY)) {
+      suppressCustomCursorForIntro();
+    }
     moveMouseAnimation();
 
     // Swup 페이지 전환
@@ -549,7 +705,6 @@ const cmn = {
       this._smartRefresh && this._smartRefresh();
     };
 
-    const KEY = 'intro_enabled';
     const shouldPlayIntro = !sessionStorage.getItem(KEY);
 
     if(shouldPlayIntro){

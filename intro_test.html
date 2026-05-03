@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Intro animation test</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Brown Sugar";
+        src: url("./assets/fonts/brown-sugar.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: block;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: #000;
+      }
+
+      /* 인트로 종료 후 보일 본문 (테스트용) */
+      .after-intro {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #444;
+        font-family: system-ui, sans-serif;
+        font-size: 14px;
+        letter-spacing: 0.05em;
+        z-index: 0;
+      }
+
+      #intro-stage {
+        position: fixed;
+        inset: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #141414;
+        color: #fff;
+      }
+
+      #intro-stage.is-done {
+        pointer-events: none;
+      }
+
+      .mobile_wrap {
+        width: 100%;
+        max-width: 700px;
+        margin-inline: auto;
+      }
+
+      .intro-inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: clamp(12px, 2.5vw, 24px);
+        width: 100%;
+      }
+
+      .intro-title {
+        margin: 0;
+        font-family: "Brown Sugar", serif;
+        font-size: 3.75rem;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        line-height: 1;
+        opacity: 0;
+        transform: translate3d(0, 24px, 0);
+        will-change: opacity, transform;
+      }
+
+      .line-wrap {
+        position: relative;
+        width: min(100%, 280px);
+        max-width: 100%;
+        height: 24px;
+        margin-inline: auto;
+        box-sizing: border-box;
+        /* 흰 원 기본 투명도 (1번 → 4번) */
+        --dot-o-1: 1;
+        --dot-o-2: 0.7;
+        --dot-o-3: 0.32;
+        --dot-o-4: 0.08;
+      }
+
+      .intro-line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 1px;
+        margin-top: -0.5px;
+        background: #fff;
+        transform: scaleX(0);
+        transform-origin: left center;
+        will-change: transform;
+      }
+
+      .travel-dot {
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        margin-top: -4px;
+        border-radius: 50%;
+        background: #fff;
+        opacity: 0;
+        visibility: hidden;
+        will-change: left, opacity;
+      }
+
+      .travel-dot--1 {
+        z-index: 5;
+      }
+      .travel-dot--2 {
+        z-index: 4;
+      }
+      .travel-dot--3 {
+        z-index: 3;
+      }
+      .travel-dot--4 {
+        z-index: 2;
+      }
+
+      .end-cluster {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        margin-top: -4px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .black-disc {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 40px;
+        height: 40px;
+        margin: -20px 0 0 -20px;
+        border-radius: 50%;
+        background: #000;
+        transform: scale(0);
+        transform-origin: center center;
+        z-index: 0;
+        will-change: transform;
+      }
+
+      @media (max-width: 767px) {
+        .mobile_wrap {
+          max-width: 500px;
+          width: calc(100% - 40px);
+        }
+
+        .intro-title {
+          font-size: 32px;
+        }
+
+        .line-wrap {
+          width: 100%;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="after-intro">intro finished — replace with your page</p>
+
+    <div id="intro-stage" aria-live="polite">
+      <div class="mobile_wrap">
+        <div class="intro-inner">
+          <p class="intro-title">LOADING</p>
+          <div class="line-wrap">
+            <div class="intro-line" aria-hidden="true"></div>
+            <div class="travel-dot travel-dot--4" aria-hidden="true"></div>
+            <div class="travel-dot travel-dot--3" aria-hidden="true"></div>
+            <div class="travel-dot travel-dot--2" aria-hidden="true"></div>
+            <div class="travel-dot travel-dot--1" aria-hidden="true"></div>
+            <div class="end-cluster" aria-hidden="true">
+              <div class="black-disc"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var stage = document.getElementById("intro-stage");
+        var title = stage.querySelector(".intro-title");
+        var line = stage.querySelector(".intro-line");
+        var dots = [
+          stage.querySelector(".travel-dot--1"),
+          stage.querySelector(".travel-dot--2"),
+          stage.querySelector(".travel-dot--3"),
+          stage.querySelector(".travel-dot--4"),
+        ];
+        var lineWrap = stage.querySelector(".line-wrap");
+        var blackDisc = stage.querySelector(".black-disc");
+
+        function pxTravel() {
+          return Math.max(0, lineWrap.offsetWidth - 8);
+        }
+
+        function run() {
+          var d1 = dots[0];
+          var d2 = dots[1];
+          var d3 = dots[2];
+          var d4 = dots[3];
+
+          gsap.set(dots, { autoAlpha: 0, left: 0 });
+          gsap.set(line, { scaleX: 0 });
+          gsap.set(blackDisc, { scale: 0 });
+          gsap.set(title, { opacity: 0, y: 28 });
+
+          /*
+           타이틀 → 선 → 흰 원×4 fadeIn
+           원 이동: 4구간 + 짧은 정지(리듬) + 구간마다 power2.inOut(살짝 스무스)
+           2·3·4번은 1번과 동시에 출발하되 delay로 뒤늦게 따라와 잔상 강화
+           → 검정 원 → 0.25s → 페이드아웃
+          */
+          var tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
+
+          var segMoveDur = 0.52;
+          var segPause = 0.078;
+          var segEase = "power2.inOut";
+          var echoDelay2 = 0.072;
+          var echoDelay3 = 0.148;
+          var echoDelay4 = 0.22;
+
+          var cs = getComputedStyle(lineWrap);
+          var dotOp = [
+            parseFloat(cs.getPropertyValue("--dot-o-1").trim()) || 1,
+            parseFloat(cs.getPropertyValue("--dot-o-2").trim()) || 0.7,
+            parseFloat(cs.getPropertyValue("--dot-o-3").trim()) || 0.32,
+            parseFloat(cs.getPropertyValue("--dot-o-4").trim()) || 0.08,
+          ];
+
+          tl.to(title, {
+            opacity: 1,
+            y: 0,
+            duration: 0.88,
+            ease: "power3.out",
+          })
+            .to(
+              line,
+              {
+                scaleX: 1,
+                duration: 0.68,
+                ease: "power2.inOut",
+              },
+              ">",
+            )
+            .to(
+              d1,
+              {
+              opacity: dotOp[0],
+              visibility: "visible",
+              duration: 0.36,
+              ease: "power2.out",
+              },
+              ">",
+            )
+            .to(
+              d2,
+              {
+                opacity: dotOp[1],
+                visibility: "visible",
+                duration: 0.36,
+                ease: "power2.out",
+              },
+              "<",
+            )
+            .to(
+              d3,
+              {
+                opacity: dotOp[2],
+                visibility: "visible",
+                duration: 0.36,
+                ease: "power2.out",
+              },
+              "<",
+            )
+            .to(
+              d4,
+              {
+                opacity: dotOp[3],
+                visibility: "visible",
+                duration: 0.36,
+                ease: "power2.out",
+              },
+              "<",
+            );
+
+          var L = pxTravel();
+          function pSeg(i) {
+            return (L * i) / 4;
+          }
+
+          for (var k = 1; k <= 4; k++) {
+            tl.to(
+              d1,
+              { left: pSeg(k), duration: segMoveDur, ease: segEase },
+              ">",
+            );
+            if (k >= 2) {
+              tl.to(
+                d2,
+                {
+                  left: pSeg(k - 1),
+                  duration: segMoveDur * 0.92,
+                  delay: echoDelay2,
+                  ease: segEase,
+                },
+                "<",
+              );
+            }
+            if (k >= 3) {
+              tl.to(
+                d3,
+                {
+                  left: pSeg(k - 2),
+                  duration: segMoveDur * 0.86,
+                  delay: echoDelay3,
+                  ease: segEase,
+                },
+                "<",
+              );
+            }
+            if (k >= 4) {
+              tl.to(
+                d4,
+                {
+                  left: pSeg(k - 3),
+                  duration: segMoveDur * 0.8,
+                  delay: echoDelay4,
+                  ease: segEase,
+                },
+                "<",
+              );
+            }
+            if (k < 4) {
+              tl.to({}, { duration: segPause });
+            }
+          }
+
+          tl.to(
+            blackDisc,
+            {
+              scale: 1,
+              duration: 0.56,
+              ease: "power3.out",
+            },
+            ">",
+          ).to(
+            stage,
+            {
+              opacity: 0,
+              duration: 0.35,
+              ease: "power2.inOut",
+              onComplete: function () {
+                stage.classList.add("is-done");
+                stage.style.visibility = "hidden";
+              },
+            },
+            "+=0.25",
+          );
+        }
+
+        if (document.fonts && document.fonts.ready) {
+          document.fonts.ready.then(run);
+        } else {
+          window.addEventListener("load", run);
+        }
+      })();
+    </script>
+  </body>
+</html>

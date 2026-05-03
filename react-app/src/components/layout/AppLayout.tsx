@@ -56,43 +56,21 @@ export function AppLayout() {
 
   return (
     <div className="react-page">
-      <div id="intro">
-        <div className="item left">
-          <svg
-            width="50"
-            height="228"
-            viewBox="0 0 50 228"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="shape left"
-          >
-            <path
-              id="path1"
-              className="trace"
-              d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"
-            />
-          </svg>
-        </div>
-        <div className="item center">
-          <img
-            src="/assets/images/visuals/visual.png"
-            alt=""
-            className="item_img"
-          />
-        </div>
-        <div className="item right">
-          <svg
-            width="50"
-            height="228"
-            viewBox="0 0 50 228"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-label="shape right"
-          >
-            <path
-              id="path2"
-              className="trace"
-              d="M48.7002 0.5V226.7H0.5V222.7H31.9004V5.2998H0.5V0.5H48.7002Z"
-            />
-          </svg>
+      <div id="intro" aria-live="polite">
+        <div className="mobile_wrap">
+          <div className="intro-inner">
+            <p className="intro-title">LOADING</p>
+            <div className="line-wrap">
+              <div className="intro-line" aria-hidden="true" />
+              <div className="travel-dot travel-dot--4" aria-hidden="true" />
+              <div className="travel-dot travel-dot--3" aria-hidden="true" />
+              <div className="travel-dot travel-dot--2" aria-hidden="true" />
+              <div className="travel-dot travel-dot--1" aria-hidden="true" />
+              <div className="end-cluster" aria-hidden="true">
+                <div className="black-disc" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

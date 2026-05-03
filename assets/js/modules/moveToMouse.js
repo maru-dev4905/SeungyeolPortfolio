@@ -6,6 +6,10 @@ let cursorInited = false;
 let scaleAnim = null;
 let mouseMoveHandler = null;
 let isVisible = false;
+/** 인트로 재생 중이면 커서를 붙이지 않고 완전히 숨김 */
+let introBlocksCursor = false;
+/** 인트로 종료 직후 opacity 페이드 중에는 mousemove에서 opacity 강제 X */
+let introFadePending = false;
 
 function customCursorEnabled() {
   return window.innerWidth > CURSOR_MAX_WIDTH;
@@ -19,6 +23,56 @@ function hideCursorVisual() {
 function prepareCursorVisual() {
   if (typeof gsap === "undefined") return;
   gsap.set(".cursor-outline, .cursor-dot", { visibility: "visible" });
+}
+
+/** 인트로 직전·중: 커스텀 커서 비활성(보이지 않음) */
+export function suppressCustomCursorForIntro() {
+  introBlocksCursor = true;
+  introFadePending = false;
+  if (typeof gsap !== "undefined") {
+    hideCursorVisual();
+  }
+  detachMouseMove();
+  isVisible = false;
+}
+
+/** 인트로를 안 돌리거나 실패 시 즉시 복구 */
+export function releaseIntroCursorSuppression() {
+  introBlocksCursor = false;
+  introFadePending = false;
+  if (cursorInited) {
+    syncDesktopCursorMode();
+  }
+}
+
+/**
+ * 인트로 종료 후 delayMs 뒤 커서 붙이고 opacity 서서히 표시
+ */
+export function scheduleRevealCustomCursorAfterIntro(delayMs = 500) {
+  window.setTimeout(() => {
+    introBlocksCursor = false;
+    introFadePending = true;
+    if (!cursorInited || typeof gsap === "undefined") {
+      introFadePending = false;
+      return;
+    }
+    syncDesktopCursorMode();
+    isVisible = false;
+    gsap.set(".cursor-outline, .cursor-dot", {
+      visibility: "visible",
+      opacity: 0,
+    });
+    gsap.to(".cursor-outline, .cursor-dot", {
+      opacity: 1,
+      duration: 0.55,
+      ease: "power2.out",
+      overwrite: "auto",
+      onComplete: () => {
+        introFadePending = false;
+        isVisible = true;
+      },
+    });
+  }, delayMs);
 }
 
 function detachMouseMove() {
@@ -46,6 +100,13 @@ function syncDesktopCursorMode() {
       scaleAnim.progress(0);
       scaleAnim.pause();
     }
+    return;
+  }
+
+  if (introBlocksCursor) {
+    detachMouseMove();
+    hideCursorVisual();
+    isVisible = false;
     return;
   }
 
@@ -105,7 +166,7 @@ export default function moveMouseAnimation() {
     mouseMoveHandler = function mouseMove(e) {
       if (!customCursorEnabled()) return;
 
-      if (!isVisible) {
+      if (!isVisible && !introFadePending) {
         gsap.set(".cursor-outline, .cursor-dot", { opacity: 1 });
         isVisible = true;
       }
