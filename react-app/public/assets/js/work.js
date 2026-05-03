@@ -90,8 +90,12 @@ const work_list = {
   _getFeaturedItemHTML(work) {
     const awardsHTML = this._getAwardsHTML(work);
     let projectEN = String(work.projectEN).replace(' ', '').toLowerCase();
+    const mdCol =
+      work.colMO != null && work.colMO !== ''
+        ? ` md_colST${work.colMO}`
+        : ''
     return `
-      <li class="colST${work.colPC} md_colST${work.colMO} on_${work.anim} anim" style="background:${work.color}">
+      <li class="colST${work.colPC}${mdCol} on_${work.anim} anim" style="background:${work.color}">
         <a href="./work.html?w=${projectEN}" class="target">
           <img src="./assets/images/works/${projectEN}/visual.png" alt="">
           ${awardsHTML}

@@ -187,7 +187,7 @@ export function HomePage() {
         ]}
       />
 
-      <section className="work_list">
+      <section className="sec_work work_list">
         <div className="inner">
           <span className="anim">20</span>
           <span className="anim">21</span>
