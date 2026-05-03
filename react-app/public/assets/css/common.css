@@ -150,6 +150,27 @@ html.is-changing header {
   mix-blend-mode: difference;
 }
 
+@media (max-width: 768px) {
+  button,
+  * {
+    cursor: auto;
+  }
+
+  a[href],
+  button,
+  [role="button"],
+  input[type="submit"],
+  input[type="button"],
+  label[for] {
+    cursor: pointer;
+  }
+
+  .cursor-outline,
+  .cursor-dot {
+    display: none !important;
+  }
+}
+
 header {
   position: fixed;
   top: 0;

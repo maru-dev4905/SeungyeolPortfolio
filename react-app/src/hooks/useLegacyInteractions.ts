@@ -482,6 +482,17 @@ export function useLegacyInteractions(namespace: PageNamespace) {
         return
       }
 
+      const CURSOR_MAX_WIDTH = 768
+      const customCursorOn = () => window.innerWidth > CURSOR_MAX_WIDTH
+
+      const hideCursorVisual = () => {
+        gsap?.set?.('.cursor-outline, .cursor-dot', { opacity: 0, visibility: 'hidden' })
+      }
+
+      const prepareCursorVisual = () => {
+        gsap?.set?.('.cursor-outline, .cursor-dot', { visibility: 'visible' })
+      }
+
       gsap?.set?.(cursorDot, { scale: 0.1, opacity: 0 })
       gsap?.set?.(cursorOutline, { scale: 0.5, opacity: 0 })
 
@@ -506,11 +517,32 @@ export function useLegacyInteractions(namespace: PageNamespace) {
           cursorDot.style.top = `${value}px`
         })
 
+      let cursorShown = false
+      let mouseMoveAttached = false
+
+      const detachMouseMove = () => {
+        if (!mouseMoveAttached) return
+        document.removeEventListener('mousemove', handleMouseMove)
+        mouseMoveAttached = false
+      }
+
+      const attachMouseMove = () => {
+        if (mouseMoveAttached) return
+        document.addEventListener('mousemove', handleMouseMove)
+        mouseMoveAttached = true
+      }
+
       const handleMouseMove = (event: MouseEvent) => {
+        if (!customCursorOn()) return
+
         const left = event.clientX - 40
         const top = event.clientY - 40
 
-        gsap?.set?.('.cursor-outline, .cursor-dot', { opacity: 1 })
+        if (!cursorShown) {
+          gsap?.set?.('.cursor-outline, .cursor-dot', { opacity: 1 })
+          cursorShown = true
+        }
+
         xOutlineTo(left)
         yOutlineTo(top)
         xDotTo(left)
@@ -523,23 +555,43 @@ export function useLegacyInteractions(namespace: PageNamespace) {
       const targets = Array.from(document.querySelectorAll('.target'))
 
       const enlarge = () => {
+        if (!customCursorOn()) return
         gsap?.to?.('.cursor-outline', { scale: 1, duration: 0.35, ease: 'power3.out' })
         gsap?.to?.('.cursor-dot', { scale: 1, duration: 0.35, ease: 'power3.out' })
       }
 
       const reduce = () => {
+        if (!customCursorOn()) return
         gsap?.to?.('.cursor-outline', { scale: 0.5, duration: 0.35, ease: 'power3.out' })
         gsap?.to?.('.cursor-dot', { scale: 0.1, duration: 0.35, ease: 'power3.out' })
       }
 
-      document.addEventListener('mousemove', handleMouseMove)
+      const syncCursorViewport = () => {
+        if (!customCursorOn()) {
+          detachMouseMove()
+          hideCursorVisual()
+          cursorShown = false
+          return
+        }
+
+        prepareCursorVisual()
+        cursorShown = false
+        gsap?.set?.(cursorDot, { scale: 0.1, opacity: 0 })
+        gsap?.set?.(cursorOutline, { scale: 0.5, opacity: 0 })
+        attachMouseMove()
+      }
+
+      window.addEventListener('resize', syncCursorViewport)
+      syncCursorViewport()
+
       targets.forEach((target) => {
         target.addEventListener('mouseenter', enlarge)
         target.addEventListener('mouseleave', reduce)
       })
 
       cleanups.push(() => {
-        document.removeEventListener('mousemove', handleMouseMove)
+        window.removeEventListener('resize', syncCursorViewport)
+        detachMouseMove()
         targets.forEach((target) => {
           target.removeEventListener('mouseenter', enlarge)
           target.removeEventListener('mouseleave', reduce)
