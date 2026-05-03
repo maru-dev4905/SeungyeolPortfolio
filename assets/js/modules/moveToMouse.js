@@ -1,12 +1,63 @@
 // moveToMouse.js
-let cursorInited = false;   // 문서 전체 리스너 중복 방지용
-let scaleAnim = null;       // 커서 확대/축소 타임라인 공유
+// 768px 이하: 커스텀 커서·mousemove 비활성, 기본 커서(CSS와 함께 사용)
+const CURSOR_MAX_WIDTH = 768;
+
+let cursorInited = false;
+let scaleAnim = null;
+let mouseMoveHandler = null;
+let isVisible = false;
+
+function customCursorEnabled() {
+  return window.innerWidth > CURSOR_MAX_WIDTH;
+}
+
+function hideCursorVisual() {
+  if (typeof gsap === "undefined") return;
+  gsap.set(".cursor-outline, .cursor-dot", { opacity: 0, visibility: "hidden" });
+}
+
+function prepareCursorVisual() {
+  if (typeof gsap === "undefined") return;
+  gsap.set(".cursor-outline, .cursor-dot", { visibility: "visible" });
+}
+
+function detachMouseMove() {
+  if (!mouseMoveHandler) return;
+  document.removeEventListener("mousemove", mouseMoveHandler);
+}
+
+function attachMouseMove() {
+  if (!mouseMoveHandler) return;
+  document.addEventListener("mousemove", mouseMoveHandler);
+}
+
+function syncDesktopCursorMode() {
+  if (!mouseMoveHandler || typeof gsap === "undefined") return;
+
+  const cursorDot = document.querySelector(".cursor-dot");
+  const cursorOutline = document.querySelector(".cursor-outline");
+  if (!cursorDot || !cursorOutline) return;
+
+  if (!customCursorEnabled()) {
+    detachMouseMove();
+    hideCursorVisual();
+    isVisible = false;
+    if (scaleAnim) {
+      scaleAnim.progress(0);
+      scaleAnim.pause();
+    }
+    return;
+  }
+
+  prepareCursorVisual();
+  isVisible = false;
+  gsap.set(cursorDot, { scale: 0.1, opacity: 0 });
+  gsap.set(cursorOutline, { scale: 0.5, opacity: 0 });
+  attachMouseMove();
+}
 
 export default function moveMouseAnimation() {
-  // 1) 커서 기본 세팅 + 문서 이벤트는 한 번만
   if (!cursorInited) {
-    cursorInited = true;
-
     const cursorDot = document.querySelector(".cursor-dot");
     const cursorOutline = document.querySelector(".cursor-outline");
 
@@ -15,7 +66,12 @@ export default function moveMouseAnimation() {
       return;
     }
 
-    // 기본 상태 세팅
+    if (typeof gsap === "undefined") {
+      return;
+    }
+
+    cursorInited = true;
+
     gsap.set(cursorDot, { scale: 0.1, opacity: 0 });
     gsap.set(cursorOutline, { scale: 0.5, opacity: 0 });
 
@@ -37,8 +93,6 @@ export default function moveMouseAnimation() {
       ease: "power3"
     });
 
-    let isVisible = false;
-
     function updateDisplay(e) {
       const pageX = document.querySelector(".coordinate_display_x");
       const pageY = document.querySelector(".coordinate_display_y");
@@ -48,7 +102,9 @@ export default function moveMouseAnimation() {
       pageY.innerText = `Y: ${e.pageY}px`;
     }
 
-    function mouseMove(e) {
+    mouseMoveHandler = function mouseMove(e) {
+      if (!customCursorEnabled()) return;
+
       if (!isVisible) {
         gsap.set(".cursor-outline, .cursor-dot", { opacity: 1 });
         isVisible = true;
@@ -65,44 +121,38 @@ export default function moveMouseAnimation() {
       yDTo(cursorPosition.top);
 
       updateDisplay(e);
-    }
+    };
 
-    // 문서 전체 마우스 이동 이벤트 → 한 번만 등록
-    document.addEventListener("mousemove", mouseMove);
-
-    // 커서 확대/축소 타임라인 (전역에서 재사용)
     scaleAnim = gsap.timeline({ paused: true })
-        .to(".cursor-outline", {
-          scale: 1
-        })
-        .to(
-            ".cursor-dot",
-            {
-              scale: 1,
-              duration: 0.35
-            },
-            0
-        );
+      .to(".cursor-outline", {
+        scale: 1
+      })
+      .to(
+        ".cursor-dot",
+        {
+          scale: 1,
+          duration: 0.35
+        },
+        0
+      );
+
+    window.addEventListener("resize", syncDesktopCursorMode);
+    syncDesktopCursorMode();
   }
 
-  // 2) 여기부터는 "현재 DOM의 .target"들에 hover 이벤트를 붙이는 파트
-  //    → Swup 페이지 전환 후 moveMouseAnimation() 다시 호출하면
-  //       새로 생긴 .target에만 이벤트 붙는다.
   const targets = gsap.utils.toArray(".target");
 
   targets.forEach((target) => {
-    // 이미 바인딩된 애는 다시 안 건드리기 위해 플래그 사용
     if (target.dataset.cursorBound === "1") return;
     target.dataset.cursorBound = "1";
 
     target.addEventListener("mouseenter", () => {
-      if(!target.classList.contains('target')) return;
+      if (!customCursorEnabled() || !target.classList.contains("target")) return;
       scaleAnim && scaleAnim.play();
     });
 
     target.addEventListener("mouseleave", () => {
-      if (!target.classList.contains("target")) return;
-
+      if (!customCursorEnabled() || !target.classList.contains("target")) return;
       scaleAnim && scaleAnim.reverse();
     });
   });
