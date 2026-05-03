@@ -315,6 +315,11 @@ header .menu_btn {
   background: url("../images/icons/ico_menu.svg") no-repeat center / cover;
 }
 
+header .logo {
+  width: 3.75rem;
+  aspect-ratio: 1/1;
+}
+
 footer .line {
   position: relative;
   height: 3.125rem;
@@ -583,7 +588,7 @@ footer.on .links > div {
 
 #intro .line-wrap {
   position: relative;
-  width: min(100%, 280px);
+  width: min(100%, 700px);
   max-width: 100%;
   height: 24px;
   margin-inline: auto;
@@ -1133,7 +1138,7 @@ footer.on .links > div {
 
 @media all and (max-width: 1280px) {
   html,
-  body{
+  body {
     font-size: 10px;
   }
   header .menu_btn {
@@ -1147,7 +1152,9 @@ footer.on .links > div {
     padding-top: 0;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+    transition:
+      opacity 0.2s ease-in-out,
+      visibility 0.2s ease-in-out;
   }
   header nav.show {
     opacity: 1;
@@ -1188,172 +1195,179 @@ footer.on .links > div {
   }
 }
 
-@media all and (max-width: 1024px){
-  .inner{
+@media all and (max-width: 1024px) {
+  .inner {
     width: calc(100% - 40px);
   }
-  .marquee{
+  .marquee {
     margin-top: 140px;
   }
-  .work_list .inner > span{
+  .work_list .inner > span {
     font-size: 40px;
   }
-  .work_list .inner > span:nth-child(3):before{
+  .work_list .inner > span:nth-child(3):before {
     height: 4px;
   }
-  .work_list li .awards{
-    gap:8px;
+  .work_list li .awards {
+    gap: 8px;
     top: 10px;
-    right:10px;
+    right: 10px;
   }
-  .work_list li .awards span{
+  .work_list li .awards span {
     width: 20px;
     height: 20px;
   }
-  .work_list li a img{
+  .work_list li a img {
     width: calc((100vw - 40px) / 4);
   }
 }
 
-@media all and (max-width: 768px){
-  .coordinate_display{
-    display:none;
+@media all and (max-width: 768px) {
+  .coordinate_display {
+    display: none;
   }
 
-  .banner{
+  .banner {
     padding: 4px 20px;
   }
-  .banner p{
+  .banner p {
     min-height: 20px;
     font-size: 8px;
     line-height: 150%;
-    opacity: .8;
+    opacity: 0.8;
   }
 
-  header h1.show{
+  header h1.show {
     height: 60px;
   }
-  header h1 a{
+  header h1 a {
     padding: 0 20px;
   }
-  header h1 strong{
-    display:block;
-    padding-top:4px;
+  header h1 strong {
+    display: block;
+    padding-top: 4px;
   }
   header h1 span,
-  header h1 p{display:none;}
-  header .menu_btn{
-    margin-top:14px;
+  header h1 p {
+    display: none;
+  }
+  header .menu_btn {
+    margin-top: 14px;
+    transition: background-image 0.3s ease-in-out;
+  }
+  header .gnb.show + .menu_btn {
+    background-image: url(/assets/images/icons/ico_close.svg);
   }
 
-  footer .inner{
+  footer .inner {
     padding-top: 60px;
   }
-  footer .links{
+  footer .links {
     flex-direction: column;
     gap: 20px;
     margin-bottom: 60px;
   }
-  footer .links > div{
+  footer .links > div {
     max-width: 100%;
     padding-top: 10px;
   }
-  footer .links strong, footer .links a, footer .links p{
-    gap: 8px;  
-    font-size:14px;
+  footer .links strong,
+  footer .links a,
+  footer .links p {
+    gap: 8px;
+    font-size: 14px;
   }
-  footer .links strong:not(:first-of-type){
+  footer .links strong:not(:first-of-type) {
     margin-top: 10px;
   }
   footer .resume::after,
-  footer .copy_btn::after{
+  footer .copy_btn::after {
     width: 16px;
     height: 16px;
   }
-  footer .desc{
+  footer .desc {
     padding: 40px 0;
   }
-  footer .desc div{
+  footer .desc div {
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
   }
-  footer .desc p{
+  footer .desc p {
     font-size: 14px;
     line-height: 150%;
   }
-  footer .desc button{
+  footer .desc button {
     top: -60px;
     width: 40px;
     height: 40px;
   }
-  footer .desc button::after{
-    mask-size:24px;
+  footer .desc button::after {
+    mask-size: 24px;
   }
-  
-  
-  .work_list{
+
+  .work_list {
     padding: 60px 0;
   }
-  .work_list ul{
-    grid-template-columns:repeat(3, 1fr);
+  .work_list ul {
+    grid-template-columns: repeat(3, 1fr);
   }
-  .work_list li{
+  .work_list li {
     padding: 2px;
   }
-  .work_list li a img{
+  .work_list li a img {
     width: calc((100vw - 52px) / 3);
   }
-  .work_list li .awards{
+  .work_list li .awards {
     top: 6px;
     right: 6px;
   }
   .work_list .inner > span:nth-child(2),
-  .work_list .inner > span:nth-child(1){
+  .work_list .inner > span:nth-child(1) {
     top: -60px;
   }
   .work_list .inner > span:nth-child(3),
-  .work_list .inner > span:nth-child(4){
+  .work_list .inner > span:nth-child(4) {
     bottom: -60px;
   }
-  .work_list .inner > span:nth-child(3):before{
+  .work_list .inner > span:nth-child(3):before {
     gap: 10px;
     width: 40px;
     height: 2px;
   }
 
-  .sec_contact{
-    padding: 60px 0 0 0;
+  .sec_contact {
+    padding: 16.6667vw 0 0 0;
   }
-  .sec_contact h2{
-    height: 200px;
+  .sec_contact h2 {
+    height: 55.5556vw;
   }
 
-  .sec_contact h2 p{
+  .sec_contact h2 p {
     top: 50% !important;
     transform: translateY(-50%);
   }
-  .sec_contact h2 p span{
-    padding: 10px 0;
-    font-size: 24px;
+  .sec_contact h2 p span {
+    padding: 2.7778vw 0;
+    font-size: 6.6667vw;
   }
-  .sec_contact h2.show p:nth-child(1){
+  .sec_contact h2.show p:nth-child(1) {
     top: 26% !important;
   }
-  .sec_contact h2.show p:nth-child(2){
+  .sec_contact h2.show p:nth-child(2) {
     top: 38% !important;
   }
-  .sec_contact h2.show p:nth-child(4){
+  .sec_contact h2.show p:nth-child(4) {
     top: 62% !important;
   }
-  .sec_contact h2.show p:nth-child(5){
+  .sec_contact h2.show p:nth-child(5) {
     top: 74% !important;
   }
-  .sec_contact .marquee{
+  .sec_contact .marquee {
     margin: 0 0 120px;
   }
-  .sec_contact .marquee span{
+  .sec_contact .marquee span {
     padding: 0 4px;
-    font-size:12px;
+    font-size: 12px;
   }
 }

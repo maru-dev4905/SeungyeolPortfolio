@@ -32,6 +32,8 @@ const cmn = {
   _headerPinST: null,
   _headerTL: null,
   _menuBtnHandler: null,
+  _copyToastEl: null,
+  _copyToastTimer: null,
 
   _canControlHeaderShowClass() {
     return window.innerWidth > 1280;
@@ -106,6 +108,8 @@ const cmn = {
     this._setupHeaderMenuToggle();
     this._setupFooterAnim();
 
+    this._bindCopyButtons();
+
     const menus = this._qq('.gnb li');
 
     menus.forEach((menu)=>menu.classList.remove('on'));
@@ -132,6 +136,93 @@ const cmn = {
 
     ScrollTrigger.refresh();
     this._smooth && this._smooth.refresh();
+  },
+
+  _bindCopyButtons() {
+    const copyBtns = this._qq(".copy_btn[data-target]");
+    if (!copyBtns.length) return;
+
+    copyBtns.forEach((btn) => {
+      if (btn.dataset.copyBound === "1") return;
+      btn.dataset.copyBound = "1";
+
+      btn.addEventListener("click", async () => {
+        const targetId = btn.getAttribute("data-target");
+        const targetEl = targetId ? document.getElementById(targetId) : null;
+        const value = targetEl ? targetEl.innerText.trim() : "";
+        if (!value) return;
+
+        try {
+          let ok = false;
+
+          // 1) Clipboard API 우선 시도
+          if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+            await navigator.clipboard.writeText(value);
+            ok = true;
+          } else {
+            ok = false;
+          }
+
+          // 2) 실패/비지원 시 textarea fallback
+          if (!ok) {
+            const ta = document.createElement("textarea");
+            ta.value = value;
+            ta.setAttribute("readonly", "");
+            ta.style.position = "fixed";
+            ta.style.left = "-9999px";
+            ta.style.top = "0";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            ok = true; // execCommand가 예외를 던지지 않는 케이스 기준
+          }
+
+          if (ok) this._showCopyToast("복사가 완료되었습니다");
+        } catch (e) {
+          console.warn("[copy_btn] copy failed:", e);
+          this._showCopyToast("복사가 실패했습니다");
+        }
+      });
+    });
+  },
+
+  _showCopyToast(message) {
+    if (!this._copyToastEl) {
+      const el = document.createElement("div");
+      el.id = "copyToast";
+      el.setAttribute("role", "status");
+      el.setAttribute("aria-live", "polite");
+      el.style.position = "fixed";
+      el.style.left = "50%";
+      el.style.bottom = "2.5rem";
+      el.style.transform = "translateX(-50%) translateY(0)";
+      el.style.padding = "0.75rem 1.25rem";
+      el.style.borderRadius = "3.125rem";
+      el.style.backgroundColor = "rgba(31, 31, 31, 0.75)";
+      el.style.border = "1px solid #aaa";
+      el.style.color = "#fff";
+      el.style.fontSize = "0.875rem";
+      el.style.fontWeight = "500";
+      el.style.letterSpacing = "0.02rem";
+      el.style.opacity = "0";
+      el.style.pointerEvents = "none";
+      el.style.zIndex = "1000001";
+      el.style.transition = "opacity 0.25s ease, transform 0.25s ease";
+      document.body.appendChild(el);
+      this._copyToastEl = el;
+    }
+
+    const el = this._copyToastEl;
+    el.textContent = message;
+    el.style.opacity = "1";
+    el.style.transform = "translateX(-50%) translateY(-6px)";
+
+    if (this._copyToastTimer) clearTimeout(this._copyToastTimer);
+    this._copyToastTimer = setTimeout(() => {
+      el.style.opacity = "0";
+      el.style.transform = "translateX(-50%) translateY(0)";
+    }, 1400);
   },
 
   // ---------------------------
