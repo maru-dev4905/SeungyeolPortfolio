@@ -111,7 +111,13 @@ export function AppLayout() {
                   LEE S<i>E</i>UNG<i>Y</i>EOL <br />P<i>U</i>BLIS<i>H</i>ER
                 </strong>
                 <span>.PORTFOLIO</span>
-                <p>SY</p>
+                <p>
+                  <img
+                    src="/assets/images/common/logo_w.png"
+                    alt="SY"
+                    className="logo"
+                  />
+                </p>
               </TransitionLink>
             </h1>
             <nav className="gnb">
