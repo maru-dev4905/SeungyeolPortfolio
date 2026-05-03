@@ -85,6 +85,7 @@
   font-weight: 300;
   line-height: 150%;
   grid-column: 3/-1;
+  color: var(--black1);
 }
 
 #about .sec_introduce em {
@@ -94,6 +95,7 @@
 #about .sec_introduce .desc {
   margin-top: 1.25rem;
   grid-column: 7/-1;
+  color: var(--black1);
 }
 
 #about .sec_introduce .desc p {
@@ -283,6 +285,7 @@
   transform: scaleY(0);
   transform-origin: bottom;
   aspect-ratio: 440 / 260;
+  color: var(--black1);
 }
 
 #about .sec_career .desc li:nth-child(1) {
@@ -356,9 +359,10 @@
 
 #about .sec_career .contact_message a {
   display: flex;
+  gap: 1.25rem;
   position: relative;
   padding: 1.5rem 1.25rem;
-  gap: 1.25rem;
+  color: var(--black1);
 }
 
 #about .sec_career .contact_message a > div {

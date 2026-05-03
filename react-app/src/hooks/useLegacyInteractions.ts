@@ -992,6 +992,12 @@ export function useLegacyInteractions(namespace: PageNamespace) {
     const shouldPlayIntro =
       namespace === "main" && !window.sessionStorage.getItem(INTRO_KEY);
 
+    if (namespace !== "main" || window.sessionStorage.getItem(INTRO_KEY)) {
+      intro?.classList.add("intro-done");
+    } else {
+      intro?.classList.remove("intro-done");
+    }
+
     if (shouldPlayIntro) {
       gsap?.set?.(".cursor-outline, .cursor-dot", {
         opacity: 0,
@@ -1008,6 +1014,7 @@ export function useLegacyInteractions(namespace: PageNamespace) {
       introAnim((introCompleted) => {
         window.sessionStorage.setItem(INTRO_KEY, "1");
         syncIntroVisibility();
+        intro?.classList.add("intro-done");
         afterIntro(introCompleted);
       });
     } else {
