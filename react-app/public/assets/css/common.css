@@ -1349,7 +1349,11 @@ footer.on .links > div {
     padding: 2px;
   }
   .work_list li a img {
-    width: calc((100vw - 52px) / 3);
+    width: 100%;
+  }
+  .work_list li.on_left a img,
+  .work_list li.on_right a img {
+    height: 100%;
   }
   .work_list li .awards {
     top: 6px;

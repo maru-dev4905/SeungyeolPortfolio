@@ -1,65 +1,11 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
+
+import { disposeCopyToast, showCopyToast } from "../../utils/bodyToasts";
 
 export function SiteFooter() {
-  const copyToastRef = useRef<HTMLDivElement | null>(null);
-  const copyToastTimerRef = useRef<number | null>(null);
-
-  const showCopyToast = useCallback((message: string) => {
-    if (!copyToastRef.current) {
-      const el = document.createElement("div");
-      el.id = "copyToast";
-      el.setAttribute("role", "status");
-      el.setAttribute("aria-live", "polite");
-
-      el.style.position = "fixed";
-      el.style.left = "50%";
-      el.style.bottom = "2.5rem";
-      el.style.transform = "translateX(-50%) translateY(0)";
-      el.style.padding = "0.75rem 1.25rem";
-      el.style.borderRadius = "3.125rem";
-      el.style.backgroundColor = "rgba(31, 31, 31, 0.75)";
-      el.style.border = "1px solid #aaa";
-      el.style.color = "#fff";
-      el.style.fontSize = "0.875rem";
-      el.style.fontWeight = "500";
-      el.style.letterSpacing = "0.02rem";
-      el.style.opacity = "0";
-      el.style.pointerEvents = "none";
-      el.style.zIndex = "1000001";
-      el.style.transition = "opacity 0.25s ease, transform 0.25s ease";
-
-      document.body.appendChild(el);
-      copyToastRef.current = el;
-    }
-
-    const el = copyToastRef.current;
-    if (!el) return;
-
-    el.textContent = message;
-    el.style.opacity = "1";
-    el.style.transform = "translateX(-50%) translateY(-6px)";
-
-    if (copyToastTimerRef.current) {
-      window.clearTimeout(copyToastTimerRef.current);
-    }
-
-    copyToastTimerRef.current = window.setTimeout(() => {
-      if (!copyToastRef.current) return;
-      copyToastRef.current.style.opacity = "0";
-      copyToastRef.current.style.transform = "translateX(-50%) translateY(0)";
-    }, 1400);
-  }, []);
-
   useEffect(() => {
     return () => {
-      if (copyToastTimerRef.current) {
-        window.clearTimeout(copyToastTimerRef.current);
-        copyToastTimerRef.current = null;
-      }
-      if (copyToastRef.current) {
-        copyToastRef.current.remove();
-        copyToastRef.current = null;
-      }
+      disposeCopyToast();
     };
   }, []);
 

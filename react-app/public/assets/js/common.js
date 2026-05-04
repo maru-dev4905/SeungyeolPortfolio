@@ -195,7 +195,7 @@ const cmn = {
       el.setAttribute("aria-live", "polite");
       el.style.position = "fixed";
       el.style.left = "50%";
-      el.style.bottom = "2.5rem";
+      el.style.bottom = "6.5rem";
       el.style.transform = "translateX(-50%) translateY(0)";
       el.style.padding = "0.75rem 1.25rem";
       el.style.borderRadius = "3.125rem";

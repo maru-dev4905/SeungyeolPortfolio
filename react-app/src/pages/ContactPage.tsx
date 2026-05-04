@@ -1,17 +1,133 @@
-import { useMemo, useState } from 'react'
+import { type FormEvent, useCallback, useMemo, useState } from 'react'
 
 import { LegacyBanner } from '../components/common/LegacyBanner'
 import { useLegacyPage } from '../hooks/useLegacyPage'
+import { showMailResultToast } from '../utils/bodyToasts'
 
 const korOptions = ['협업', '의뢰', '채용', '기타']
 const engOptions = ['collaboration', 'project', 'hiring', 'others']
+
+const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ?? ''
 
 export function ContactPage() {
   const [language, setLanguage] = useState<'kor' | 'eng'>('kor')
   const [isSelectOpen, setIsSelectOpen] = useState(false)
   const [selectedType, setSelectedType] = useState('')
+  const [isSending, setIsSending] = useState(false)
 
   useLegacyPage('LeeSeungyeol - CONTACT ME', 'sub')
+
+  const submitToWeb3Forms = useCallback(
+    async (payload: { name: string; email: string; message: string }) => {
+      const formData = new FormData()
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY)
+      formData.append('name', payload.name)
+      formData.append('email', payload.email)
+      formData.append('message', payload.message)
+      formData.append('subject', '[Portfolio] Contact')
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      })
+
+      const data = (await response.json()) as { success?: boolean; message?: string }
+      return response.ok && data.success === true
+    },
+    [],
+  )
+
+  const handleKorSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const form = e.currentTarget
+      if (!form.reportValidity()) return
+
+      if (!WEB3FORMS_ACCESS_KEY) {
+        showMailResultToast('error')
+        return
+      }
+
+      const company = (document.getElementById('kor_company') as HTMLInputElement | null)?.value?.trim() ?? ''
+      const name = (document.getElementById('kor_name') as HTMLInputElement | null)?.value?.trim() ?? ''
+      const email = (document.getElementById('kor_email') as HTMLInputElement | null)?.value?.trim() ?? ''
+      const description =
+        (document.getElementById('kor_description') as HTMLTextAreaElement | null)?.value?.trim() ?? ''
+
+      const message = [
+        `회사: ${company}`,
+        `이름: ${name}`,
+        `문의 유형: ${selectedType}`,
+        '',
+        '내용:',
+        description,
+      ].join('\n')
+
+      setIsSending(true)
+      try {
+        const ok = await submitToWeb3Forms({ name, email, message })
+        if (ok) {
+          showMailResultToast('success')
+          form.reset()
+          setSelectedType('')
+          setIsSelectOpen(false)
+        } else {
+          showMailResultToast('error')
+        }
+      } catch {
+        showMailResultToast('error')
+      } finally {
+        setIsSending(false)
+      }
+    },
+    [selectedType, submitToWeb3Forms],
+  )
+
+  const handleEngSubmit = useCallback(
+    async (e: FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const form = e.currentTarget
+      if (!form.reportValidity()) return
+
+      if (!WEB3FORMS_ACCESS_KEY) {
+        showMailResultToast('error')
+        return
+      }
+
+      const name = (document.getElementById('eng_name') as HTMLInputElement | null)?.value?.trim() ?? ''
+      const company = (document.getElementById('eng_company') as HTMLInputElement | null)?.value?.trim() ?? ''
+      const email = (document.getElementById('eng_email') as HTMLInputElement | null)?.value?.trim() ?? ''
+      const description =
+        (document.getElementById('eng_description') as HTMLTextAreaElement | null)?.value?.trim() ?? ''
+
+      const message = [
+        `Name: ${name}`,
+        `Company: ${company}`,
+        `Inquiry type: ${selectedType}`,
+        '',
+        'Message:',
+        description,
+      ].join('\n')
+
+      setIsSending(true)
+      try {
+        const ok = await submitToWeb3Forms({ name, email, message })
+        if (ok) {
+          showMailResultToast('success')
+          form.reset()
+          setSelectedType('')
+          setIsSelectOpen(false)
+        } else {
+          showMailResultToast('error')
+        }
+      } catch {
+        showMailResultToast('error')
+      } finally {
+        setIsSending(false)
+      }
+    },
+    [selectedType, submitToWeb3Forms],
+  )
 
   const options = useMemo(
     () => (language === 'kor' ? korOptions : engOptions),
@@ -65,20 +181,47 @@ export function ContactPage() {
           </div>
 
           <div className={language === 'kor' ? 'kor on' : 'kor'}>
-            <form action="#" method="POST" id="kor_mail">
+            <form id="kor_mail" onSubmit={handleKorSubmit}>
               <div className="col fade anim">
                 <p>안녕하세요,</p>
-                <label htmlFor="kor_company" className="hidden"></label>
-                <input type="text" placeholder="회사명을 입력해주세요" id="kor_company" />
+                <label htmlFor="kor_company" className="hidden">
+                  회사명
+                </label>
+                <input
+                  type="text"
+                  placeholder="회사명을 입력해주세요"
+                  id="kor_company"
+                  name="kor_company"
+                  required
+                  autoComplete="organization"
+                />
                 <p>의</p>
-                <label htmlFor="kor_name" className="hidden"></label>
-                <input type="text" placeholder="이름을 입력해주세요" id="kor_name" />
+                <label htmlFor="kor_name" className="hidden">
+                  이름
+                </label>
+                <input
+                  type="text"
+                  placeholder="이름을 입력해주세요"
+                  id="kor_name"
+                  name="name"
+                  required
+                  autoComplete="name"
+                />
                 <p>입니다.</p>
               </div>
               <div className="col fade anim">
                 <p>연락 가능한 이메일은</p>
-                <label htmlFor="kor_email" className="hidden"></label>
-                <input type="text" placeholder="이메일을 입력해주세요" id="kor_email" />
+                <label htmlFor="kor_email" className="hidden">
+                  이메일
+                </label>
+                <input
+                  type="email"
+                  placeholder="이메일을 입력해주세요"
+                  id="kor_email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                />
                 <p>입니다.</p>
               </div>
               <div className="col fade anim">
@@ -109,6 +252,7 @@ export function ContactPage() {
                           id={`kor_type_${index}`}
                           name="kor_type"
                           value={option}
+                          required={index === 0}
                           checked={selectedType === option}
                           onChange={() => {
                             setSelectedType(option)
@@ -126,30 +270,64 @@ export function ContactPage() {
                 <p>자세히 전하고 싶은 내용은</p>
               </div>
               <div className="col fade anim">
-                <label htmlFor="kor_description" className="hidden"></label>
-                <textarea id="kor_description" placeholder="내용을 입력해주세요"></textarea>
+                <label htmlFor="kor_description" className="hidden">
+                  문의 내용
+                </label>
+                <textarea
+                  id="kor_description"
+                  name="message"
+                  placeholder="내용을 입력해주세요"
+                  required
+                ></textarea>
                 <p>입니다.</p>
               </div>
-              <button type="submit" className="target">
-                SEND
+              <button type="submit" className="target" disabled={isSending}>
+                {isSending ? '전송 중...' : 'SEND'}
               </button>
             </form>
           </div>
 
           <div className={language === 'eng' ? 'eng on' : 'eng'}>
-            <form action="#" method="POST" id="eng_mail">
+            <form id="eng_mail" onSubmit={handleEngSubmit}>
               <div className="col fade anim">
                 <p>Hello, I&apos;m</p>
-                <label htmlFor="eng_name" className="hidden"></label>
-                <input type="text" placeholder="name" id="eng_name" />
+                <label htmlFor="eng_name" className="hidden">
+                  Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="name"
+                  id="eng_name"
+                  name="name"
+                  required
+                  autoComplete="name"
+                />
                 <p>from</p>
-                <label htmlFor="eng_company" className="hidden"></label>
-                <input type="text" placeholder="company" id="eng_company" />
+                <label htmlFor="eng_company" className="hidden">
+                  Company
+                </label>
+                <input
+                  type="text"
+                  placeholder="company"
+                  id="eng_company"
+                  name="eng_company"
+                  required
+                  autoComplete="organization"
+                />
               </div>
               <div className="col fade anim">
                 <p>You can reach me via</p>
-                <label htmlFor="eng_email" className="hidden"></label>
-                <input type="text" placeholder="email" id="eng_email" />
+                <label htmlFor="eng_email" className="hidden">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="email"
+                  id="eng_email"
+                  name="email"
+                  required
+                  autoComplete="email"
+                />
               </div>
               <div className="col fade anim">
                 <p>This inquiry is about</p>
@@ -179,6 +357,7 @@ export function ContactPage() {
                           id={`eng_type_${index}`}
                           name="eng_type"
                           value={option}
+                          required={index === 0}
                           checked={selectedType === option}
                           onChange={() => {
                             setSelectedType(option)
@@ -193,11 +372,18 @@ export function ContactPage() {
               </div>
               <div className="col">
                 <p>Here are the details:</p>
-                <label htmlFor="eng_description" className="hidden"></label>
+                <label htmlFor="eng_description" className="hidden">
+                  Message
+                </label>
               </div>
-              <textarea id="eng_description" placeholder="message"></textarea>
-              <button type="submit" className="target">
-                SEND
+              <textarea
+                id="eng_description"
+                name="message"
+                placeholder="message"
+                required
+              ></textarea>
+              <button type="submit" className="target" disabled={isSending}>
+                {isSending ? 'Sending...' : 'SEND'}
               </button>
             </form>
           </div>
