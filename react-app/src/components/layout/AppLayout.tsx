@@ -18,7 +18,7 @@ const navItems: NavItem[] = [
   { kind: "internal", to: "/contact", label: "Contact Me" },
   {
     kind: "external",
-    href: "https://maru-dev4905.github.io/Weave/docs/css",
+    href: "https://weavekit.kr",
     label: "Weave",
   },
 ];
