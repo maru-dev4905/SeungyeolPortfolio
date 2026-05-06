@@ -130,9 +130,11 @@ export function AboutPage() {
             interactions.
             <br />
             <br />
-            Tools don't define the work — <br />
-            but Figma, SCSS, and JavaScript help me build scalable systems. To
-            offer users a richer experience, I explore GSAP, ScrollMagic, and
+            Tools don't define the work - <br />
+            but Figma, SCSS, and JavaScript help me build scalable systems.
+            <br />
+            <br />
+            To offer users a richer experience, I explore GSAP, ScrollMagic, and
             Locomotive.js.
           </p>
           <div className="img_wrap anim">
@@ -145,8 +147,10 @@ export function AboutPage() {
             깔끔한 마크업, 접근성 높은 UI, 반응형 인터랙션에 집중합니다.
             <br />
             <br />
-            디자인은 도구가 전부는 아니지만 — <br />
+            디자인은 도구가 전부는 아니지만 - <br />
             Figma, SCSS, JavaScript를 활용해 확장 가능한 시스템을 구축합니다.
+            <br />
+            <br />
             다양한 경험과 시각적 즐거움을 위해 GSAP, ScrollMagic, Locomotive.js
             등 인터랙션을 꾸준히 탐구합니다.
           </p>
