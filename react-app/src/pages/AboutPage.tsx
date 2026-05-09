@@ -170,7 +170,7 @@ export function AboutPage() {
           </div>
           <ul className="desc anim">
             <li className="anim">
-              <p>2023. 03 ~ ing</p>
+              <p>2023. 03 ~ 2026. 04</p>
               <h3>W</h3>
               <span>WeverCNS</span>
             </li>
