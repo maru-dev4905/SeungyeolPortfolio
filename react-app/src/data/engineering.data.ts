@@ -188,7 +188,7 @@ export const engineeringProjects: EngineeringProject[] = [
     ],
     limits: [
       '규칙이 같은 실수를 실제로 줄였는지는 아직 측정하지 못했음. 규칙을 만들기 전의 재발 횟수를 세어 두지 않아 비교할 기준이 없음. 다음에는 규칙을 만들 때 재발 횟수를 같이 기록하겠음.',
-      '실제 Windows PC에서의 검증은 아직 못 했음. Windows 러너에는 Docker가 없어 CI는 단위 테스트와 `init` 스모크까지만 확인함. `stop`이 Windows에서 지원되지 않는 점은 문서에 그대로 적어 둠.',
+      'CI의 Windows 러너에는 Docker가 없어 자동 검증은 단위 테스트와 `init` 스모크까지만 가능함. 그 너머(실제 실행)는 사람이 Windows PC에서 직접 돌려 확인했고 이상이 없었음. 다만 자동화되어 있지 않아 버전이 바뀔 때마다 다시 손으로 확인해야 함. `stop`이 Windows에서 지원되지 않는 점은 문서에 그대로 적어 둠.',
       '하네스는 Claude Code와 협업하는 방식에 맞춰 만들었음. Claude가 초안을 쓰고 사람이 검토하는 구조이므로, 검토를 건너뛰면 틀린 원인이 규칙으로 굳을 수 있음. 그래서 근본 원인은 사람이 확정하도록 함.',
     ],
     skills: ['Next.js', 'TypeScript', 'FastAPI', 'Node.js CLI', 'Docker', 'GitHub Actions', 'Claude Code', 'ESLint'],
