@@ -499,3 +499,48 @@
     align-items: flex-start;
   }
 }
+
+/* 스크롤에 맞춘 등장 효과. 스크립트가 켜 둔 .eng_ready 안에서만 숨긴다. */
+#engineering.eng_ready .eng_reveal {
+  opacity: 0;
+  transform: translateY(2rem);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#engineering.eng_ready .eng_reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+#engineering.eng_ready .eng_metrics li {
+  transition-delay: 0s;
+}
+
+#engineering .eng_metrics strong {
+  font-variant-numeric: tabular-nums;
+}
+
+#engineering .eng_issues article {
+  transition:
+    border-color 0.4s ease,
+    background-color 0.4s ease;
+}
+
+#engineering .eng_issues article:hover {
+  border-color: rgba(245, 245, 245, 0.34);
+  background-color: rgba(245, 245, 245, 0.03);
+}
+
+#engineering .eng_decisions li,
+#engineering .eng_timeline li {
+  transition-property: opacity, transform, background-color;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #engineering .eng_card,
+  #engineering .eng_issues article {
+    transition: none;
+  }
+}

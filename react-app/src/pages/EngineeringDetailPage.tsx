@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { LegacyContactCta } from "../components/common/LegacyContactCta";
 import { TransitionLink } from "../components/common/TransitionLink";
+import { useEngineeringReveal } from "../hooks/useEngineeringReveal";
 import { useLegacyPage } from "../hooks/useLegacyPage";
 import {
   engineeringProjects,
@@ -49,6 +50,7 @@ export function EngineeringDetailPage() {
       : "LeeSeungyeol - ENGINEERING",
     "sub",
   );
+  useEngineeringReveal([projectSlug]);
 
   if (!project) {
     return (
@@ -69,16 +71,18 @@ export function EngineeringDetailPage() {
     <main id="engineering" className="eng_detail">
       <section className="eng_hero">
         <div className="inner">
-          <p className="eng_label">
+          <p className="eng_label eng_reveal">
             <em>(</em> {String(currentIndex + 1).padStart(2, "0")} <em>)</em>
           </p>
-          <h2>{project.nameEN}</h2>
-          <h3>{project.tagline}</h3>
-          <p className="eng_lead">{project.summary}</p>
-          <ul className="eng_metrics">
+          <h2 className="eng_reveal">{project.nameEN}</h2>
+          <h3 className="eng_reveal">{project.tagline}</h3>
+          <p className="eng_lead eng_reveal">{project.summary}</p>
+          <ul className="eng_metrics eng_reveal">
             {project.metrics.map((metric) => (
               <li key={metric.label}>
-                <strong>{metric.value}</strong>
+                <strong data-count={/^\d+$/.test(metric.value) ? metric.value : undefined}>
+                  {metric.value}
+                </strong>
                 <span>{metric.label}</span>
               </li>
             ))}
@@ -88,7 +92,7 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec eng_overview">
         <div className="inner">
-          <dl>
+          <dl className="eng_reveal">
             {project.overview.map((item) => (
               <div key={item.label}>
                 <dt>{item.label}</dt>
@@ -126,13 +130,13 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec">
         <div className="inner">
-          <p className="eng_step">
+          <p className="eng_step eng_reveal">
             <em>(</em> 01 <em>)</em> PROBLEM
           </p>
-          <h3 className="eng_title">
+          <h3 className="eng_title eng_reveal">
             <Code text={project.problem.title} />
           </h3>
-          <div className="eng_body">
+          <div className="eng_body eng_reveal">
             {project.problem.body.map((paragraph) => (
               <p key={paragraph}>
                 <Code text={paragraph} />
@@ -144,13 +148,13 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec">
         <div className="inner">
-          <p className="eng_step">
+          <p className="eng_step eng_reveal">
             <em>(</em> 02 <em>)</em> DECISIONS
           </p>
-          <h3 className="eng_title">어떤 선택지가 있었고, 왜 이것을 골랐는가</h3>
+          <h3 className="eng_title eng_reveal">어떤 선택지가 있었고, 왜 이것을 골랐는가</h3>
           <ol className="eng_decisions">
             {project.decisions.map((decision, index) => (
-              <li key={decision.title}>
+              <li key={decision.title} className="eng_reveal">
                 <span className="eng_idx">
                   {String(index + 1).padStart(2, "0")}
                 </span>
@@ -177,13 +181,13 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec">
         <div className="inner">
-          <p className="eng_step">
+          <p className="eng_step eng_reveal">
             <em>(</em> 03 <em>)</em> TIMELINE
           </p>
-          <h3 className="eng_title">언제 무엇이 일어났는가</h3>
+          <h3 className="eng_title eng_reveal">언제 무엇이 일어났는가</h3>
           <ul className="eng_timeline">
             {project.timeline.map((item) => (
-              <li key={item.date}>
+              <li key={item.date} className="eng_reveal">
                 <time>{item.date}</time>
                 <p>
                   <Code text={item.text} />
@@ -196,13 +200,13 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec">
         <div className="inner">
-          <p className="eng_step">
+          <p className="eng_step eng_reveal">
             <em>(</em> 04 <em>)</em> ISSUES
           </p>
-          <h3 className="eng_title">문제를 만나고 고친 기록</h3>
+          <h3 className="eng_title eng_reveal">문제를 만나고 고친 기록</h3>
           <div className="eng_issues">
             {project.issues.map((issue) => (
-              <article key={issue.id + issue.title}>
+              <article key={issue.id + issue.title} className="eng_reveal">
                 <div className="eng_issue_head">
                   <span>{issue.id}</span>
                   <h4>
@@ -244,13 +248,13 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec">
         <div className="inner">
-          <p className="eng_step">
+          <p className="eng_step eng_reveal">
             <em>(</em> 05 <em>)</em> RESULT
           </p>
-          <h3 className="eng_title">무엇이 바뀌었는가</h3>
+          <h3 className="eng_title eng_reveal">무엇이 바뀌었는가</h3>
           <ul className="eng_bullets">
             {project.result.map((line) => (
-              <li key={line}>
+              <li key={line} className="eng_reveal">
                 <Code text={line} />
               </li>
             ))}
@@ -260,13 +264,13 @@ export function EngineeringDetailPage() {
 
       <section className="eng_sec">
         <div className="inner">
-          <p className="eng_step">
+          <p className="eng_step eng_reveal">
             <em>(</em> 06 <em>)</em> LIMITS
           </p>
-          <h3 className="eng_title">아직 해결하지 못한 것, 다시 한다면</h3>
+          <h3 className="eng_title eng_reveal">아직 해결하지 못한 것, 다시 한다면</h3>
           <ul className="eng_bullets">
             {project.limits.map((line) => (
-              <li key={line}>
+              <li key={line} className="eng_reveal">
                 <Code text={line} />
               </li>
             ))}
@@ -276,7 +280,7 @@ export function EngineeringDetailPage() {
 
       {next ? (
         <section className="eng_next">
-          <div className="inner">
+          <div className="inner eng_reveal">
             <TransitionLink to={`/engineering/${next.slug}`}>
               <span>NEXT</span>
               <strong>{next.nameEN}</strong>
