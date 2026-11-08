@@ -112,11 +112,7 @@ export function AboutPage() {
               <strong>Lee Seungyeol</strong> <span>( Publisher )</span>
             </p>
             <p>
-              <strong>2001 . 03 . 30</strong> <span>( 25 years old )</span>
-            </p>
-            <p>
-              <strong>Seoul, Dobong-gu, South Korea</strong>{" "}
-              <span>( ssangmun Station, Line 4 )</span>
+              <strong>Seoul, South Korea</strong>
             </p>
           </div>
         </div>

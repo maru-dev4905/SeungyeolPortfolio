@@ -14,13 +14,9 @@ type NavItem =
 
 const navItems: NavItem[] = [
   { kind: "internal", to: "/about", label: "Who I Am" },
+  { kind: "internal", to: "/engineering", label: "Engineering" },
   { kind: "internal", to: "/works", label: "My Works" },
   { kind: "internal", to: "/contact", label: "Contact Me" },
-  {
-    kind: "external",
-    href: "https://weavekit.kr",
-    label: "Weave",
-  },
 ];
 
 function getNamespace(pathname: string) {
@@ -38,6 +34,10 @@ function getNamespace(pathname: string) {
 
   if (pathname.startsWith("/about")) {
     return "about" as const;
+  }
+
+  if (pathname.startsWith("/engineering")) {
+    return "engineering" as const;
   }
 
   return "contact" as const;

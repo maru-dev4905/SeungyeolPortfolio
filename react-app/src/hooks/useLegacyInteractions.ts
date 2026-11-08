@@ -1,6 +1,12 @@
 import { useEffect } from "react";
 
-type PageNamespace = "main" | "about" | "works" | "work" | "contact";
+type PageNamespace =
+  | "main"
+  | "about"
+  | "works"
+  | "work"
+  | "engineering"
+  | "contact";
 
 type ScrollTriggerInstance = {
   kill?: () => void;

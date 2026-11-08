@@ -1,0 +1,501 @@
+/* Engineering 페이지 전용 스타일. #engineering 안에서만 적용한다. */
+#engineering {
+  --eng-line: rgba(245, 245, 245, 0.16);
+  --eng-dim: rgba(245, 245, 245, 0.62);
+  --eng-faint: rgba(245, 245, 245, 0.38);
+  background-color: #141414;
+  color: var(--white1);
+}
+
+#engineering .eng_hero {
+  padding: 14rem 0 6rem;
+}
+
+#engineering .eng_label {
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_label em,
+#engineering .eng_step em {
+  font-size: 1.5rem;
+  color: var(--white1);
+}
+
+#engineering .eng_hero h2 {
+  margin-top: 2rem;
+  font-size: 5.5rem;
+  font-weight: 200;
+  line-height: 115%;
+  color: var(--white1);
+}
+
+#engineering .eng_hero h3 {
+  margin-top: 1.5rem;
+  max-width: 56rem;
+  font-size: 1.75rem;
+  font-weight: 300;
+  line-height: 145%;
+  color: var(--white1);
+}
+
+#engineering .eng_lead {
+  margin-top: 2rem;
+  max-width: 48rem;
+  font-size: 1.125rem;
+  line-height: 175%;
+  color: var(--eng-dim);
+}
+
+/* 숫자 요약 */
+#engineering .eng_metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--eng-line);
+}
+
+#engineering .eng_metrics li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#engineering .eng_metrics strong {
+  font-size: 3rem;
+  font-weight: 200;
+  line-height: 1;
+}
+
+#engineering .eng_metrics span {
+  font-size: 0.875rem;
+  line-height: 150%;
+  color: var(--eng-dim);
+}
+
+/* 목록 */
+#engineering .eng_list {
+  padding-bottom: 8rem;
+}
+
+#engineering .eng_list > .inner > ul {
+  border-top: 1px solid var(--eng-line);
+}
+
+#engineering .eng_card {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  gap: 2rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--eng-line);
+  color: var(--white1);
+  transition: padding 0.4s ease, background-color 0.4s ease;
+}
+
+#engineering .eng_card:hover {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  background-color: rgba(245, 245, 245, 0.04);
+}
+
+#engineering .eng_no {
+  font-size: 1rem;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_card h3 {
+  font-size: 4rem;
+  font-weight: 200;
+  line-height: 110%;
+}
+
+#engineering .eng_card_tag {
+  margin-top: 1rem;
+  max-width: 44rem;
+  font-size: 1.125rem;
+  line-height: 160%;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_card .eng_metrics {
+  margin-top: 2rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
+#engineering .eng_card .eng_metrics strong {
+  font-size: 2rem;
+}
+
+#engineering .eng_more {
+  align-self: end;
+  font-size: 1rem;
+  white-space: nowrap;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_chips,
+#engineering .eng_overview .eng_chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+#engineering .eng_card .eng_chips {
+  margin-top: 1.5rem;
+}
+
+#engineering .eng_chips dd,
+#engineering .eng_chips i {
+  padding: 0.375rem 0.875rem;
+  border: 1px solid var(--eng-line);
+  border-radius: 6.25rem;
+  font-size: 0.8125rem;
+  font-style: normal;
+  color: var(--eng-dim);
+}
+
+/* 본문 공통 */
+#engineering .eng_sec {
+  padding: 5rem 0;
+  border-top: 1px solid var(--eng-line);
+}
+
+#engineering .eng_step {
+  font-size: 0.9375rem;
+  letter-spacing: 0.08em;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_title {
+  margin-top: 1.5rem;
+  max-width: 60rem;
+  font-size: 2.5rem;
+  font-weight: 300;
+  line-height: 135%;
+}
+
+#engineering .eng_body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 52rem;
+  margin-top: 2.5rem;
+}
+
+#engineering .eng_body p,
+#engineering .eng_bullets li {
+  font-size: 1.125rem;
+  line-height: 180%;
+  color: rgba(245, 245, 245, 0.86);
+}
+
+#engineering code {
+  padding: 0.125rem 0.4rem;
+  border-radius: 0.25rem;
+  background-color: rgba(245, 245, 245, 0.1);
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.88em;
+}
+
+/* 개요 */
+#engineering .eng_overview {
+  padding: 3rem 0;
+}
+
+#engineering .eng_overview dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0 4rem;
+}
+
+#engineering .eng_overview dl > div {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--eng-line);
+}
+
+#engineering .eng_overview dt {
+  font-size: 0.875rem;
+  color: var(--eng-faint);
+}
+
+#engineering .eng_overview dd {
+  font-size: 1rem;
+  line-height: 160%;
+}
+
+#engineering .eng_links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+#engineering .eng_links a,
+#engineering .eng_pr a {
+  border-bottom: 1px solid var(--eng-dim);
+  color: var(--white1);
+}
+
+/* 결정 */
+#engineering .eng_decisions {
+  margin-top: 3rem;
+  border-top: 1px solid var(--eng-line);
+}
+
+#engineering .eng_decisions li {
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1.5rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--eng-line);
+}
+
+#engineering .eng_idx {
+  font-size: 1rem;
+  color: var(--eng-faint);
+}
+
+#engineering .eng_decisions h4 {
+  max-width: 52rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 145%;
+}
+
+#engineering .eng_decisions p {
+  max-width: 52rem;
+  margin-top: 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 175%;
+  color: rgba(245, 245, 245, 0.86);
+}
+
+#engineering .eng_decisions p b,
+#engineering .eng_issues dt small {
+  display: block;
+  margin-bottom: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--eng-faint);
+}
+
+#engineering .eng_decisions .eng_alt {
+  color: var(--eng-dim);
+}
+
+/* 타임라인 */
+#engineering .eng_timeline {
+  margin-top: 3rem;
+  border-top: 1px solid var(--eng-line);
+}
+
+#engineering .eng_timeline li {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--eng-line);
+}
+
+#engineering .eng_timeline time {
+  font-size: 1rem;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_timeline p {
+  font-size: 1.0625rem;
+  line-height: 165%;
+}
+
+/* 이슈 */
+#engineering .eng_issues {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+#engineering .eng_issues article {
+  padding: 2.5rem;
+  border: 1px solid var(--eng-line);
+  border-radius: 1.25rem;
+}
+
+#engineering .eng_issue_head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.75rem 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--eng-line);
+}
+
+#engineering .eng_issue_head > span {
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  color: var(--eng-faint);
+}
+
+#engineering .eng_issues h4 {
+  flex: 1 1 28rem;
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 145%;
+}
+
+#engineering .eng_pr {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+#engineering .eng_issues dl > div {
+  display: grid;
+  grid-template-columns: 10rem 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0 0;
+}
+
+#engineering .eng_issues dt {
+  font-size: 1rem;
+}
+
+#engineering .eng_issues dd {
+  max-width: 52rem;
+  font-size: 1.0625rem;
+  line-height: 180%;
+  color: rgba(245, 245, 245, 0.86);
+}
+
+/* 결과, 한계 */
+#engineering .eng_bullets {
+  max-width: 54rem;
+  margin-top: 2.5rem;
+}
+
+#engineering .eng_bullets li {
+  position: relative;
+  padding: 1.125rem 0 1.125rem 1.75rem;
+  border-bottom: 1px solid var(--eng-line);
+}
+
+#engineering .eng_bullets li::before {
+  content: "";
+  position: absolute;
+  top: 1.95rem;
+  left: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background-color: var(--white1);
+}
+
+/* 다음 프로젝트 */
+#engineering .eng_next {
+  padding: 5rem 0;
+  border-top: 1px solid var(--eng-line);
+}
+
+#engineering .eng_next .inner {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+#engineering .eng_next a {
+  color: var(--white1);
+}
+
+#engineering .eng_next a:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+#engineering .eng_next span {
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  color: var(--eng-dim);
+}
+
+#engineering .eng_next strong {
+  font-size: 4rem;
+  font-weight: 200;
+  line-height: 110%;
+}
+
+#engineering .eng_back {
+  font-size: 1rem;
+  color: var(--eng-dim);
+}
+
+@media all and (max-width: 1024px) {
+  #engineering .eng_hero h2 {
+    font-size: 3.5rem;
+  }
+  #engineering .eng_card {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  #engineering .eng_more {
+    align-self: start;
+  }
+  #engineering .eng_overview dl {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media all and (max-width: 768px) {
+  #engineering .eng_hero {
+    padding: 9rem 0 3.5rem;
+  }
+  #engineering .eng_hero h2 {
+    font-size: 2.25rem;
+  }
+  #engineering .eng_hero h3 {
+    font-size: 1.25rem;
+  }
+  #engineering .eng_lead,
+  #engineering .eng_body p,
+  #engineering .eng_bullets li {
+    font-size: 1rem;
+  }
+  #engineering .eng_metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  #engineering .eng_metrics strong {
+    font-size: 2.25rem;
+  }
+  #engineering .eng_card h3,
+  #engineering .eng_next strong {
+    font-size: 2.5rem;
+  }
+  #engineering .eng_sec {
+    padding: 3.5rem 0;
+  }
+  #engineering .eng_title {
+    font-size: 1.75rem;
+  }
+  #engineering .eng_decisions li,
+  #engineering .eng_timeline li,
+  #engineering .eng_issues dl > div,
+  #engineering .eng_overview dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  #engineering .eng_issues article {
+    padding: 1.5rem;
+  }
+  #engineering .eng_next .inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
