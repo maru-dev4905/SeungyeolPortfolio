@@ -452,6 +452,7 @@
 }
 
 #about .sec_skills .skill span {
+  font-size: 1.375rem;
   opacity: 0.6;
 }
 
@@ -462,9 +463,9 @@
 }
 
 #about .sec_skills .skill p {
-  font-size: 1rem;
+  font-size: 1.375rem;
   font-weight: 400;
-  line-height: 150%;
+  line-height: 170%;
 }
 
 #works .work_list_all {
@@ -1591,7 +1592,8 @@
     font-size: 14px;
   }
   #about .sec_skills .skill p {
-    font-size: 12px;
+    font-size: 16px;
+    line-height: 170%;
   }
 
   #works .work_list_all .total,

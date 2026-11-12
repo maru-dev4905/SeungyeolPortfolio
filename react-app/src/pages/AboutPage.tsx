@@ -4,6 +4,22 @@ import { useLegacyPage } from "../hooks/useLegacyPage";
 
 const skillCards = [
   {
+    title: "Next.js",
+    body: "App Router에서 서버·클라이언트 컴포넌트의 경계를 구분하고, 환경변수와 하이드레이션 오류를 다룬 경험이 있습니다. <br />서버에서 오는 데이터는 TanStack Query로, 토큰과 모달 같은 화면 상태는 Zustand로 나누어 관리합니다. <br />MeerKit 프론트엔드를 Next.js로 개발했습니다. <br /><br />Works with the App Router, its server/client component boundary, environment variables, and hydration issues. <br />Separates server data (TanStack Query) from UI state such as tokens and modals (Zustand). <br />Built the MeerKit frontend with Next.js.",
+  },
+  {
+    title: "TypeScript",
+    body: "API 응답과 컴포넌트 props를 타입으로 정의하고, tsc와 ESLint로 코드를 검사합니다. <br />import 방향 같은 구조 규칙을 ESLint 규칙으로 만들어, 어기면 바로 알 수 있게 합니다. <br /><br />Defines API responses and component props with types, and checks code with tsc and ESLint. <br />Turns structural rules such as import direction into ESLint rules.",
+  },
+  {
+    title: "React",
+    body: "화면을 컴포넌트 단위로 나누고 hooks로 로직을 분리합니다. <br />라우팅과 페이지 전환까지 포함해 이 포트폴리오도 React 19와 React Router로 만들었습니다. <br /><br />Splits screens into components and separates logic with hooks. <br />This portfolio itself is built with React 19 and React Router.",
+  },
+  {
+    title: "Tailwind CSS",
+    body: "디자인 토큰과 유틸리티 클래스로 스타일을 구성하고, 커스텀 CSS가 필요할 때도 토큰을 기준으로 만듭니다. <br />CSS를 고친 뒤에는 lint가 아니라 빌드로 검증하는 규칙을 두고 있습니다. <br /><br />Builds styles from design tokens and utility classes, and bases custom CSS on tokens. <br />Verifies CSS changes with a build, since lint does not parse CSS.",
+  },
+  {
     title: "HTML5",
     body: "시맨틱 태그와 data- 속성을 활용해 구조적이고 확장 가능한 마크업을 작성할 수 있습니다. <br />접근성과 표준성을 고려한 페이지 구조 설계가 가능합니다. <br /><br />Able to write semantic and structured markup using data- attributes. <br />Builds accessible, maintainable, and scalable HTML architecture.",
   },
@@ -16,16 +32,8 @@ const skillCards = [
     body: "ES6 문법 기반으로 DOM 제어와 이벤트 처리, 간단한 모듈 개발이 가능합니다. <br />Ajax를 통한 폼 전송, 입력값 유효성 검사 등 사용자 인터랙션 로직을 구현할 수 있습니다. <br />data-속성 기반으로 상태 제어를 하는 구조적 스크립트 작성에 익숙합니다. <br /><br />Develops dynamic interactions using ES6 syntax and DOM manipulation. <br />Handles Ajax form submissions and validation with efficiency. <br />Uses data- attributes for structured, reusable component scripting.",
   },
   {
-    title: "jQuery",
-    body: "이벤트 위임과 DOM 조작으로 UI의 반복적인 동작을 효율적으로 처리합니다. <br />data- 속성을 활용해 다양한 컴포넌트 제어 로직을 단순화합니다. <br />간단한 애니메이션, 모달, 탭, 아코디언 등 공통 UI 모듈 제작이 가능합니다. <br /><br />Implements efficient UI controls through event delegation and DOM handling. <br />Controls modular interactions such as tabs, modals, and accordions with simplicity.",
-  },
-  {
     title: "SCSS",
     body: "변수, 믹스인, 함수, 중첩을 활용해 구조적이고 체계적인 스타일 설계를 합니다. <br />유틸리티 클래스 중심의 스타일 시스템으로 빠른 UI 구현을 지원합니다. <br /><br />Builds structured and scalable style architecture using variables, mixins, and nesting. <br />Supports utility-based systems for fast and consistent styling across pages.",
-  },
-  {
-    title: "PUG",
-    body: "템플릿 상속, include, mixin 등을 이용해 HTML 구조를 모듈화합니다. <br />변수와 반복문을 활용해 동적인 페이지 구조를 효율적으로 구성합니다. <br /><br />Uses inheritance, includes, and mixins to create modular HTML templates. <br />Builds structured layouts for maintainable and reusable web pages.",
   },
   {
     title: "GIT",
@@ -34,14 +42,6 @@ const skillCards = [
   {
     title: "GSAP",
     body: "ScrollTrigger, MotionPathPlugin 등을 활용해 고급 인터랙션을 구현합니다. <br />SVG 요소나 DOM 객체의 모션 제어, 시차 스크롤 등의 애니메이션을 구성할 수 있습니다. <br /><br />Implements advanced animations using ScrollTrigger and MotionPathPlugin. <br />Creates smooth and interactive scroll-based and SVG path animations.",
-  },
-  {
-    title: "Locomotive-Scroll",
-    body: "부드러운 스크롤 감속 효과와 패럴랙스 연출을 구현할 수 있습니다. <br />GSAP ScrollTrigger와 연동해 자연스러운 인터랙션을 만듭니다. <br /><br />Builds smooth scrolling effects and parallax animations. <br />Integrates seamlessly with GSAP ScrollTrigger for immersive experiences.",
-  },
-  {
-    title: "Swiper",
-    body: "반응형 슬라이드 구현, 오토플레이, 네비게이션 커스터마이징이 가능합니다. <br />Breakpoints, Pagination, Loop 등 다양한 옵션 조합으로 상황에 맞게 활용합니다. <br />AJAX나 템플릿 데이터를 통해 슬라이드 콘텐츠를 동적으로 구성할 수도 있습니다. <br /><br />Creates responsive sliders with autoplay, navigation, and pagination options. <br />Supports AJAX-loaded dynamic slides for flexible content updates.",
   },
   {
     title: "FIGMA",

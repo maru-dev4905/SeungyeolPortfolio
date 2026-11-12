@@ -7,16 +7,15 @@ import { useLegacyPage } from "../hooks/useLegacyPage";
 import { getProjectVisualPath, toProjectKey } from "../lib/portfolio";
 
 const homeSkills = [
-  "HTML5",
-  "CSS3",
+  "Next.js",
+  "TypeScript",
+  "React",
+  "Tailwind CSS",
   "Javascript",
-  "jQuery",
   "GSAP",
-  "Swiper",
-  "PUG",
-  "GULP",
   "A11Y",
   "FIGMA",
+  "GIT",
 ];
 
 export function HomePage() {
