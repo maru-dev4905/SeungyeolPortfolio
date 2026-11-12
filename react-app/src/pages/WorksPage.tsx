@@ -18,7 +18,7 @@ export function WorksPage() {
             </video>
           </div>
           <h2>
-            Projects I&apos;ve worked on as a front-end publisher. <br />
+            Projects I&apos;ve worked on as a front-end developer. <br />
             Practical works from real projects. <br />
             Built with consistency, collaboration, and learning in mind.
           </h2>

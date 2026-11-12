@@ -21,7 +21,7 @@ const skillCards = [
   },
   {
     title: "SCSS",
-    body: "변수, 믹스인, 함수, 중첩을 활용해 구조적이고 체계적인 스타일 설계를 합니다. <br />유틸리티 클래스 중심의 스타일 시스템으로 빠른 퍼블리싱을 지원합니다. <br /><br />Builds structured and scalable style architecture using variables, mixins, and nesting. <br />Supports utility-based systems for fast and consistent styling across pages.",
+    body: "변수, 믹스인, 함수, 중첩을 활용해 구조적이고 체계적인 스타일 설계를 합니다. <br />유틸리티 클래스 중심의 스타일 시스템으로 빠른 UI 구현을 지원합니다. <br /><br />Builds structured and scalable style architecture using variables, mixins, and nesting. <br />Supports utility-based systems for fast and consistent styling across pages.",
   },
   {
     title: "PUG",
@@ -49,7 +49,7 @@ const skillCards = [
   },
   {
     title: "XD, Photoshop",
-    body: "디자인 시안을 분석하고 퍼블리싱에 필요한 리소스를 추출할 수 있습니다. <br />시안의 레이아웃, 간격, 폰트, 컬러를 기준으로 실제 페이지에 반영할 수 있습니다. <br /><br />Able to analyze and implement designs efficiently through layout analysis. <br />References colors, grids, and text for precise front-end reproduction.",
+    body: "디자인 시안을 분석하고 UI 구현에 필요한 리소스를 추출할 수 있습니다. <br />시안의 레이아웃, 간격, 폰트, 컬러를 기준으로 실제 페이지에 반영할 수 있습니다. <br /><br />Able to analyze and implement designs efficiently through layout analysis. <br />References colors, grids, and text for precise front-end reproduction.",
   },
 ];
 
@@ -109,7 +109,7 @@ export function AboutPage() {
           </h2>
           <div className="desc fade anim">
             <p>
-              <strong>Lee Seungyeol</strong> <span>( Publisher )</span>
+              <strong>Lee Seungyeol</strong> <span>( Front-end Developer )</span>
             </p>
             <p>
               <strong>Seoul, South Korea</strong>
@@ -121,7 +121,7 @@ export function AboutPage() {
       <section className="sec_message">
         <div className="inner">
           <p className="fade anim">
-            I pursue publishing that balances visual clarity and structural
+            I pursue front-end development that balances visual clarity and structural
             depth. My work focuses on clean markup accessible UI and responsive
             interactions.
             <br />
@@ -137,7 +137,7 @@ export function AboutPage() {
             <img src="/assets/images/visuals/profile.png" alt="" />
           </div>
           <p className="fade anim">
-            시각적 명확성과 구조적인 깊이의 균형을 지향하는 퍼블리싱을
+            시각적 명확성과 구조적인 깊이의 균형을 지향하는 프론트엔드 개발을
             추구합니다.
             <br />
             깔끔한 마크업, 접근성 높은 UI, 반응형 인터랙션에 집중합니다.

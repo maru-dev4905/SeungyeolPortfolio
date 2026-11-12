@@ -32,7 +32,7 @@ export function HomePage() {
               <i>
                 <span>SY</span>
                 <span>
-                  P<em>U</em>BLIS<em>H</em>ER
+                  FR<em>O</em>NT-<em>E</em>ND
                 </span>
               </i>
             </p>
@@ -48,7 +48,7 @@ export function HomePage() {
           <div className="desc">
             <p>
               In this portfolio, I expressed structure and flow through lines -
-              as a publisher. <br />
+              as a front-end developer. <br />
               Each line serves as a tool that connects information, design, and
               user navigation. <br />
               These lines are my language, and a core element of my work. <br />
@@ -71,14 +71,14 @@ export function HomePage() {
             <h2>
               TO ME,
               <span>
-                <em>PUBLISHING IS</em>
+                <em>FRONT-END IS</em>
               </span>
               ABOUT CLARITY <br />
               AND FLOW
             </h2>
             <h3>
               <p>
-                <em>PUBLISHING IS</em>
+                <em>FRONT-END IS</em>
               </p>
               <p className="rolling_txt">
                 <span>Turning design into living interaction</span>

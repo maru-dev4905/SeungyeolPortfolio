@@ -1,6 +1,6 @@
 # Lee Seungyeol — Portfolio
 
-웹·UI 퍼블리셔 **이승열**의 포트폴리오입니다.
+프론트엔드 개발자 **이승열**의 포트폴리오입니다.
 
 **사이트:** [https://seungyeol.kr](https://seungyeol.kr)
 

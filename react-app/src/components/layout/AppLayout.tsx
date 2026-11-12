@@ -86,7 +86,7 @@ export function AppLayout() {
             <h1>
               <TransitionLink to="/" className="target">
                 <strong>
-                  LEE S<i>E</i>UNG<i>Y</i>EOL <br />P<i>U</i>BLIS<i>H</i>ER
+                  LEE S<i>E</i>UNG<i>Y</i>EOL <br />FR<i>O</i>NT-<i>E</i>ND
                 </strong>
                 <span>.PORTFOLIO</span>
                 <p>
